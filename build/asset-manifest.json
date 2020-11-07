@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/static/css/main.72d4fa60.chunk.css",
-    "main.js": "/static/js/main.ca2979f0.chunk.js",
-    "main.js.map": "/static/js/main.ca2979f0.chunk.js.map",
+    "main.js": "/static/js/main.e3af532e.chunk.js",
+    "main.js.map": "/static/js/main.e3af532e.chunk.js.map",
     "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
     "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
     "static/css/2.8db5677f.chunk.css": "/static/css/2.8db5677f.chunk.css",
-    "static/js/2.5f22e45b.chunk.js": "/static/js/2.5f22e45b.chunk.js",
-    "static/js/2.5f22e45b.chunk.js.map": "/static/js/2.5f22e45b.chunk.js.map",
+    "static/js/2.fdfad7b0.chunk.js": "/static/js/2.fdfad7b0.chunk.js",
+    "static/js/2.fdfad7b0.chunk.js.map": "/static/js/2.fdfad7b0.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.0c6f68a78f80b773ffcd82f0325bd878.js": "/precache-manifest.0c6f68a78f80b773ffcd82f0325bd878.js",
+    "precache-manifest.9f5edf767bd89f826112a92645a152b7.js": "/precache-manifest.9f5edf767bd89f826112a92645a152b7.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.8db5677f.chunk.css.map": "/static/css/2.8db5677f.chunk.css.map",
     "static/css/main.72d4fa60.chunk.css.map": "/static/css/main.72d4fa60.chunk.css.map",
@@ -19,6 +19,7 @@
     "static/media/icon-kanban.svg": "/static/media/icon-kanban.7967f733.svg",
     "static/media/icon-list-selected.svg": "/static/media/icon-list-selected.5ca457eb.svg",
     "static/media/icon-list.svg": "/static/media/icon-list.60c7ac97.svg",
+    "static/media/logo-lamusic.svg": "/static/media/logo-lamusic.6054173f.svg",
     "static/media/logo.png": "/static/media/logo.f92836b1.png",
     "static/media/paper-dashboard.scss?v=1.1.0": "/static/media/nucleo-icons.f32ed5ad.eot"
   }

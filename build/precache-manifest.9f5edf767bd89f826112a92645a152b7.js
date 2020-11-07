@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "875ca161d13e648df5b8fce4c8eb28ee",
+    "revision": "f789b5c0cc69fa260a686d563fbc3e1a",
     "url": "/index.html"
   },
   {
-    "revision": "8bf04fd12f00054d34be",
+    "revision": "58c7f8700d005d638706",
     "url": "/static/css/2.8db5677f.chunk.css"
   },
   {
-    "revision": "f4cd6c4e0060d270c44f",
+    "revision": "277a59b1be70269da8c4",
     "url": "/static/css/main.72d4fa60.chunk.css"
   },
   {
-    "revision": "8bf04fd12f00054d34be",
-    "url": "/static/js/2.5f22e45b.chunk.js"
+    "revision": "58c7f8700d005d638706",
+    "url": "/static/js/2.fdfad7b0.chunk.js"
   },
   {
-    "revision": "f4cd6c4e0060d270c44f",
-    "url": "/static/js/main.ca2979f0.chunk.js"
+    "revision": "277a59b1be70269da8c4",
+    "url": "/static/js/main.e3af532e.chunk.js"
   },
   {
     "revision": "42ac5946195a7306e2a5",
@@ -46,6 +46,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "60c7ac97698f38453a869324b436d225",
     "url": "/static/media/icon-list.60c7ac97.svg"
+  },
+  {
+    "revision": "6054173f00ead6ab90b777a1907848c3",
+    "url": "/static/media/logo-lamusic.6054173f.svg"
   },
   {
     "revision": "f92836b1f26e851f8b94e45365dcb148",
