@@ -11,7 +11,7 @@ import 'perfect-scrollbar/css/perfect-scrollbar.css'
 
 import Login from 'views/Login'
 import Reset from 'views/Login/NewPassword'
-import UserLayout from 'layouts/User.jsx'
+import UserLayout from 'layouts/Pro.jsx'
 const hist = createBrowserHistory();
 
 ReactDOM.render(
@@ -20,7 +20,7 @@ ReactDOM.render(
       <Switch>
           <Route path="/" exact component={Login}/>
           <Route path="/reset/:token" exact render={ props => <Reset {...props} />}/>
-          <Route path="/user"  render={props => <UserLayout {...props} />}  />
+          <Route path="/pro"  render={props => <UserLayout {...props} />}  />
         <Route path="*" component={() => <h1>404 - Página não encontrada =/</h1>} />
       </Switch>
     </Router>

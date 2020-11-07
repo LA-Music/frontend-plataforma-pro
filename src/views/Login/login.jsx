@@ -11,11 +11,12 @@ import {
     Row,
     Col
   } from "reactstrap";
-
-  import { Link, Dcard, BtLogin, Label, TitleCard, InpText } from './styles'
+import { PreLoad } from 'components/PreLoad'
+import { Link, Dcard, BtLogin, Label, TitleCard, InpText } from './styles'
 
 const Login = (props) => {
     const { Login } = useSelector(s => s)
+    const [ load, setLoad ] = useState(false)
 
     const dispatch = useDispatch()
     const [ state, setState ] = useState({ email: '', senha: '', error: '' }) 
@@ -28,12 +29,15 @@ const Login = (props) => {
           return false
         } else {
           try {
+              setLoad(true)
               const response = await apiLogin({ email, senha });
               login(response.data.token, response.data.nome);
               if (response.data.papel === 'user'){
-                props.history.push("/user/gestao-repositorio");
+                props.history.push("/pro/gestao-repositorio");
+                setLoad(false)
               }
             } catch (err) {
+              setLoad(false)
               setState({...state,
               error:
                   "Houve um problema com o login, verifique suas credenciais. T.T"
@@ -42,6 +46,9 @@ const Login = (props) => {
         }
     }
   return (
+    load ? 
+      <PreLoad />
+     : (
           <Dcard className="card-user">
             <CardHeader className="px-0 px-md-3">
               <TitleCard tag="h5">Acessar minha conta</TitleCard>
@@ -80,6 +87,7 @@ const Login = (props) => {
               </Form>
             </CardBody>
           </Dcard>
+        )
   );
 }
 

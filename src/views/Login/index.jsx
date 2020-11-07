@@ -10,7 +10,7 @@ import {
   import Register from './register'
   import Recover from './recover'
   // import { Link, Dcard, BtLogin, Label, TitleCard, InpText } from './styles'
-
+import logoLAMusic from 'assets/img/logo-lamusic.svg'
 function Index (props) {
 
   const { type } = useSelector(state => state.data);
@@ -18,7 +18,8 @@ function Index (props) {
   return (
       <Container style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
         <Row className="w-100">
-          <Col className="px-0 d-flex justify-content-center">
+          <Col className="px-0 d-flex justify-content-center flex-column align-items-center">
+            <img src={logoLAMusic} alt="LAMusic" className="mb-5" />
             {type === 'Login' && (
               <Login {...props} />
             )}
