@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie';
 
 export const TOKEN_KEY = "lamusic-Token";
+export const TOKEN_PAPEL = "lamusic-Papel";
 export const EMAIL_KEY = "lamusic-email";
 
 export const isAuthenticated = () => Cookies.get(TOKEN_KEY) !== null;
@@ -15,5 +16,6 @@ export const login = (token, email) => {
 
 export const logout = () => {
   Cookies.remove(TOKEN_KEY)
+  Cookies.remove(TOKEN_PAPEL)
   Cookies.remove(EMAIL_KEY)
 };

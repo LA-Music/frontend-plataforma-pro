@@ -15,6 +15,7 @@ class Sidebar extends React.Component {
     this.activeRoute.bind(this);
     this.sidebar = React.createRef();
   }
+
   // verifies if routeName is the one active (in browser input)
   activeRoute(routeName) {
     return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
@@ -35,6 +36,7 @@ class Sidebar extends React.Component {
 
   handleClick(){
     logout()
+
   }
   render() {
     return (
@@ -83,7 +85,7 @@ class Sidebar extends React.Component {
             <li>
               <NavLink
                 onClick={this.handleClick.bind(this)}
-                to="/"
+                to="/pro"
               >
                 <i className="nc-icon nc-simple-remove" />
                 <p>Logout</p>

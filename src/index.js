@@ -12,7 +12,9 @@ import 'perfect-scrollbar/css/perfect-scrollbar.css'
 import Login from 'views/Login'
 import Reset from 'views/Login/NewPassword'
 import UserLayout from 'layouts/Pro.jsx'
-const hist = createBrowserHistory();
+const hist = (createBrowserHistory)({
+  basename: '/pro'
+});
 
 ReactDOM.render(
   <Provider store={store}>
