@@ -17,8 +17,8 @@ const DynamicTable = ({header, body, limitItems, moreItems, viewModal }) => {
             <td>{body[a][header[b].key]}</td>
         )
       }
+      console.log(row)
       viewModal ? data.push(<tr onClick={() => viewModal(body[a])}>{row}</tr>) : data.push(<tr>{row}</tr>)
-      
     }
     return data
   }
@@ -37,11 +37,11 @@ const DynamicTable = ({header, body, limitItems, moreItems, viewModal }) => {
           {createRow()}
         </tbody>
       </Table>
-      {limitItems && showItems < body.length && (
+      {/* {limitItems && showItems < body.length && (
         <div className="d-flex align-items-center justify-content-center">
           <MoreItems onClick={() => setItems(showItems + moreItems)} style={{cursor: 'pointer'}}>Mostrar mais</MoreItems>
         </div>
-      )}
+      )} */}
     </>
   )
 }

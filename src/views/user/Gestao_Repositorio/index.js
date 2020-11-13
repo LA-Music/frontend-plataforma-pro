@@ -3,6 +3,7 @@ import { CardTitle, Row, Col } from 'reactstrap';
 import ReactApexChart from 'react-apexcharts'
 import DynamicTable from 'components/Table';
 import  { Cards } from './styles'
+
 const Index = () => {
   const [grafObras] = useState({
     series: [44, 55, 13, 43],
