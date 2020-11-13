@@ -2,7 +2,6 @@
   "name": "la-pro",
   "version": "1.1.0",
   "private": true,
-  "homepage": "/pro",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "apexcharts": "^3.20.0",
