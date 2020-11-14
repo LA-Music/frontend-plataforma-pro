@@ -4,7 +4,8 @@ export const TOKEN_KEY = "lamusic-Token";
 export const TOKEN_PAPEL = "lamusic-Papel";
 export const EMAIL_KEY = "lamusic-email";
 
-export const isAuthenticated = () => Cookies.get(TOKEN_KEY) !== null;
+// export const isAuthenticated = () => 'teste';
+export const isAuthenticated = () => Cookies.get(TOKEN_KEY) ? true : false;
 
 export const getToken = () => Cookies.get(TOKEN_KEY);
 export const getEmail = () => Cookies.get(EMAIL_KEY);

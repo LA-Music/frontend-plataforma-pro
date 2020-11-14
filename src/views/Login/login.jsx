@@ -32,8 +32,14 @@ const Login = (props) => {
               setLoad(true)
               const response = await apiLogin({ email, senha });
               login(response.data.token, response.data.nome);
-              if (response.data.papel === 'user'){
+              if (response.data.papel === 'pro'){
                 props.history.push("/pro/gestao-repositorio");
+                setLoad(false)
+              }else{
+                setState({...state,
+                error:
+                    "Você não possui permissão."
+                });
                 setLoad(false)
               }
             } catch (err) {
