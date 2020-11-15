@@ -67,6 +67,10 @@ function Index () {
         notificationAlert.current.notificationAlert(options);
       }
 
+      const validIconButton = async (input) => {
+        input.replace(/ /g,'')
+        return input.length > 1
+      }
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -132,7 +136,7 @@ function Index () {
                   <IconButton
                     aria-label="toggle password visibility"
                     edge="end"
-                    onClick={ () => setState({...state, redes_sociais: [...state.redes_sociais, sociais]}) }
+                    onClick={ () => validIconButton(sociais) &&  setState({...state, redes_sociais: [...state.redes_sociais, sociais]}) }
                   >
                   <img src={AddCircle} alt="add" />
                   </IconButton>
@@ -159,7 +163,7 @@ function Index () {
                   <IconButton
                     aria-label="toggle password visibility"
                     edge="end"
-                    onClick={ () => setState({...state, lista_musicas: [...state.lista_musicas, musicas]}) }
+                    onClick={ () => validIconButton(musicas) && setState({...state, lista_musicas: [...state.lista_musicas, musicas]}) }
                   >
                   <img src={AddCircle} alt="add" />
                   </IconButton>
