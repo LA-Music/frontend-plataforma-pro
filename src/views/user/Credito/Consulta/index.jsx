@@ -9,7 +9,7 @@ import { Container, RadioInput, InputButtom, TagLabel, CloseTag } from './styles
 function Index () {
     const [ state, setState ] = useState({
         nome: "",
-        email: "",
+        email: "pro5@lamusic.com.br",
         cpf:"",
         telefone:"",
         nome_artistico:"",
@@ -20,8 +20,8 @@ function Index () {
         visible:true
       });
 
-      const [ musicas, setMusicas ] = useState([])
-      const [ sociais, setSociais ] = useState([])
+      const [ musicas, setMusicas ] = useState('')
+      const [ sociais, setSociais ] = useState('')
       const [ association ] = useState(['ABRAMUS', 'UBC', 'SOCIMPRO', 'SICAM', 'AMAR', 'ASSIM', 'SBACEM', 'Não tenho certeza', 'Ainda não sou filiado'])
 
       function removeMusic(e){
@@ -68,15 +68,18 @@ function Index () {
       }
 
       const validIconButton = async (input) => {
-        input.replace(/ /g,'')
-        return input.length > 1
+        
+        let validInput = input.replace(/ /g,'')
+        console.log(validInput.length)
+        return validInput.length > 1 ? true : false
       }
 
     const handleSubmit = async e => {
         e.preventDefault();
+        console.log(state)
         const { nome, email, cpf, telefone, nome_artistico, associacao } = state;
         if (!nome || !email) {
-            setState({...state, error: "Preencha nome e e-mail e senha para continuar!" });
+            setState({...state, error: "Preencha nome e e-mail para continuar!" });
         } else {
             try {
                 await api.post("/credito-retido", {
@@ -98,23 +101,23 @@ function Index () {
     return (
       <div className="content">
         <Container >
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={e => handleSubmit(e)}>
           <NotificationAlert ref={notificationAlert} />
           <h1>Dados do Artista</h1>    
           <FormGroup className="mb-4">
             <Label>Nome</Label>
-            <Input type="text" name="nome" placeholder="Nome do artista" />
+            <Input type="text" onChange={e => setState({...state, nome: e.target.value})} name="nome" placeholder="Nome do artista" />
           </FormGroup>
           <FormGroup className="mb-4">
             <Label>CPF:</Label>
-            <Input type="text" name="cpf" placeholder="999.999.999-99" />
+            <Input type="text" name="cpf" onChange={e => setState({...state, cpf: e.target.value})} placeholder="999.999.999-99" />
             <FormText color="muted">
               Facultativo, mas ajuda para evitar homônio
             </FormText>
           </FormGroup>
           <FormGroup className="mb-4">
             <Label>Nome Artístico, Banda ou Coletivo:</Label>
-            <Input type="text" name="nome_banda" placeholder="Nome da banda ou artista" />
+            <Input type="text" name="nome_artistico" onChange={e => setState({...state, nome_artistico: e.target.value})} placeholder="Nome da banda ou artista" />
           </FormGroup>
           <FormGroup className="mb-4">
             <Label>É vinculado a alguma associação do ECAD (Abramus, UBC, etc) ?:</Label>
@@ -136,7 +139,7 @@ function Index () {
                   <IconButton
                     aria-label="toggle password visibility"
                     edge="end"
-                    onClick={ () => validIconButton(sociais) &&  setState({...state, redes_sociais: [...state.redes_sociais, sociais]}) }
+                    onClick={ () => validIconButton(sociais) && setState({...state, redes_sociais: [...state.redes_sociais, sociais]}) }
                   >
                   <img src={AddCircle} alt="add" />
                   </IconButton>
@@ -163,7 +166,7 @@ function Index () {
                   <IconButton
                     aria-label="toggle password visibility"
                     edge="end"
-                    onClick={ () => validIconButton(musicas) && setState({...state, lista_musicas: [...state.lista_musicas, musicas]}) }
+                    onClick={ () => setState({...state, lista_musicas: [...state.lista_musicas, musicas]}) }
                   >
                   <img src={AddCircle} alt="add" />
                   </IconButton>
@@ -181,7 +184,7 @@ function Index () {
           </FormGroup>
           </FormGroup>
           <FormGroup className="mb-4">
-            <Button className="submit">Finalizar</Button>
+            <Button type="submit" className="submit">Finalizar</Button>
           </FormGroup>
           </Form>
         </Container>
