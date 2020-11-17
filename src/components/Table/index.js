@@ -13,11 +13,11 @@ const DynamicTable = ({header, body, limitItems, moreItems, viewModal }) => {
     for (let a = 0; a < itemsLength; a++) {
       var row =[]
       for (let b = 0; b < header.length; b++) {
-        row.push(
-            <td>{body[a][header[b].key]}</td>
+        body[a] && 
+          row.push(
+              <td>{body[a][header[b].key]}</td>
         )
       }
-      console.log(row)
       viewModal ? data.push(<tr onClick={() => viewModal(body[a])}>{row}</tr>) : data.push(<tr>{row}</tr>)
     }
     return data

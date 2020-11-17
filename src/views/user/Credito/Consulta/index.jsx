@@ -77,7 +77,7 @@ function Index () {
     const handleSubmit = async e => {
         e.preventDefault();
         console.log(state)
-        const { nome, email, cpf, telefone, nome_artistico, associacao } = state;
+        const { nome, email, cpf, telefone, nome_artistico, associacao, lista_musicas, redes_sociais } = state;
         if (!nome || !email) {
             setState({...state, error: "Preencha nome e e-mail para continuar!" });
         } else {
@@ -89,7 +89,8 @@ function Index () {
                     telefone,
                     nome_artistico,
                     associacao,
-                    tipo:0
+                    lista_musicas,
+                    redes_sociais
                 });
                 notify("tc", "Enviado com Sucesso!")
         } catch (err) {
