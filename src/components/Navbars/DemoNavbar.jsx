@@ -148,7 +148,7 @@ function Header (props) {
               )}
             </div>
             <div className="d-flex">
-            <form>
+            {/* <form>
               <InputGroup className="no-border">
                 <Input placeholder="Search..." />
                 <InputGroupAddon addonType="append">
@@ -157,8 +157,8 @@ function Header (props) {
                   </InputGroupText>
                 </InputGroupAddon>
               </InputGroup>
-            </form>
-            <Nav navbar>
+            </form> */}
+            {/*<Nav navbar>
               <NavItem>
                 <Link to="#pablo" className="nav-link btn-magnify">
                   <i className="nc-icon nc-layout-11" />
@@ -167,7 +167,7 @@ function Header (props) {
                   </p>
                 </Link>
               </NavItem>
-              <Dropdown
+               <Dropdown
                 nav
                 isOpen={dropdownOpen}
                 toggle={e => dropdownToggle(e)}
@@ -183,16 +183,16 @@ function Header (props) {
                   <DropdownItem tag="a">Another Action</DropdownItem>
                   <DropdownItem tag="a">Something else here</DropdownItem>
                 </DropdownMenu>
-              </Dropdown>
-              <NavItem>
+              </Dropdown> */}
+              {/* <NavItem>
                 <Link to="#pablo" className="nav-link btn-rotate">
                   <i className="nc-icon nc-settings-gear-65" />
                   <p>
                     <span className="d-lg-none d-md-block">Account</span>
                   </p>
                 </Link>
-              </NavItem>
-            </Nav>
+              </NavItem> 
+            </Nav>*/}
             </div>
           </Collapse>
         </Container>

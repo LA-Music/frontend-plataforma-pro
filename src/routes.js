@@ -6,20 +6,20 @@ import Credito from "views/user/Credito"
 // import MarcaForm from "views/user/Marca.jsx"
 
 var routes = [
-  {
-    path: "/gestao-repositorio",
-    name: "Gestão do Repositório",
-    icon: "nc-icon nc-chart-bar-32",
-    component: GestaoRepo,
-    layout: "/pro"
-  },
-  {
-    path: "/solicitacao",
-    name: "Solicitações",
-    icon: "nc-icon nc-chart-bar-32",
-    component: Solicitacao,
-    layout: "/pro"
-  },
+  // {
+  //   path: "/gestao-repositorio",
+  //   name: "Gestão do Repositório",
+  //   icon: "nc-icon nc-chart-bar-32",
+  //   component: GestaoRepo,
+  //   layout: "/pro"
+  // },
+  // {
+  //   path: "/solicitacao",
+  //   name: "Solicitações",
+  //   icon: "nc-icon nc-chart-bar-32",
+  //   component: Solicitacao,
+  //   layout: "/pro"
+  // },
   {
     path: "/credito-retido",
     name: "Credito Retido",
