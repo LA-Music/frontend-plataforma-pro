@@ -33,7 +33,7 @@ const Login = (props) => {
               const response = await apiLogin({ email, senha });
               login(response.data.token, response.data.nome);
               if (response.data.papel === 'pro'){
-                props.history.push("/pro/credito-retido");
+                props.history.push("/credito-retido");
                 setLoad(false)
               }else{
                 setState({...state,
