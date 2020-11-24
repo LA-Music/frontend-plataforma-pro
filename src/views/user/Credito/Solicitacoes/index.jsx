@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import DynamicTable from 'components/Table';
 import api from 'services/api'
+import { DadosCadastrais } from './modalBody';
 import { TableContainer, ButtonConsulta } from './styles';
 
 export default function Index(props) {
@@ -21,7 +22,19 @@ export default function Index(props) {
   
   const handleToggle = e => {
     setToggle(!toggle)
-    setSelectRow(e)
+    !toggle === true && setSelectRow(e)
+  }
+
+  const joinObras = (musc) => {
+    let concat = ''
+    musc.length > 0 && musc.map( msc => 
+      concat += msc.titulo + ', '
+    ) 
+    return concat.toLowerCase()
+  }
+
+  const shortten = (str) => {
+    return str.length > 30 ? str.substring(0, 30) + '...' : str
   }
 
   useEffect(() => {
@@ -29,7 +42,16 @@ export default function Index(props) {
         if (res.data.length > 0 ) {
           let body = []
           res.data.map( async process => 
-            body.push({name: process.email, cpf: '-', nameBanda: process.nome, music: '-', step: '-', status: process.status})
+            body.push({
+              name: process.nome, 
+              email: process.email, 
+              tipo: process.tipo, 
+              cpf: '-', 
+              nameBanda: process.nome, 
+              allMusic: process.obras, 
+              music: shortten(joinObras(process.obras)), 
+              step: '-', 
+              status: process.status})
           )
           await setTable({...Table, body: body })
         }
@@ -47,6 +69,7 @@ export default function Index(props) {
         {Table.body.length > 0 && 
           <DynamicTable viewModal={e => handleToggle(e)} moreItems={5} limitItems={10} {...Table} />
         }
+        <DadosCadastrais show={toggle} data={selectRow} toggle={e => handleToggle(!toggle)} />
       </TableContainer>
     </div>
   )

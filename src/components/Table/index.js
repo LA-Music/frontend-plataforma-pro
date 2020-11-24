@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Table } from 'reactstrap';
-import { MoreItems } from './styles'
+// import { MoreItems } from './styles'
 
 const DynamicTable = ({header, body, limitItems, moreItems, viewModal }) => {
 
