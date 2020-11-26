@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Table } from 'reactstrap';
-// import { MoreItems } from './styles'
+import { Container } from './styles'
 
-const DynamicTable = ({header, body, limitItems, moreItems, viewModal }) => {
+const DynamicTable = ({header, body, limitItems, moreItems, viewModal, selectPerfil }) => {
 
   const [ showItems, setItems ] = useState(limitItems)
 
@@ -18,14 +18,15 @@ const DynamicTable = ({header, body, limitItems, moreItems, viewModal }) => {
               <td>{body[a][header[b].key]}</td>
         )
       }
-      viewModal ? data.push(<tr onClick={() => viewModal(body[a])}>{row}</tr>) : data.push(<tr>{row}</tr>)
+      viewModal ? data.push(<tr onClick={() => viewModal(body[a])}>{row}</tr>) :
+      selectPerfil ? data.push(<tr onClick={() => selectPerfil(body[a])}>{row}</tr>) : data.push(<tr>{row}</tr>)
     }
     return data
   }
 
   return (
-    <>
-      <Table borderless>
+    <Container>
+      <Table borderless hover>
         <thead>
           <tr>
             {header.map((hd) => (
@@ -42,7 +43,7 @@ const DynamicTable = ({header, body, limitItems, moreItems, viewModal }) => {
           <MoreItems onClick={() => setItems(showItems + moreItems)} style={{cursor: 'pointer'}}>Mostrar mais</MoreItems>
         </div>
       )} */}
-    </>
+    </Container>
   )
 }
 
