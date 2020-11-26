@@ -14,6 +14,7 @@ export default function Index(props) {
 
   return (
     <div className="content">
+      {showTable === 1 && <ButtonConsulta onClick={() => setShowTable(0)} className="mb-3">Ver perfis</ButtonConsulta> }
       <TableContainer>
         <div className="mb-3 d-flex align-items-center justify-content-between">
           <h2 className="m-0">
