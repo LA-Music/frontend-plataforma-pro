@@ -13,13 +13,13 @@ const DynamicTable = ({header, body, limitItems, moreItems, viewModal, selectPer
     for (let a = 0; a < itemsLength; a++) {
       var row =[]
       for (let b = 0; b < header.length; b++) {
-        body[a] && 
-          row.push(
+        body[a] &&
+            row.push(
               <td>{body[a][header[b].key]}</td>
-        )
+            )
       }
-      viewModal ? data.push(<tr onClick={() => viewModal(body[a])}>{row}</tr>) :
-      selectPerfil ? data.push(<tr onClick={() => selectPerfil(body[a])}>{row}</tr>) : data.push(<tr>{row}</tr>)
+      viewModal ? data.push(<tr>{row}</tr>) :
+      selectPerfil ? data.push(<tr>{row}</tr>) : data.push(<tr>{row}</tr>)
     }
     return data
   }
@@ -30,7 +30,7 @@ const DynamicTable = ({header, body, limitItems, moreItems, viewModal, selectPer
         <thead>
           <tr>
             {header.map((hd) => (
-              <th key={hd.key}>{hd.name}</th>
+              <th className={hd.key === 'action' ? 'text-center' : ''}  key={hd.key}>{hd.name}</th>
             ))}
           </tr>
         </thead>

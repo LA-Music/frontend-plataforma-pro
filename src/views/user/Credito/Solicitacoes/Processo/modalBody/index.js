@@ -7,6 +7,7 @@ import Fonogramas from './Fonogramas'
 import { Container } from './styles'
 
 const ViewDadosCadastrais = ({data}) => {
+  console.log(data)
   const [activeTab, setActiveTab] = useState('1');
 
   const toggle = tab => {

@@ -1,44 +1,71 @@
 import React, { useEffect, useState } from 'react';
-import DynamicTable from 'components/Table';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import api from 'services/api'
-import { shortten, joinObras } from '../actions'
-// import { Container } from './styles';
+
+import DynamicTable from 'components/Table';
+
+import { phoneMask, cpfMask } from 'components/Mask'
+import { BtnEngage } from './styles';
 
 function Perfis({ selectPerfil }) {
+  const [ modal, setModal ] = useState(false);
+  const [ dataPerfil, setDataPerfil ] = useState(false)
+  
+  const [ confirmed, setConfirmed ] = useState(false)
+
+  const toggle = async (perfil) => {
+    await setDataPerfil(perfil)
+    setModal(!modal)
+  };
 
   const [Table, setTable] = useState({
     header:[
-      { name: 'Nome',           key: 'name'       }, 
-      { name: 'CPF',            key: 'cpf'        }, 
-      { name: 'Nome da banda',  key: 'nameBanda'  },
-      { name: 'Músicas',        key: 'music'      },
-      { name: 'Etapa',          key: 'step'       },
-      { name: 'Status',         key: 'status'     },
+      { name: 'Nome',          key: 'name'          }, 
+      { name: 'E-mail',        key: 'email'         }, 
+      { name: 'CPF',           key: 'cpf'           }, 
+      { name: 'Nome Artítico', key: 'nameArtistico' },
+      { name: 'Telefone',      key: 'telefone'      },
+      { name: 'Associação',    key: 'associacao'    },
+      { name: 'Ação',          key: 'action'        },
     ],
     body:[]
   })
 
+  const engaged = async () => {
+    await setConfirmed(true)
+
+    setTimeout(() => {
+      toggle()
+    }, 5000);
+  }
+
   useEffect(() => {
-    api.get("/processo").then( async res =>{
+    api.get('/credito-retido').then( async res => {
       if (res.data.length > 0 ) {
+
         var arrPerfil = res.data.map(item=>{
-            return [item.nome,item]
+          return [item.nome,item]
         }); 
+
         var mapPerfil = new Map(arrPerfil); 
         var perfil = [...mapPerfil.values()];
-        
+
         let body = []
         perfil.map( async process => 
           body.push({
             name: process.nome, 
             email: process.email, 
-            tipo: process.tipo, 
-            cpf: '-', 
-            nameBanda: process.nome, 
-            allMusic: process.obras, 
-            music: shortten(joinObras(process.obras)), 
-            step: '-', 
-            status: process.status})
+            cpf: cpfMask(process.cpf), 
+            nameArtistico: process.nome_artistico, 
+            telefone: process.telefone ? phoneMask(process.telefone) : '--',
+            associacao: process.associacao || '--',
+            action: (
+              <div className="d-flex justify-content-center">
+                <BtnEngage onClick={() => toggle(process)}>Contratar</BtnEngage>
+                <BtnEngage onClick={() => selectPerfil(process)}>Ver</BtnEngage>
+              </div>
+            ),
+          })
         )
         await setTable({...Table, body: body })
       }
@@ -48,11 +75,34 @@ function Perfis({ selectPerfil }) {
 
   return (
     Table.body.length > 0 && 
+    <>
       <DynamicTable 
         selectPerfil={selectPerfil}
         moreItems={5} 
         limitItems={10} 
         {...Table} />
+
+        <Modal isOpen={modal} toggle={toggle}>
+          {!confirmed ? 
+            <ModalHeader toggle={toggle}>Deseja contratar ?</ModalHeader>
+            : 
+            <ModalHeader toggle={toggle}>Aguarde ...</ModalHeader> 
+          }
+          <ModalBody>
+            {!confirmed ? (
+              <p>Tem certeza que deseja contratar {dataPerfil && dataPerfil.nome} ?</p>
+            ) : (
+                <p>Sua solicitação foi encaminhada, logo entraremos em contato.</p>
+            )}
+          </ModalBody>
+          {!confirmed && 
+            <ModalFooter>
+              <Button color="primary" onClick={() => engaged()}>Contratar</Button>{' '}
+              <Button color="secondary" onClick={toggle}>Cancel</Button>
+            </ModalFooter>
+          }
+        </Modal>
+      </>
   )
 }
 

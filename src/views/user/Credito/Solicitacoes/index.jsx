@@ -8,6 +8,7 @@ export default function Index(props) {
   const [ showTable, setShowTable ] = useState(0)
 
   const selectPerfil = async e => {
+    console.log(e)
     await setPerfil(e)
     await setShowTable(1)
   } 
