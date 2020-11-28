@@ -14,7 +14,7 @@ function Index() {
     <div className="content">
     <Container >
       <Form onSubmit={debugSubmit}>
-        <h1>Contato</h1>
+        <h1>Entre em contato</h1>
         <Row>
           <Col>
             <FormGroup>
@@ -57,7 +57,7 @@ function Index() {
               <label>Mensagem</label>
               <textarea 
                 type="textarea"
-                rows="10"
+                rows="5"
                 onChange={e => setState({...state,mensagem: e.target.value})} 
               />
             </FormGroup>

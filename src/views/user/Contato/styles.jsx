@@ -11,6 +11,10 @@ export const Container = styled.div`
     margin: auto;
   }
 
+  .row {
+    margin-bottom: 1.5rem;
+  }
+
   small {
     font-weight: normal;
     font-size: 14px;
@@ -38,7 +42,7 @@ export const Container = styled.div`
     color: #FFFFFF;
   }
 
-  input[type=text], [type=email], [type=textarea] {
+  input[type=text], [type=email] {
     height: 59px;
     color: #A5A5A5;
 
