@@ -1,9 +1,5 @@
-// import Solicitacao from "views/user/Solicitacoes"
-// import GestaoRepo from "views/user/Gestao_Repositorio"
 import Credito from "views/user/Credito"
-// import ContatoForm from "views/user/Contato.jsx"
-// import MusicaForm from "views/user/Musica.jsx"
-// import MarcaForm from "views/user/Marca.jsx"
+import Contato from "views/user/Contato"
 
 var routes = [
   // {
@@ -11,13 +7,6 @@ var routes = [
   //   name: "Gestão do Repositório",
   //   icon: "nc-icon nc-chart-bar-32",
   //   component: GestaoRepo,
-  //   layout: "/pro"
-  // },
-  // {
-  //   path: "/solicitacao",
-  //   name: "Solicitações",
-  //   icon: "nc-icon nc-chart-bar-32",
-  //   component: Solicitacao,
   //   layout: "/pro"
   // },
   {
@@ -41,13 +30,13 @@ var routes = [
   //   component: MusicaForm,
   //   layout: "/user"
   // },
-  // {
-  //   path: "/contato-user",
-  //   name: "Contato",
-  //   icon: "nc-icon nc-chart-bar-32",
-  //   component: ContatoForm,
-  //   layout: "/user"
-  // }
+  {
+    path: "/contato",
+    name: "Contato",
+    icon: "nc-icon nc-chart-bar-32",
+    component: Contato,
+    layout: "/"
+  }
 ]
 export default routes;
 // export const routesUser = routes_user;

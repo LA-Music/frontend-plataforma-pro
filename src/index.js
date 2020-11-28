@@ -4,6 +4,7 @@ import { createBrowserHistory } from "history";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Provider } from 'react-redux';
 import store from 'store'
+
 import 'bootstrap/dist/css/bootstrap.css'
 import 'assets/scss/paper-dashboard.scss?v=1.1.0'
 import 'assets/demo/demo.css'
@@ -14,6 +15,7 @@ import {isAuthenticated} from 'services/auth'
 import Login from 'views/Login'
 import Reset from 'views/Login/NewPassword'
 import UserLayout from 'layouts/Pro.jsx'
+
 const hist = createBrowserHistory()
 
 export const PrivateRoute = ({component: Component, ...rest}) => (
