@@ -19,21 +19,21 @@ export default function Index(props) {
       <TableContainer>
         <div className="mb-3 d-flex align-items-center justify-content-between">
           <h2 className="m-0">
-            {showTable === 0 && <span>Perfil</span>}
-            {showTable === 1 && (
-                <span>Processos</span>
-            )}
+            { showTable === 0 && 
+              <span>Perfil</span> 
+            }
+            { showTable === 1 && 
+              <span>Processos</span> 
+            }
           </h2>  
           <ButtonConsulta onClick={() => props.handleView('consulta')}>Nova Consulta</ButtonConsulta>
         </div>
         {showTable === 0 &&
-          <Perfis  
-            selectPerfil={e => selectPerfil(e) } />
+          <Perfis selectPerfil={e => selectPerfil(e) } />
         }
         {showTable === 1 &&
           <Processo perfil={perfil} />
         }
-        
       </TableContainer>
     </div>
   )

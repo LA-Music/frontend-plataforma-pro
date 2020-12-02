@@ -11,4 +11,7 @@ export const PERFIL         = '/perfil' //GET
 export const PROCESS        = '/processo' //GET
 
 //CREDITO RETIDO
-export const CREDITO_RETIDO = '/credito_retido' //POST / GET
+export const CREDITO_RETIDO = '/credito-retido' //POST / GET
+
+//CONTRATAR
+export const CONTRATAR      = '/contratar' //POST

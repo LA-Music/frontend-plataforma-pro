@@ -101,7 +101,7 @@ function Index () {
     }
     return (
       <div className="content">
-        <Container >
+      <Container >
         <Form onSubmit={e => handleSubmit(e)}>
           <NotificationAlert ref={notificationAlert} />
           <h1>Dados do Artista</h1>    

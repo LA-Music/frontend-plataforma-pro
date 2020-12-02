@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import api from 'services/api'
-
+import { contratar, credito_retido } from 'services/endpoint'
 import DynamicTable from 'components/Table';
 
 import { phoneMask, cpfMask } from 'components/Mask'
@@ -32,17 +31,19 @@ function Perfis({ selectPerfil }) {
   })
 
   const engaged = async () => {
-    await setConfirmed(true)
-
-    setTimeout(() => {
-      toggle()
-    }, 5000);
+    contratar.register({nome: dataPerfil.nome, cpf: dataPerfil.cpf}).then( async res => {
+      if (res.statusText === 'OK') {
+        await setConfirmed(true)
+        setTimeout(() => {
+          toggle()
+        }, 5000);
+      }
+    })
   }
 
   useEffect(() => {
-    api.get('/credito-retido').then( async res => {
+    credito_retido.find().then( async res => {
       if (res.data.length > 0 ) {
-
         var arrPerfil = res.data.map(item=>{
           return [item.nome,item]
         }); 
@@ -92,7 +93,7 @@ function Perfis({ selectPerfil }) {
             {!confirmed ? (
               <p>Tem certeza que deseja contratar {dataPerfil && dataPerfil.nome} ?</p>
             ) : (
-                <p>Sua solicitação foi encaminhada, logo entraremos em contato.</p>
+              <p>Sua solicitação foi encaminhada, logo entraremos em contato.</p>
             )}
           </ModalBody>
           {!confirmed && 
