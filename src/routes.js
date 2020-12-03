@@ -1,14 +1,10 @@
 import Credito from "views/user/Credito"
 import Contato from "views/user/Contato"
+import ColetaFonomecanico from "views/user/ColetaFonomecanico"
+import DireitoAutoral from "views/user/DireitoAutoral"
+import TaxaAdministracao from "views/user/TaxaAdministracao"
 
 var routes = [
-  // {
-  //   path: "/gestao-repositorio",
-  //   name: "Gestão do Repositório",
-  //   icon: "nc-icon nc-chart-bar-32",
-  //   component: GestaoRepo,
-  //   layout: "/pro"
-  // },
   {
     path: "/credito-retido",
     name: "Crédito Retido",
@@ -16,27 +12,35 @@ var routes = [
     component: Credito,
     layout: "/"
   },
-  // {
-  //   path: "/marca",
-  //   name: "Marcas",
-  //   icon: "nc-icon nc-chart-bar-32",
-  //   component: MarcaForm,
-  //   layout: "/user"
-  // },
-  // {
-  //   path: "/musica",
-  //   name: "Musicas",
-  //   icon: "nc-icon nc-chart-bar-32",
-  //   component: MusicaForm,
-  //   layout: "/user"
-  // },
   {
     path: "/contato",
     name: "Contato",
     icon: "nc-icon nc-chart-bar-32",
     component: Contato,
     layout: "/"
-  }
+  },
+  {
+    path: "/coleta-fenomecanico",
+    name: "Fonomecânico",
+    icon: "nc-icon nc-chart-bar-32",
+    component: ColetaFonomecanico,
+    layout: "/"
+  },
+  {
+    path: "/direito-autoral",
+    name: "Direito autoral",
+    icon: "nc-icon nc-chart-bar-32",
+    component: DireitoAutoral,
+    layout: "/"
+  },
+  {
+    path: "/taxa-administracao",
+    name: "Taxa de administração",
+    icon: "nc-icon nc-chart-bar-32",
+    component: TaxaAdministracao,
+    layout: "/"
+  },
+
 ]
 export default routes;
 // export const routesUser = routes_user;
