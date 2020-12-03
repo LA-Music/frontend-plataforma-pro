@@ -12,13 +12,7 @@ var routes = [
     component: Credito,
     layout: "/"
   },
-  {
-    path: "/contato",
-    name: "Contato",
-    icon: "nc-icon nc-chart-bar-32",
-    component: Contato,
-    layout: "/"
-  },
+ 
   {
     path: "/coleta-fenomecanico",
     name: "Fonomecânico",
@@ -28,16 +22,23 @@ var routes = [
   },
   {
     path: "/direito-autoral",
-    name: "Direito autoral",
+    name: "Consultoria",
     icon: "nc-icon nc-chart-bar-32",
     component: DireitoAutoral,
     layout: "/"
   },
   {
     path: "/taxa-administracao",
-    name: "Taxa de administração",
+    name: "Administração autoral",
     icon: "nc-icon nc-chart-bar-32",
     component: TaxaAdministracao,
+    layout: "/"
+  },
+  {
+    path: "/contato",
+    name: "Contato",
+    icon: "nc-icon nc-chart-bar-32",
+    component: Contato,
     layout: "/"
   },
 

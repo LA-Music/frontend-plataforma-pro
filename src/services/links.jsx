@@ -15,3 +15,6 @@ export const CREDITO_RETIDO = '/credito-retido' //POST / GET
 
 //CONTRATAR
 export const CONTRATAR      = '/contratar' //POST
+
+//CONTATO
+export const CONTATO        = '/contato' //post

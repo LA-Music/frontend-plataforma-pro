@@ -4,7 +4,7 @@ import { Nav } from "reactstrap";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 import { logout } from "../../services/auth"
-import { getEmail } from "../../services/auth"
+import { getName } from "../../services/auth"
 import logo from "../../assets/img/logo.png";
 
 var ps;
@@ -58,7 +58,7 @@ class Sidebar extends React.Component {
             href="https://lamusic.com.br/"
             className="simple-text logo-normal"
           >
-            {getEmail()}
+            {getName()}
           </a>
         </div>
         <div className="sidebar-wrapper" ref={this.sidebar} style={{overflowX:"hidden"}}>

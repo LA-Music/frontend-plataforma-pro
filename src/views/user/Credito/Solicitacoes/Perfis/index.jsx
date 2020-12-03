@@ -19,11 +19,9 @@ function Perfis({ selectPerfil }) {
 
   const [Table, setTable] = useState({
     header:[
-      { name: 'Nome',           key: 'name'          }, 
-      { name: 'E-mail',         key: 'email'         }, 
+      { name: 'Nome',           key: 'name'          },  
       { name: 'CPF',            key: 'cpf'           }, 
       { name: 'Nome Artístico', key: 'nameArtistico' },
-      { name: 'Telefone',       key: 'telefone'      },
       { name: 'Associação',     key: 'associacao'    },
       { name: 'Ação',           key: 'action'        },
     ],
@@ -58,7 +56,7 @@ function Perfis({ selectPerfil }) {
             email: process.email, 
             cpf: cpfMask(process.cpf), 
             nameArtistico: process.nome_artistico, 
-            telefone: process.telefone ? phoneMask(process.telefone) : '--',
+            telefone: process.telefone ? phoneMask(process.telefone) : '-- ',
             associacao: process.associacao || '--',
             action: (
               <div className="d-flex justify-content-center">

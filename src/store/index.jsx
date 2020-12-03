@@ -54,6 +54,13 @@ const INITIAL_STATE = {
           placeholder: '******', 
           required: true }
       ]},
+
+    settings: {
+      nome: '',
+      email: '',
+      id: '',
+      papel: ''
+    }
 };
 
 function form(state = INITIAL_STATE, action){
@@ -61,9 +68,12 @@ function form(state = INITIAL_STATE, action){
     case 'TYPE_FORM': {
       return { ...state, data:{...state.data, type: action.payload}}
     }
-      case 'SET_INFO' : {
-        return { ...state , info:{...state.info, ...action.payload}}
-      }
+    case 'SET_INFO' : {
+      return { ...state , info:{...state.info, ...action.payload}}
+    }
+    case 'SET_SETTINGS': {
+      return {...state, settings: {...state.settings, ...action.payload}}
+    }
     default:
       return state;
   }

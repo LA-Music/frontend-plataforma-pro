@@ -3,13 +3,16 @@ import NotificationAlert from "react-notification-alert";
 import { Button, FormText, Label ,FormGroup, Form, Input } from "reactstrap";
 import { Checkbox, InputAdornment, IconButton, FormControl } from '@material-ui/core'
 import api from 'services/api'
+import { getEmail } from 'services/auth'
+import { cpfMask } from 'components/Mask'
 import AddCircle from 'assets/img/addCircle.svg'
 import { Container, RadioInput, InputButtom, TagLabel, CloseTag } from './styles'
 
 function Index () {
+    let notificationAlert = useRef();
     const [ state, setState ] = useState({
         nome: "",
-        email: "pro5@lamusic.com.br",
+        email: getEmail(),
         cpf:"",
         telefone:"",
         nome_artistico:"",
@@ -36,7 +39,7 @@ function Index () {
             setState({...state, redes_sociais: state.redes_sociais})
       }
 
-      let notificationAlert = useRef();
+      
 
       const notify = (place, message) => {
         var color = Math.floor(Math.random() * 5 + 1);
@@ -68,12 +71,11 @@ function Index () {
       }
 
       const validIconButton = async (input) => {
-        
         let validInput = input.replace(/ /g,'')
-        console.log(validInput.length)
         return validInput.length > 1 ? true : false
       }
 
+    
     const handleSubmit = async e => {
         e.preventDefault();
         console.log(state)
@@ -107,11 +109,11 @@ function Index () {
           <h1>Dados do Artista</h1>    
           <FormGroup className="mb-4">
             <Label>Nome</Label>
-            <Input type="text" onChange={e => setState({...state, nome: e.target.value})} name="nome" placeholder="Nome do artista" />
+            <Input type="text" onChange={e =>  setState({...state, nome: e.target.value})} name="nome" placeholder="Nome do artista" />
           </FormGroup>
           <FormGroup className="mb-4">
             <Label>CPF:</Label>
-            <Input type="text" name="cpf" onChange={e => setState({...state, cpf: e.target.value})} placeholder="999.999.999-99" />
+            <Input type="text" name="cpf" value={state.cpf} onChange={ e => setState({...state, cpf: cpfMask(e.target.value)})} placeholder="999.999.999-99" />
             <FormText color="muted">
               Facultativo, mas ajuda para evitar homônio
             </FormText>

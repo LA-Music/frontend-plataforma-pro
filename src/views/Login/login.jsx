@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch} from 'react-redux'
-import { Login as apiLogin } from 'services/endpoint'
+import { Login as apiLogin, perfil as apiPerfil } from 'services/endpoint'
 import { login } from 'services/auth'
 import 'assets/css/Login.css'
 import {
@@ -31,10 +31,15 @@ const Login = (props) => {
           try {
               setLoad(true)
               const response = await apiLogin({ email, senha });
-              login(response.data.token, response.data.nome);
+              
               if (response.data.papel === 'pro'){
-                props.history.push("/credito-retido");
+                login(response.data.token, '', response.data.nome);
+                apiPerfil.find().then(async res => {
+                  login(response.data.token, res.data.email, response.data.nome);
+                  props.history.push("/credito-retido");  
+                })
                 setLoad(false)
+
               }else{
                 setState({...state,
                 error:

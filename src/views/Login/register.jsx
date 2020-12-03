@@ -17,7 +17,7 @@ const Register = (props) => {
     const { Register } = useSelector(s=> s);
 
     const dispatch = useDispatch();
-    const [ state, setState ] = useState({ email: '', telefone: '', nome: '', cpf: '', senha: '', error: ''}) 
+    const [ state, setState ] = useState({ email: '', telefone: '', nome: '', cpf: '', senha: '', error: '', papel: 'pro'}) 
 
     function handleChange (e) {
       const { name, value } = e.target
