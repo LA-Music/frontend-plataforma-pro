@@ -19,13 +19,13 @@ function Perfis({ selectPerfil }) {
 
   const [Table, setTable] = useState({
     header:[
-      { name: 'Nome',          key: 'name'          }, 
-      { name: 'E-mail',        key: 'email'         }, 
-      { name: 'CPF',           key: 'cpf'           }, 
-      { name: 'Nome Artítico', key: 'nameArtistico' },
-      { name: 'Telefone',      key: 'telefone'      },
-      { name: 'Associação',    key: 'associacao'    },
-      { name: 'Ação',          key: 'action'        },
+      { name: 'Nome',           key: 'name'          }, 
+      { name: 'E-mail',         key: 'email'         }, 
+      { name: 'CPF',            key: 'cpf'           }, 
+      { name: 'Nome Artístico', key: 'nameArtistico' },
+      { name: 'Telefone',       key: 'telefone'      },
+      { name: 'Associação',     key: 'associacao'    },
+      { name: 'Ação',           key: 'action'        },
     ],
     body:[]
   })
