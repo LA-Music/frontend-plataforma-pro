@@ -17,7 +17,7 @@ const Register = (props) => {
     const { Register } = useSelector(s=> s);
 
     const dispatch = useDispatch();
-    const [ state, setState ] = useState({ email: '', telefone: '', nome: '', cpf: '', senha: '', error: '', papel: 'pro'}) 
+    const [ state, setState ] = useState({ email: '', telefone: '', nome: '', nome_empresa: '', senha: '', error: '', papel: 'pro'}) 
 
     function handleChange (e) {
       const { name, value } = e.target
@@ -27,14 +27,19 @@ const Register = (props) => {
     
     async function handleRegister (e) {
         e.preventDefault();
-        const { email, senha, nome, cpf, telefone } = state;
-        if (!email || !senha || !nome || !cpf || !telefone ) {
+        const { email, senha, nome, telefone } = state;
+        if (!email || !senha || !nome || !telefone ) {
           setState({...state, error: "Por favor, preencha os dados corretamente!" });
           return false
         } else {
           try {
               await apiRegister({ ...state })
-              .then(r => r.statusText.toLowerCase() === 'ok' &&  dispatch({type: 'TYPE_FORM', payload: 'Login'}))
+              .then(r => {
+                if (r.statusText.toLowerCase() === 'ok') {
+                  window.location.hash = ''
+                  dispatch({type: 'TYPE_FORM', payload: 'Login'})
+                }
+              })
               .catch(function(err){
                 if(err.response.status === 500){
                   setState({...state, error:err.response.data.message})

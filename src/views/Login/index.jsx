@@ -9,8 +9,9 @@ import {
   import Login from './login'
   import Register from './register'
 import Recover from './recover'
-// import logoLAMusic from 'assets/img/logo-lamusic.svg'
+
 function Index (props) {
+  console.log(window.location.hash)
 
   const { type } = useSelector(state => state.data);
 
@@ -19,13 +20,13 @@ function Index (props) {
         <Row className="w-100">
           <Col className="px-0 d-flex justify-content-center flex-column align-items-center">
 
-            {type === 'Login' && (
+            {type === 'Login' && window.location.hash !== '#register' && (
               <Login {...props} />
             )}
-            {type === 'Register' && (
+            {(type === 'Register' || window.location.hash === '#register') && (
               <Register {...props} />
             )}
-            {type === 'Recover' && (
+            {type === 'Recover' && window.location.hash !== '#register' && (
               <Recover {...props} />
             )}
           </Col>
