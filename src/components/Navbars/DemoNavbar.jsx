@@ -134,7 +134,7 @@ function Header (props) {
             className="justify-content-between"
           >
             <div></div>
-            <div>
+            {/* <div>
               {typeSolicitacao === 'kanban' ? (
                 <>
                   <img src={IconKanbanSelected} alt="Kanban" onClick={() => dispatch({type: 'SET_INFO', payload: {typeSolicitacao: 'kanban'}})} className="mx-3 "  style={{cursor: 'pointer'}}/>
@@ -146,7 +146,7 @@ function Header (props) {
                     <img src={IconListSelected} alt="List" onClick={() => dispatch({type: 'SET_INFO', payload: {typeSolicitacao: 'list'}})}  style={{cursor: 'pointer'}}/>
                   </>
               )}
-            </div>
+            </div> */}
             <div className="d-flex">
             {/* <form>
               <InputGroup className="no-border">
@@ -158,32 +158,32 @@ function Header (props) {
                 </InputGroupAddon>
               </InputGroup>
             </form> */}
-            {/*<Nav navbar>
-              <NavItem>
+            <Nav navbar>
+              {/* <NavItem>
                 <Link to="#pablo" className="nav-link btn-magnify">
                   <i className="nc-icon nc-layout-11" />
                   <p>
                     <span className="d-lg-none d-md-block">Stats</span>
                   </p>
                 </Link>
-              </NavItem>
+              </NavItem> */}
                <Dropdown
                 nav
                 isOpen={dropdownOpen}
                 toggle={e => dropdownToggle(e)}
               >
                 <DropdownToggle caret nav>
-                  <i className="nc-icon nc-bell-55" />
+                <i className="nc-icon nc-settings-gear-65" />
                   <p>
                     <span className="d-lg-none d-md-block">Some Actions</span>
                   </p>
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem tag="a">Action</DropdownItem>
-                  <DropdownItem tag="a">Another Action</DropdownItem>
-                  <DropdownItem tag="a">Something else here</DropdownItem>
+                  <DropdownItem tag="a" href="/pro/perfil">Perfil</DropdownItem>
+                  {/* <DropdownItem tag="a">Another Action</DropdownItem>
+                  <DropdownItem tag="a">Something else here</DropdownItem> */}
                 </DropdownMenu>
-              </Dropdown> */}
+              </Dropdown> 
               {/* <NavItem>
                 <Link to="#pablo" className="nav-link btn-rotate">
                   <i className="nc-icon nc-settings-gear-65" />
@@ -191,8 +191,8 @@ function Header (props) {
                     <span className="d-lg-none d-md-block">Account</span>
                   </p>
                 </Link>
-              </NavItem> 
-            </Nav>*/}
+              </NavItem>  */}
+            </Nav>
             </div>
           </Collapse>
         </Container>

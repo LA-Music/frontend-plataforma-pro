@@ -3,6 +3,7 @@ import Contato from "views/user/Contato"
 import ColetaFonomecanico from "views/user/ColetaFonomecanico"
 import DireitoAutoral from "views/user/DireitoAutoral"
 import TaxaAdministracao from "views/user/TaxaAdministracao"
+import Perfil from "views/user/Perfil"
 
 var routes = [
   {
@@ -12,7 +13,6 @@ var routes = [
     component: Credito,
     layout: "/"
   },
- 
   {
     path: "/coleta-fenomecanico",
     name: "Fonomecânico",
@@ -32,6 +32,13 @@ var routes = [
     name: "Administração autoral",
     icon: "nc-icon nc-chart-bar-32",
     component: TaxaAdministracao,
+    layout: "/"
+  },
+  {
+    path: "/perfil",
+    name: "Perfil",
+    icon: "nc-icon nc-chart-bar-32",
+    component: Perfil,
     layout: "/"
   },
   {
