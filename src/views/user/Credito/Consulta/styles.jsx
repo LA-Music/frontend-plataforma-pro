@@ -102,3 +102,16 @@ export const CloseTag = styled.span`
   color: #ffffff;
   margin-left: 1rem;
 `;
+
+export const ButtonConsulta = styled.button`
+  width: 184px;
+  height: 40px;
+
+  color: #fff;
+  background: #0B0B0B;
+  border-radius: 31px;
+
+  &:hover {
+    opacity: 0.9;
+  }
+`;

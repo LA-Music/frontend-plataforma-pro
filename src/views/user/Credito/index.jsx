@@ -10,7 +10,7 @@ const  Index = () =>  {
   return (
     <div className="content">
       {view === 'consulta' ? 
-      <Consulta /> : 
+      <Consulta  handleView={handleView}/> : 
       <Solicitacoes handleView={handleView} />}
     </div>
   )
