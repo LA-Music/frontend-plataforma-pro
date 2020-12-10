@@ -2,9 +2,13 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
+  justify-content: center;
+
+  background: #E9D6BB;
+  
+  padding: 3rem;
+  height: 80vh;
 
   a {
     display: flex;
@@ -17,15 +21,24 @@ export const Container = styled.div`
     font-size: 16px;
 
     color: #fff;
-    background: #0FBB00;
-    border-radius: 4px;
+    background: #743035;
+    border-radius: 83px;
+
+    margin-bottom: 1.5rem;
     
     &:hover {
       text-decoration: none;
-      background: #0FBB00 !important;
-      border-radius: 4px;
+      background: #743035;
       opacity: 0.8;
     }
-}
+  }
+
+  h3 {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: 48px;
+
+    color: #C27D6F;
+  }
 
 `;
