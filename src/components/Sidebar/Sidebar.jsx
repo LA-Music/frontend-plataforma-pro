@@ -20,6 +20,7 @@ class Sidebar extends React.Component {
   activeRoute(routeName) {
     return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   }
+
   componentDidMount() {
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(this.sidebar.current, {
@@ -27,17 +28,21 @@ class Sidebar extends React.Component {
         suppressScrollY: false
       });
     }
+    
   }
+
   componentWillUnmount() {
     if (navigator.platform.indexOf("Win") > -1) {
       ps.destroy();
     }
   }
 
+  
+
   handleClick(){
     logout()
-
   }
+
   render() {
     return (
       <div

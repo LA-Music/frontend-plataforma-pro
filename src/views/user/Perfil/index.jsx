@@ -1,15 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
+import Cookies from 'js-cookie';
 import { Button, FormGroup, Form, Input, Row, Col } from "reactstrap";
 import NotificationAlert from "react-notification-alert";
 import { notify as notifyComp } from 'components/Notify'
 import { perfil as apiPerfil } from 'services/endpoint'
-import { phoneMask } from 'components/Mask'
+import { cpfMask } from 'components/Mask'
 import { Container } from './styles';
-
+import { NAME_KEY } from 'services/auth'
 
 function Index() {
   let notificationAlert = useRef();
-  const [ state, setState ] = useState({ nome: '', nome_empresa: '', senha: '', telefone: ''})
+  const [ state, setState ] = useState(false)
+  const [ loading, setLoading ] = useState(false)
 
   const notify = (place, message, color) => {
     notificationAlert.current.notificationAlert(notifyComp(place, message, color));
@@ -17,18 +19,36 @@ function Index() {
 
   useEffect(() => {
     apiPerfil.find().then( r => {
-      r.data && setState({...state, nome: r.data.nome})
+      r.data && setState({...state, ...r.data})
     })
   }, [])//eslint-disable-line
 
   const debugSubmit = async e => {
     e.preventDefault()
-    notify("tc", "Função em desenvolvimento.", 3)
+    
+    setLoading(true)
+
+    apiPerfil.update(state)
+      .then( res => {
+        if (res.data) {
+          if (res.data.message === 'ok') {
+            notify("tc", "Dados alterados.", 2)
+            Cookies.set(NAME_KEY, state.nome)
+          } else {
+            notify("tc", "Não foi possĩvel alterar seus dados, tente novamente mais tarde.", 3)
+          }
+        } else {
+          notify("tc", "Não foi possĩvel alterar seus dados, tente novamente mais tarde.", 3)
+        } 
+        setLoading(false)
+      })
+    
   }    
 
   return (
     <div className="content">
       <Container>
+        {console.log(state)}
       <Form onSubmit={debugSubmit}>
       <NotificationAlert ref={notificationAlert} />
         <h1>Perfil</h1>
@@ -55,40 +75,19 @@ function Index() {
               />
             </FormGroup>
             <FormGroup>
-              <label>Telefone</label>
+              <label>Cpf</label>
               <Input
                 required
-                placeholder="(41) 0 0000-0000"
-                type="tel"
-                value={state.telefone}
-                onChange={e => setState({...state, telefone: phoneMask(e.target.value) })}
-              />
-            </FormGroup>
-            <FormGroup>
-              <label>Senha</label>
-              <Input
-                autoComplete="new-password"
-                required
-                placeholder="****"
-                type="password"
-                value={state.senha}
-                onChange={e => setState({...state, senha: e.target.value })}
-              />
-            </FormGroup>
-            <FormGroup>
-              <label>Confirmar Senha</label>
-              <Input
-                required
-                placeholder="****"
-                type="password"
-                value={state.confirma_senha}
-                onChange={e => setState({...state, confirma_senha: e.target.value })}
+                placeholder="000.000.000-00"
+                type="text"
+                value={state.cpf}
+                onChange={e => setState({...state, cpf: cpfMask(e.target.value) })}
               />
             </FormGroup>
           </Col>
           </Row>                        
         <FormGroup className="mb-4">
-          <Button type="submit" className="submit">Salvar</Button>
+          <Button type="submit" disabled={loading} className="submit">Salvar {loading && <i class="fa fa-spinner fa-spin" /> }</Button>
         </FormGroup>
       </Form>
       </Container>

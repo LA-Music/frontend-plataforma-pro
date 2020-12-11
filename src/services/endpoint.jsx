@@ -59,6 +59,16 @@ export const perfil = {
     } catch (error) {
       console.error(error)
     }
+  },
+
+  update: async function (payload) {
+    console.log(payload)
+    try {
+      return await api.post(PERFIL, {...payload})
+      
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
