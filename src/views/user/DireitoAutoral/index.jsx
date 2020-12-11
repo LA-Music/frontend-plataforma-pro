@@ -9,8 +9,8 @@ function Index() {
       <Container>
         <div style={{width: '500px'}}>
           <Link to="/contato">Aguarde o lançamento</Link>
-          <h3 >Para maiores informações ou para contratar entre em contato </h3>
-        </div>
+          <h3 >Para maiores informações ou para contratar entre em contato. </h3>
+        </div> 
         <img src={rocket} alt="Rocket" />
       </Container>
     </div>
