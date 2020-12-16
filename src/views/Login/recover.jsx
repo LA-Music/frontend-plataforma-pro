@@ -15,20 +15,28 @@ import { Link, Dcard, BtLogin, Label, TitleCard, InpText } from './styles'
 const Recover = (props) => {
     const { Recover } = useSelector(r => r)
     const dispatch = useDispatch();
+
     const [ state, setState ] = useState({ email: '', senha: '', error: '',  }) 
+
+    const [ loading, setLoading ] = useState(false)
 
     async function handleRecover (e) {
         e.preventDefault();
+        await setLoading(true)
         const { email } = state;
+
         if (!email) {
-          setState({...state, error: "Preencha e-mail e senha para continuar!" });
+          await setState({...state, error: "Preencha e-mail e senha para continuar!" });
+          await setLoading(false)
+
           return false
         } else {
           try {
               await reset_password({ email}).then(async r => {
                 if(r.status === 200 ){
                   window.alert(r.data.message)
-                  window.location.assign('/')
+                  await setLoading(false)
+                  window.location.assign('/pro')
                 }
               });
             } catch (err) {
@@ -36,6 +44,7 @@ const Recover = (props) => {
               error:
                   "Houve um problema"
               });
+              await setLoading(false)
           }
         }
     }
@@ -70,7 +79,7 @@ const Recover = (props) => {
                 </Row>
                 <Row>
                   <Col>
-                    <BtLogin type="submit">Enviar</BtLogin>
+                    <BtLogin disbled={loading} type="submit">{ !loading ? `Enviar` : 'Aguarde...'}</BtLogin>
                   </Col>
                 </Row>
               </Form>
