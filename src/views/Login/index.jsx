@@ -24,13 +24,13 @@ function Index (props) {
         <Row className="w-100">
           <Col className="px-0 d-flex justify-content-center flex-column align-items-center">
 
-            {type === 'Login' && window.location.hash !== '#register' && (
+            {type === 'Login' && (
               <Login {...props} />
             )}
-            {(type === 'Register' || window.location.hash === '#register') && (
+            {type === 'Register' && (
               <Register {...props} />
             )}
-            {type === 'Recover' && window.location.hash !== '#register' && (
+            {type === 'Recover' && (
               <Recover {...props} />
             )}
           </Col>
