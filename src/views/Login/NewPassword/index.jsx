@@ -26,7 +26,7 @@ const Index = (props) => {
       }
     })
   }, [state.token]) //eslint-disable-line
- console.log(state)
+
   async function handleSignIn (e) {
       e.preventDefault();
       const { confirm_password, password, token } = state;

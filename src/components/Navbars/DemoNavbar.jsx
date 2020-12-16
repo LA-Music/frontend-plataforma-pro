@@ -1,32 +1,32 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import {
   Collapse,
   Navbar,
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
+  // NavItem,
   Dropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
   Container,
-  InputGroup,
-  InputGroupText,
-  InputGroupAddon,
-  Input
+  // InputGroup,
+  // InputGroupText,
+  // InputGroupAddon,
+  // Input
 } from "reactstrap";
-import { useDispatch, useSelector} from 'react-redux';
+// import { useDispatch, useSelector} from 'react-redux';
 import routes from "routes.js";
-import IconKanban from 'assets/img/icon-kanban.svg'
-import IconKanbanSelected from 'assets/img/icon-kanban-selected.svg'
-import IconList from 'assets/img/icon-list.svg'
-import IconListSelected from 'assets/img/icon-list-selected.svg'
+//import IconKanban from 'assets/img/icon-kanban.svg'
+//import IconKanbanSelected from 'assets/img/icon-kanban-selected.svg'
+//import IconList from 'assets/img/icon-list.svg'
+//import IconListSelected from 'assets/img/icon-list-selected.svg'
 
 function Header (props) {
-  const dispatch = useDispatch();
-  const { typeSolicitacao } = useSelector(state => state.info)
+  // const dispatch = useDispatch();
+  // const { typeSolicitacao } = useSelector(state => state.info)
   const [ st, setState ] = useState({
     isOpen: false,
     dropdownOpen: false,

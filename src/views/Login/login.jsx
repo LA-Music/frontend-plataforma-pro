@@ -24,6 +24,7 @@ const Login = (props) => {
     async function handleSignIn (e) {
         e.preventDefault();
         const { email, senha } = state;
+
         if (!email || !senha) {
           setState({...state, error: "Preencha e-mail e senha para continuar!" });
           return false
@@ -34,25 +35,22 @@ const Login = (props) => {
               
               if (response.data.papel === 'pro'){
                 login(response.data.token, '', response.data.nome);
+
                 apiPerfil.find().then(async res => {
                   login(response.data.token, res.data.email, response.data.nome);
                   props.history.push("/credito-retido");  
+                  setLoad(false)
+                  setState({...state, error: '' });
                 })
-                setLoad(false)
+
 
               }else{
-                setState({...state,
-                error:
-                    "Você não possui permissão."
-                });
+                setState({...state, error:  "Este usuário não possui permissão para logar." });
                 setLoad(false)
               }
             } catch (err) {
               setLoad(false)
-              setState({...state,
-              error:
-                  "Houve um problema com o login, verifique suas credenciais. T.T"
-              });
+              setState({...state, error: err.response.data.message });
           }
         }
     }
@@ -73,7 +71,7 @@ const Login = (props) => {
                       <FormGroup>
                         <Label>{e.label}</Label>
                         <InpText
-                          autoComplete="emails"
+                          autoComplete={e.autoComplete}
                           placeholder={e.placeholder}
                           type={e.type}
                           name={e.name}

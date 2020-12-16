@@ -5,13 +5,17 @@ import {
     Row,
     Col
   } from "reactstrap";
-  import {useSelector } from 'react-redux'
-  import Login from './login'
-  import Register from './register'
+import {useSelector } from 'react-redux'
+import Login from './login'
+import Register from './register'
 import Recover from './recover'
 
+import {isAuthenticated} from 'services/auth'
+
 function Index (props) {
-  console.log(window.location.hash)
+  
+  isAuthenticated() && props.history.push("/credito-retido")
+
 
   const { type } = useSelector(state => state.data);
 

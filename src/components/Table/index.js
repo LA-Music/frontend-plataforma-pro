@@ -4,7 +4,7 @@ import { Container } from './styles'
 
 const DynamicTable = ({header, body, limitItems, moreItems, viewModal, selectPerfil }) => {
 
-  const [ showItems, setItems ] = useState(limitItems)
+  const [ showItems ] = useState(limitItems)
 
   function createRow(){
     var data = []

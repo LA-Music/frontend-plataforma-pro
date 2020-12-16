@@ -69,12 +69,13 @@ class DashboardUser extends React.Component {
           <DemoNavbar {...this.props} />
           <Switch>
             {routes.map((prop, key) => {
-              return (
+           
+             return (
                 <this.PrivateRoute
                   path={prop.path}
                   component={prop.component}
                   key={key}
-                />
+             />
               );
             })}
           </Switch>

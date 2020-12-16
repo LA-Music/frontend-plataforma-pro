@@ -17,7 +17,10 @@ const Register = (props) => {
     const { Register } = useSelector(s=> s);
 
     const dispatch = useDispatch();
+    
     const [ state, setState ] = useState({ email: '', telefone: '', nome: '', nome_empresa: '', senha: '', error: '', papel: 'pro'}) 
+
+    const [ loading, setLoading ] = useState(false)
 
     function handleChange (e) {
       const { name, value } = e.target
@@ -27,9 +30,15 @@ const Register = (props) => {
     
     async function handleRegister (e) {
         e.preventDefault();
+        
+        await setLoading(true)
+        
         const { email, senha, nome, telefone } = state;
         if (!email || !senha || !nome || !telefone ) {
-          setState({...state, error: "Por favor, preencha os dados corretamente!" });
+          
+          await setState({...state, error: "Por favor, preencha os dados corretamente!" });
+          await setLoading(false)
+
           return false
         } else {
           try {
@@ -37,18 +46,21 @@ const Register = (props) => {
               .then(r => {
                 if (r.statusText.toLowerCase() === 'ok') {
                   window.location.hash = ''
+                  setLoading(false)
                   dispatch({type: 'TYPE_FORM', payload: 'Login'})
                 }
               })
               .catch(function(err){
-                if(err.response.status === 500){
+                if(err.response && err.response.status === 500){
+                  setLoading(false)
                   setState({...state, error:err.response.data.message})
                 }
               })
             } catch (err) {
+              setLoading(false)
               setState({...state,
               error:
-                  "Houve um problema com o login, verifique suas credenciais. T.T"
+                  "Houve um erro, tente novamente"
               });
           }
         }
@@ -67,7 +79,7 @@ const Register = (props) => {
                     <FormGroup>
                       <Label>{input.label}</Label>
                       <InpText
-                        autoComplete="email"
+                        autoComplete={input.autoComplete}
                         placeholder={input.placeholder}
                         type={input.type}
                         value={state[input.name]}
@@ -85,7 +97,7 @@ const Register = (props) => {
               </Row>
               <Row>
                 <Col>
-                  <BtLogin type="submit">Criar conta</BtLogin>
+                  <BtLogin type="submit">{!loading ? 'Criar conta' : 'Carregando ...' }</BtLogin>
                 </Col>
               </Row>
             </Form>

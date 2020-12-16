@@ -34,7 +34,7 @@ const Recover = (props) => {
             } catch (err) {
               setState({...state,
               error:
-                  "Houve um problema com o login, verifique suas credenciais. T.T"
+                  "Houve um problema"
               });
           }
         }

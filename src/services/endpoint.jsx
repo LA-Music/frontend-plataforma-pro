@@ -2,15 +2,11 @@ import api from './api'
 import { PERFIL, LOGIN, REGISTER, PASSWORD_RESET, RESET_TOKEN, CONTRATAR, CREDITO_RETIDO, CONTATO } from './links'
 
 export const Login = async (payload) => {
-  try {
-    return await api.post( LOGIN, {...payload } )
-  } catch(error) { console.log(error) }
+  return await api.post( LOGIN, {...payload } )
 }
 
 export const register = async (payload) => {
-  try {
-    return await api.post( REGISTER, {...payload } )
-  } catch(error) { console.log(error) }
+  return await api.post( REGISTER, {...payload } )
 }
 
 export const reset_password = async (payload) => {
