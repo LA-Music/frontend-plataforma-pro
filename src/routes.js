@@ -47,7 +47,7 @@ var routes = [
     icon: "nc-icon nc-chart-bar-32",
     component: Contato,
     layout: "/"
-  },
+  }
 
 ]
 export default routes;

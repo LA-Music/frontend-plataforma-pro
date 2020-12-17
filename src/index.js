@@ -41,9 +41,9 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter history={hist} basename="/pro">
       <Switch>
-          <Route path="/" exact component={Login}/>
-          <Route path="/reset/:token" exact render={ props => <Reset {...props} />}/>
-          <PrivateRoute path="/" component={UserLayout}  />
+        <Route path="/" exact component={Login}/>
+        <Route path="/reset" component={Reset}/>
+        <PrivateRoute path="/" component={UserLayout}  />
         <Route path="*" component={() => <h1>404 - Página não encontrada =/</h1>} />
       </Switch>
     </BrowserRouter>

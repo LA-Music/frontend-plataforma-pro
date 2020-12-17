@@ -14,7 +14,8 @@ import { reset_token } from 'services/endpoint'
 import { Dcard, BtLogin, Label, TitleCard, InpText } from './styles'
 
 const Index = (props) => {
-  const [ state, setState ] = useState({ confirm_password: '', password: '', error: '', userValid: false, token: props.match.params.token }) 
+
+  const [ state, setState ] = useState({ confirm_password: '', password: '', error: '', userValid: false, token: props.location.hash.replace('#', '') }) 
 
   useEffect(() => {
     reset_token({token: state.token}).then(async r => { 
@@ -22,7 +23,7 @@ const Index = (props) => {
         await setState({...state, userValid: r.data.user.email ? true : false})
       } else {
        window.alert('Token inválido')
-       window.location.assign('/')
+       window.location.assign('/pro')
       }
     })
   }, [state.token]) //eslint-disable-line
@@ -38,9 +39,10 @@ const Index = (props) => {
       } else {
         try {
             const response = await reset_token({senha: password, token});
+            
             if(response.status === 200) {
               window.alert(response.data.message)
-              window.location.assign('/')
+              window.location.assign('/pro')
             }
           } catch (err) {
             setState({...state,
