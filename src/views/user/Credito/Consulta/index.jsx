@@ -86,7 +86,7 @@ function Index (props) {
     const handleSubmit = async e => {
         e.preventDefault();
 
-        const { nome, email, cpf, telefone, nome_artistico, associacao, lista_musicas, redes_sociais } = state;
+        const { nome, email, cpf, telefone, nome_artistico, associacao, lista_musicas, redes_sociais, termos, newsletter } = state;
         if (!nome) {
             notify("tc", "Preencha nome e e-mail para continuar", 3)
             setState({...state, error: "Preencha nome para continuar!" });
@@ -100,7 +100,9 @@ function Index (props) {
                   nome_artistico,
                   associacao,
                   lista_musicas,
-                  redes_sociais
+                  redes_sociais,
+                  termos,
+                  newsletter
               }).then(r => {
                 if (r.data.msg === 'ok'){
                   notify("tc", `Consulta realizada com sucesso`, 2)
