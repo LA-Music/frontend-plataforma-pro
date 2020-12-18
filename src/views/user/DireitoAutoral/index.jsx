@@ -6,12 +6,14 @@ import rocket from 'assets/img/rocket.svg'
 function Index() {
   return (
     <div className="content">
-      <Container>
-        <div style={{width: '500px'}}>
-          <Link to="/contato">Aguarde o lançamento</Link>
-          <h3 >Para maiores informações ou para contratar entre em contato. </h3>
+      <Container className="row">
+        <div className="col-12 col-xl-6 text-xl-left d-flex d-xl-inline flex-column justify-content-start align-xl-items-left px-3 px-lg-5">
+          <Link to="/contato">Fale com a gente</Link>
+          <h3 >Tem alguma dúvida sobre direito autoral ou treta para resolver? </h3>
         </div> 
-        <img src={rocket} alt="Rocket" />
+        <div className="col-12 col-xl-6">
+         <img src={rocket} alt="Rocket" />
+        </div>
       </Container>
     </div>
   );

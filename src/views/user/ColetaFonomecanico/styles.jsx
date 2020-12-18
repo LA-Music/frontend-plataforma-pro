@@ -8,7 +8,7 @@ export const Container = styled.div`
   background: #E9D6BB;
   
   padding: 3rem;
-  height: 80vh;
+  /* height: 80vh; */
 
   a {
     display: flex;
@@ -35,10 +35,15 @@ export const Container = styled.div`
 
   h3 {
     font-weight: bold;
-    font-size: 40px;
+    /* font-size: 4v; */
     line-height: 48px;
 
     color: #C27D6F;
   }
 
+  img {
+    max-width: 100%;
+    display: block;
+    margin: auto;
+  }
 `;

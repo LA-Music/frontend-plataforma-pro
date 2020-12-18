@@ -35,10 +35,15 @@ export const Container = styled.div`
 
   h3 {
     font-weight: bold;
-    font-size: 40px;
     line-height: 48px;
 
     color: #C27D6F;
+  }
+
+  img {
+    display: block;
+    margin: auto;
+    max-width: 80%;
   }
 
 `;

@@ -6,13 +6,16 @@ import { Container } from './styles';
 function Index() {
   return (
     <div className="content">
-      <Container>
-        <div style={{width: '500px'}}>
-          <Link to="/contato">Aguarde o lançamento</Link>
-          <h3>Taxa para administração autoral e liberação de créditos retidos negociável</h3>
-          <h3 style={{color:'#743036'}}>Para maiores informações ou para contratar entre em contato </h3>
+      <Container className="row p-3 p-xl-5">
+        <div className="col-12 col-xl-6 text-xl-left d-flex d-xl-inline flex-column justify-content-start align-xl-items-left px-3 px-lg-5">
+          <Link to="/contato">Fale com a gente</Link>
+          <h3>Trabalhamos com taxa de administração autoral de liberação de retidos negociável.</h3>
+          <h3 style={{color: '#743035'}}> Podemos administrar o seu catálogo.
+          </h3>
         </div>
-        <img src={rocket} alt="Rocket" />
+        <div className="col-12 col-xl-6">
+         <img src={rocket} alt="Rocket" />
+        </div>
       </Container>
     </div>
   );

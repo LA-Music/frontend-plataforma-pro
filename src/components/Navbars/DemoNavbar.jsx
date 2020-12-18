@@ -75,17 +75,7 @@ function Header (props) {
       }
     }
   },[st]) 
-    
-  useEffect((e) => {
-    if (
-      window.innerWidth < 993 &&
-      e.history.location.pathname !== e.location.pathname &&
-      document.documentElement.className.indexOf("nav-open") !== -1
-    ) {
-      document.documentElement.classList.toggle("nav-open");
-      sidebarToggle.current.classList.toggle("toggled");
-    }
-  },[])
+  
 
     const { color, isOpen, dropdownOpen } = st;
     const { pathname } = props.location;
