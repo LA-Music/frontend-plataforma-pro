@@ -6,7 +6,7 @@ export const Container = styled.div`
   justify-content: center;
 
   background: #E9D6BB;
-  
+  height: 80vh;
 
   a {
     display: flex;
