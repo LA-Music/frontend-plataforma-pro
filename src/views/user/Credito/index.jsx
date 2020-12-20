@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Consulta from './Consulta'
+import Consulta from '../Consulta'
 import Solicitacoes from './Solicitacoes'
 
 const  Index = () =>  {

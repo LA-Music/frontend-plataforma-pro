@@ -68,7 +68,7 @@ class Sidebar extends React.Component {
         </div>
         <div className="sidebar-wrapper" ref={this.sidebar} style={{overflowX:"hidden"}}>
           <Nav>
-            {this.props.routes.map((prop, key) => {
+            {this.props.routes.filter( route => !route.hiddeSideNav).map((prop, key) => {
               return (
                 <li
                   className={

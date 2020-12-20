@@ -42,26 +42,32 @@ function Perfis({ selectPerfil }) {
   useEffect(() => {
     credito_retido.find().then( async res => {
       if (res.data.length > 0 ) {
-        var arrPerfil = res.data.map(item=>{
-          return [item.nome,item]
+        var arrCpf = res.data.map(item=>{
+          return [item.cpf,item]
         }); 
 
-        var mapPerfil = new Map(arrPerfil); 
-        var perfil = [...mapPerfil.values()];
+        var mapCpf = new Map(arrCpf); 
+        var cpf = [...mapCpf.values()];
 
         let body = []
-        perfil.map( async process => 
+        cpf.map( async process => 
           body.push({
             name: process.nome, 
             email: process.email, 
             cpf: cpfMask(process.cpf), 
-            nameArtistico: process.nome_artistico, 
+            nameArtistico: process.pseudonimos.join(', '), 
             telefone: process.telefone ? phoneMask(process.telefone) : '-- ',
             associacao: process.associacao || '--',
             action: (
               <div className="d-flex justify-content-center">
-                <BtnEngage onClick={() => toggle(process)}>Contratar</BtnEngage>
-                <BtnEngage onClick={() => selectPerfil(process)}>Ver</BtnEngage>
+                <BtnEngage>
+                  <Button title="Contratar artista" onClick={() => toggle(process)}>
+                    <i class="fa fa-handshake-o fa-2x" aria-hidden="true"></i>
+                  </Button>
+                  <Button title="Detalhes artista" onClick={() => selectPerfil(process)}>
+                    <i class="fa fa-eye fa-2x" aria-hidden="true"></i>
+                  </Button>
+                </BtnEngage>
               </div>
             ),
           })

@@ -9,28 +9,28 @@ var routes = [
   {
     path: "/credito-retido",
     name: "Crédito Retido",
-    icon: "nc-icon nc-chart-bar-32",
+    icon: "fa fa-money",
     component: Credito,
     layout: "/"
   },
   {
     path: "/coleta-fenomecanico",
     name: "Fonomecânico",
-    icon: "nc-icon nc-chart-bar-32",
+    icon: "fa fa-bullhorn",
     component: ColetaFonomecanico,
     layout: "/"
   },
   {
     path: "/direito-autoral",
     name: "Consultoria",
-    icon: "nc-icon nc-chart-bar-32",
+    icon: "fa fa-graduation-cap",
     component: DireitoAutoral,
     layout: "/"
   },
   {
     path: "/taxa-administracao",
     name: "Administração autoral",
-    icon: "nc-icon nc-chart-bar-32",
+    icon: "fa fa-microphone",
     component: TaxaAdministracao,
     layout: "/"
   },
@@ -39,12 +39,13 @@ var routes = [
     name: "Perfil",
     icon: "nc-icon nc-chart-bar-32",
     component: Perfil,
-    layout: "/"
+    layout: "/",
+    hiddeSideNav: true
   },
   {
     path: "/contato",
     name: "Contato",
-    icon: "nc-icon nc-chart-bar-32",
+    icon: "fa fa-envelope-o",
     component: Contato,
     layout: "/"
   }

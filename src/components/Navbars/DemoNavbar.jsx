@@ -169,7 +169,7 @@ function Header (props) {
                   </p>
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem tag="a" href="/pro/perfil">Perfil</DropdownItem>
+                  <DropdownItem tag="a" href="/pro/perfil">Editar Perfil</DropdownItem>
                   {/* <DropdownItem tag="a">Another Action</DropdownItem>
                   <DropdownItem tag="a">Something else here</DropdownItem> */}
                 </DropdownMenu>

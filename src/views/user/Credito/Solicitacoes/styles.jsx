@@ -47,9 +47,11 @@ export const ButtonConsulta = styled.button`
   width: 184px;
   height: 40px;
 
-  color: #fff;
-  background: #0B0B0B;
+  color: black;
+  background: #C4C4C4;
+  
   border-radius: 31px;
+  border: none;
 
   &:hover {
     opacity: 0.9;

@@ -4,12 +4,15 @@ import { Button, FormGroup, Form, Input, Row, Col } from "reactstrap";
 import NotificationAlert from "react-notification-alert";
 import { notify as notifyComp } from 'components/Notify'
 import { perfil as apiPerfil } from 'services/endpoint'
-import { cpfMask } from 'components/Mask'
-import { Container } from './styles';
+import { phoneMask } from 'components/Mask'
 import { NAME_KEY } from 'services/auth'
+
+import { Container } from './styles';
+
 
 function Index() {
   let notificationAlert = useRef();
+
   const [ state, setState ] = useState(false)
   const [ loading, setLoading ] = useState(false)
 
@@ -48,48 +51,53 @@ function Index() {
   return (
     <div className="content">
       <Container>
-        {console.log(state)}
-      <Form onSubmit={debugSubmit}>
-      <NotificationAlert ref={notificationAlert} />
-        <h1>Perfil</h1>
-        <Row>
-          <Col>
-            <FormGroup>
-              <label>Nome da empresa</label>
-              <Input
-                required
-                placeholder="Nome da empresa"
-                type="text"
-                value={state.nome_empresa}
-                onChange={e => setState({...state, nome_empresa: e.target.value })}
-              />
-            </FormGroup>
-            <FormGroup>
-              <label>Nome do responsável</label>
-              <Input
-                required
-                placeholder="Nome do responsável"
-                type="text"
-                value={state.nome}
-                onChange={e => setState({...state, nome: e.target.value })}
-              />
-            </FormGroup>
-            <FormGroup>
-              <label>Cpf</label>
-              <Input
-                required
-                placeholder="000.000.000-00"
-                type="text"
-                value={state.cpf}
-                onChange={e => setState({...state, cpf: cpfMask(e.target.value) })}
-              />
-            </FormGroup>
-          </Col>
+        <Form onSubmit={debugSubmit}>
+          <NotificationAlert ref={notificationAlert} />
+          <h1>Editar dados do Perfil</h1>
+          <Row>
+            <Col>
+              <FormGroup>
+                <label>Editora</label>
+                <Input
+                  required
+                  placeholder="Editora"
+                  type="text"
+                  value={state.nome_empresa}
+                  onChange={e => setState({...state, nome_empresa: e.target.value })}
+                />
+              </FormGroup>
+              <FormGroup>
+                <label>Nome do responsável</label>
+                <Input
+                  required
+                  placeholder="Nome do responsável"
+                  type="text"
+                  value={state.nome}
+                  onChange={e => setState({...state, nome: e.target.value })}
+                />
+              </FormGroup>
+              <FormGroup>
+                <label>Telefone</label>
+                <Input
+                  required
+                  placeholder="(00) 00000-0000"
+                  type="text"
+                  value={state.telefone}
+                  onChange={e => setState({...state, telefone: phoneMask(e.target.value) })}
+                />
+              </FormGroup>
+            </Col>
           </Row>                        
-        <FormGroup className="mb-4">
-          <Button type="submit" disabled={loading} className="submit">Salvar {loading && <i class="fa fa-spinner fa-spin" /> }</Button>
-        </FormGroup>
-      </Form>
+          <FormGroup className="mb-4">
+            <Button type="submit" disabled={loading} className="submit"> 
+              {loading ? 
+                <> 
+                  Salvando <i class="fa fa-spinner fa-spin" /> 
+                </>: 'Salvar' 
+              }
+            </Button>
+          </FormGroup>
+        </Form>
       </Container>
     </div>
   );
