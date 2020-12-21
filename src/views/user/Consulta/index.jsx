@@ -27,7 +27,7 @@ function Index (props) {
           <ButtonConsulta onClick={() => props.handleView('solicitacao')}>Lista de Solicitações</ButtonConsulta>
         </div>
         <Container >
-          <Form onSubmit={e => handleSubmit(e, state, setMusicas, setSociais, setState, notificationAlert)}>
+          <Form onSubmit={e => handleSubmit(e, setNomeArtistico, state, nomeArtistico, musicas, sociais, association, setMusicas, setSociais, setState, notificationAlert)}>
             <NotificationAlert ref={notificationAlert} />
             <p>{state.error}</p>
             <h1>Dados do Artista</h1>    
@@ -64,8 +64,8 @@ function Index (props) {
                     <IconButton
                       aria-label="toggle password visibility"
                       edge="end"
-                      onClick={ () => {
-                        nomeArtistico && setState({...state, nome_artistico: [...state.nome_artistico, nomeArtistico]}) 
+                      onClick={ async () => {
+                        nomeArtistico && await setState({...state, nome_artistico: [...state.nome_artistico, nomeArtistico]}) 
                         nomeArtistico && setNomeArtistico(initial_nome_artistico)}}
                     >
                     <img src={AddCircle} alt="add" />
@@ -74,7 +74,8 @@ function Index (props) {
                 } 
               />
               <div className="w-100 d-flex row mx-auto">
-              {state.nome_artistico.map( (r, key) => (
+                
+              {state.nome_artistico.length > 0 && state.nome_artistico.map( (r, key) => (
                 <TagLabel className="my-3 mr-3" key={key}>
                   {r}<CloseTag onClick={e => removeArtista(r, state, setState)} title="Remover">x</CloseTag>
                 </TagLabel>

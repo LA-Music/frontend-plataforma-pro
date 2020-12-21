@@ -47,15 +47,56 @@ export function notify (place, message, color, notificationAlert) {
     notificationAlert.current.notificationAlert(notifyComp(place, message, color));
 }
 
-export async function handleSubmit (e, state, setMusicas, setSociais, setState, notificationAlert) {
+function checkArtista(state, nomeArtistico) {
+
+  let nome_artistico = state.nome_artistico
+
+  let filter =  state.nome_artistico.filter( name => name.indexOf(nomeArtistico) !== -1)
+
+      filter.length === 0 && nome_artistico.push(nomeArtistico)
+
+  return nome_artistico
+}
+
+function checkMusic(state, musicas) {
+
+  let lista_musicas = state.lista_musicas
+
+  let filter = state.lista_musicas.filter( name => name.indexOf(musicas) !== -1)
+
+      filter.length === 0 && lista_musicas.push(musicas)
+
+   return lista_musicas
+}
+
+function checkRedeSocial(state, sociais) {
+
+  let redes_sociais = state.redes_sociais
+
+  let filter = state.redes_sociais.filter( name => name.indexOf(sociais) !== -1)
+
+      filter.length === 0 && redes_sociais.push(sociais)
+
+   return redes_sociais
+}
+
+export async function handleSubmit (e, setNomeArtistico, state, nomeArtistico, musicas, sociais, association, setMusicas, setSociais, setState, notificationAlert) {
     e.preventDefault();
-   
-    setState({...state, loading: true})
+
+
+    await setState({
+      ...state,
+      loading: true,
+      nome_artistico: checkArtista(state, nomeArtistico),
+      lista_musicas: checkMusic(state, musicas),
+      redes_sociais: checkRedeSocial(state, sociais)
+    })
 
     if (!state.nome) {
         notify("tc", "Preencha nome e e-mail para continuar", 3, notificationAlert)
         setState({...state, error: "Preencha nome para continuar!", loading: false });
     } else {
+
       try {
           await api.post("/credito-retido", {
               ...state
