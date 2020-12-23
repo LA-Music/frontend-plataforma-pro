@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import DynamicTable from 'components/Table';
 import api from 'services/api'
 import { DadosCadastrais } from './modalBody';
+
+import { validToken } from 'utils'
+
 import { BtnEngage } from './styles';
 
 function Processo({perfil}) {
@@ -27,7 +30,10 @@ function Processo({perfil}) {
 
   useEffect(() => {
 
-    api.get("/processo").then( async res =>{
+    api.get("/processo").then( async res => {
+      await validToken(res)
+
+
       if (res.data.length > 0 ) {
 
         let body = []

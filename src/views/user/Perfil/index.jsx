@@ -5,6 +5,7 @@ import NotificationAlert from "react-notification-alert";
 import { notify as notifyComp } from 'components/Notify'
 import { perfil as apiPerfil } from 'services/endpoint'
 import { phoneMask } from 'components/Mask'
+import { validToken } from 'utils'
 import { NAME_KEY } from 'services/auth'
 
 import { Container } from './styles';
@@ -21,7 +22,9 @@ function Index() {
   }
 
   useEffect(() => {
-    apiPerfil.find().then( r => {
+    apiPerfil.find().then( async r => {
+      await validToken(r)
+
       r.data && setState({...state, ...r.data})
     })
   }, [])//eslint-disable-line
@@ -32,7 +35,9 @@ function Index() {
     setLoading(true)
 
     apiPerfil.update(state)
-      .then( res => {
+      .then( async res => {
+        await validToken(res)
+
         if (res.data) {
           if (res.data.message === 'ok') {
             notify("tc", "Dados alterados.", 2)

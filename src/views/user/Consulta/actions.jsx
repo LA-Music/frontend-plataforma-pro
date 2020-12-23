@@ -1,6 +1,8 @@
 import api from 'services/api'
 import { getEmail } from 'services/auth'
 
+import { validToken } from 'utils'
+
 import { notify as notifyComp } from 'components/Notify'
 
 export const initial_state = {
@@ -89,7 +91,9 @@ export async function handleSubmit (e, setNomeArtistico, state, nomeArtistico, m
       loading: true,
       nome_artistico: checkArtista(state, nomeArtistico),
       lista_musicas: checkMusic(state, musicas),
-      redes_sociais: checkRedeSocial(state, sociais)
+      redes_sociais: checkRedeSocial(state, sociais),
+      email: getEmail()
+
     })
 
     if (!state.nome) {
@@ -100,13 +104,15 @@ export async function handleSubmit (e, setNomeArtistico, state, nomeArtistico, m
       try {
           await api.post("/credito-retido", {
               ...state
-          }).then(r => {
+          }).then(async r => {
+            await validToken(r)
+
             if (r.data.msg === 'ok'){
               notify("tc", `Consulta realizada com sucesso`, 2, notificationAlert)
 
-              setState(initial_state);
-              setMusicas(initial_musica)
-              setSociais(initial_sociais)
+              await setState(initial_state);
+              await setMusicas(initial_musica)
+              await setSociais(initial_sociais)
             }})
           .catch((error) => {
             if(error.response && error.response.status === 400) {

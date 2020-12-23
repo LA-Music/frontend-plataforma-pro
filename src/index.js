@@ -21,9 +21,9 @@ const hist = createBrowserHistory()
 export const PrivateRoute = ({component: Component, ...rest}) => (
   <Route 
     {...rest}
-    render={props =>
+    render={ props =>
       
-      isAuthenticated() ? (
+     isAuthenticated() ? (
         <Component {...props} />
         ) : (
         <Redirect 

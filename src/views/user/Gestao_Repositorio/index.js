@@ -83,6 +83,7 @@ const Index = () => {
       ]
     }
   )
+  
   return(
     <div className="content">
       <Row>

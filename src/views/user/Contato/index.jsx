@@ -5,6 +5,8 @@ import { contato as apiContato } from 'services/endpoint'
 import { Container } from './styles';
 import { getEmail } from 'services/auth'
 
+import { validToken } from 'utils'
+
 function Index() {
   let notificationAlert = useRef();
   const [ state, setState ] = useState({ nome: '', email: getEmail(), assunto: '', mensagem: '', tipo: 0})
@@ -40,7 +42,9 @@ function Index() {
   const debugSubmit = async e => {
     e.preventDefault()
     apiContato.register(state)
-    .then( res =>  {
+    .then( async res =>  {
+      await validToken(res)
+
       if (res && res.data.message === 'ok') {
         notify("tc", "Enviado com Sucesso!", 2)
         setState({ nome: '', email: getEmail(), assunto: '', mensagem: '', tipo: 0})

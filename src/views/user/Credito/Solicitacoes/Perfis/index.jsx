@@ -4,6 +4,7 @@ import { contratar, credito_retido } from 'services/endpoint'
 import DynamicTable from 'components/Table';
 
 import { phoneMask, cpfMask } from 'components/Mask'
+import { validToken } from 'utils'
 import { BtnEngage } from './styles';
 
 function Perfis({ selectPerfil }) {
@@ -41,6 +42,8 @@ function Perfis({ selectPerfil }) {
 
   useEffect(() => {
     credito_retido.find().then( async res => {
+      await validToken(res)
+
       if (res.data.length > 0 ) {
         var arrCpf = res.data.map(item=>{
           return [item.cpf,item]

@@ -12,6 +12,7 @@ import {
     Col
   } from "reactstrap";
 import { PreLoad } from 'components/PreLoad'
+import { validToken } from 'utils'
 import { Link, Dcard, BtLogin, Label, TitleCard, InpText } from './styles'
 
 const Login = (props) => {
@@ -37,6 +38,7 @@ const Login = (props) => {
                 login(response.data.token, '', response.data.nome);
 
                 apiPerfil.find().then(async res => {
+                  await validToken(res)
                   login(response.data.token, res.data.email, response.data.nome);
                   props.history.push("/credito-retido");  
                   setLoad(false)
