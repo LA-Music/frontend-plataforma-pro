@@ -65,7 +65,8 @@ const INITIAL_STATE = {
       nome: '',
       email: '',
       id: '',
-      papel: ''
+      papel: '',
+      expired: false,
     }
 };
 
@@ -78,6 +79,7 @@ function form(state = INITIAL_STATE, action){
       return { ...state , info:{...state.info, ...action.payload}}
     }
     case 'SET_SETTINGS': {
+      console.log(action)
       return {...state, settings: {...state.settings, ...action.payload}}
     }
     default:

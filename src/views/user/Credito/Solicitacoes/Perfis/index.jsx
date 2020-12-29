@@ -42,7 +42,7 @@ function Perfis({ selectPerfil }) {
 
   useEffect(() => {
     credito_retido.find().then( async res => {
-      await validToken(res)
+     await validToken(res)
 
       if (res.data.length > 0 ) {
         var arrCpf = res.data.map(item=>{

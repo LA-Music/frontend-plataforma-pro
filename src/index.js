@@ -5,6 +5,8 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Provider } from 'react-redux';
 import store from 'store'
 
+import { Message } from 'utils'
+
 import 'bootstrap/dist/css/bootstrap.css'
 import 'assets/scss/paper-dashboard.scss?v=1.1.0'
 import 'assets/demo/demo.css'
@@ -47,6 +49,7 @@ ReactDOM.render(
         <Route path="*" component={() => <h1>404 - Página não encontrada =/</h1>} />
       </Switch>
     </BrowserRouter>
+    <Message />
   </Provider>,
   document.getElementById("root")
 );
