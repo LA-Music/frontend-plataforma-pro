@@ -7,7 +7,7 @@ export const PreLoader = styled.div`
 
 .bolas > div {
   display: inline-block;
-  background-color: #fff;
+  background-color: ${props => props.bg || '#fff'} ;
   width: 5px;
   height: 5px;
   border-radius: 100%;

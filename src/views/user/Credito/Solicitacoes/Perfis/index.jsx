@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { contratar, credito_retido } from 'services/endpoint'
 import DynamicTable from 'components/Table';
+import { Load } from 'components/PreLoad'
 
 import { phoneMask, cpfMask } from 'components/Mask'
 import { validToken } from 'utils'
@@ -82,7 +83,7 @@ function Perfis({ selectPerfil }) {
   }, []) //eslint-disable-line
 
   return (
-    Table.body.length > 0 && 
+    Table.body.length > 0 ? 
     <>
       <DynamicTable 
         selectPerfil={selectPerfil}
@@ -111,6 +112,8 @@ function Perfis({ selectPerfil }) {
           }
         </Modal>
       </>
+      :
+      <Load bg={'#000'}/>
   )
 }
 

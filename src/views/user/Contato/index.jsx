@@ -10,6 +10,7 @@ import { validToken } from 'utils'
 function Index() {
   let notificationAlert = useRef();
   const [ state, setState ] = useState({ nome: '', email: getEmail(), assunto: '', mensagem: '', tipo: 0})
+  const [ load, setLoad ] = useState(false)
 
   const notify = (place, message, color) => {
     var type;
@@ -41,6 +42,8 @@ function Index() {
 
   const debugSubmit = async e => {
     e.preventDefault()
+    await setLoad(true)
+
     apiContato.register(state)
     .then( async res =>  {
       await validToken(res)
@@ -49,13 +52,17 @@ function Index() {
         notify("tc", "Enviado com Sucesso!", 2)
         setState({ nome: '', email: getEmail(), assunto: '', mensagem: '', tipo: 0})
       } else { notify("tc", "Contato Feito recentemente.", 3) }
+      setLoad(false)
     })
-    .catch(error => notify("tc", "Houve um erro, tente novamente.", 3))
+    .catch(error => {
+      notify("tc", "Houve um erro, tente novamente.", 3)
+      setLoad(false)
+    })
   }    
 
   return (
     <div className="content">
-    <Container >
+    <Container className="p-3 p-lg-5" >
       <Form onSubmit={debugSubmit}>
       <NotificationAlert ref={notificationAlert} />
         <h1>Entre em contato</h1>
@@ -102,7 +109,12 @@ function Index() {
           </Col>
         </Row> 
         <FormGroup className="mb-4">
-          <Button type="submit" className="submit">Enviar</Button>
+          <Button type="submit" className="submit">
+            {load ? 
+                  <> 
+                    Enviando <i class="fa fa-spinner fa-spin" /> 
+                  </> : 'Enviar'
+                }</Button>
         </FormGroup>
       </Form>
     </Container>

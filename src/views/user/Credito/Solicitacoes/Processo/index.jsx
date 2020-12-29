@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DynamicTable from 'components/Table';
 import api from 'services/api'
 import { DadosCadastrais } from './modalBody';
+import { Load } from 'components/PreLoad'
 
 import { validToken } from 'utils'
 
@@ -58,6 +59,7 @@ function Processo({perfil}) {
   }, []) //eslint-disable-line
 
   return (
+    Table.body.length > 0 ?
     <>
       <DynamicTable 
         viewModal={handleToggle} 
@@ -67,6 +69,8 @@ function Processo({perfil}) {
 
         <DadosCadastrais show={toggle} data={selectRow} toggle={e => handleToggle(!toggle)} />
     </>
+    : <Load bg={'#000'} />
+
   );
 }
 

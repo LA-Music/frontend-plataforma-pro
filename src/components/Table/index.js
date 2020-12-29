@@ -35,6 +35,7 @@ const DynamicTable = ({header, body, limitItems, moreItems, viewModal, selectPer
           </tr>
         </thead>
         <tbody>
+          
           {createRow()}
         </tbody>
       </Table>
