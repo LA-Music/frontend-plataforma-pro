@@ -1,5 +1,6 @@
 import React, { useState } from 'react' 
 import { register as apiRegister } from 'services/endpoint'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import 'assets/css/Login.css'
 import {
     CardHeader,
@@ -26,6 +27,10 @@ const Register = (props) => {
       const { name, value } = e.target
       name === 'telefone' && setState({...state, [name]: phoneMask(value) })
       name === 'cpf' && setState({...state, [name]: cpfMask(value) })
+    }
+
+    async function confirm() {
+      setState({...state, error: ''})
     }
     
     async function handleRegister (e) {
@@ -72,7 +77,7 @@ const Register = (props) => {
           </CardHeader>
           <CardBody>
             <Form autoComplete="off" onSubmit={handleRegister}>
-              {state.error && <p>{state.error}</p>}
+              
               {Register.inputs.map((input, index) => 
                 <Row key={index}>
                   <Col>
@@ -102,6 +107,15 @@ const Register = (props) => {
               </Row>
             </Form>
           </CardBody>
+          <Modal isOpen={state.error} >
+              <ModalHeader>Atenção!</ModalHeader>
+              <ModalBody>
+              {state.error}
+              </ModalBody>
+              <ModalFooter>
+                  <Button color="primary" onClick={confirm} >Ok</Button>{' '}
+              </ModalFooter>
+            </Modal>
         </Dcard>
   );
 }

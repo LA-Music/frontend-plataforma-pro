@@ -1,7 +1,7 @@
 import React from "react";
 import '../../assets/css/Login.css'
 import {
-    Container,
+    // Container,
     Row,
     Col
   } from "reactstrap";
@@ -10,7 +10,11 @@ import Login from './login'
 import Register from './register'
 import Recover from './recover'
 
+import logoLa from 'assets/img/logo-lamusic.svg'
+
 import {isAuthenticated} from 'services/auth'
+
+import { Header, Container } from './styles'
 
 function Index (props) {
   
@@ -20,8 +24,12 @@ function Index (props) {
   const { type } = useSelector(state => state.data);
 
   return (
-      <Container style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-        <Row className="w-100">
+    <>
+      <Container >
+        <Header>
+          <a href="https://lamusic.com.br" without rel="noopener noreferrer"  target="_blank"><img src={logoLa} alt="LA Music" /></a>
+        </Header>
+        <Row className="w-100" style={{height: '100%', display: 'flex', flexDirection:'column', justifyContent: 'center', alignItems: 'center'}}>
           <Col className="px-0 d-flex justify-content-center flex-column align-items-center">
 
             {type === 'Login' && (
@@ -36,6 +44,7 @@ function Index (props) {
           </Col>
         </Row>
       </Container>
+    </>
   );
 }
 

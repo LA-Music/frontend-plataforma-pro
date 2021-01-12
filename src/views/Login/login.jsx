@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch} from 'react-redux'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Login as apiLogin, perfil as apiPerfil } from 'services/endpoint'
 import { login } from 'services/auth'
 import 'assets/css/Login.css'
@@ -21,6 +22,10 @@ const Login = (props) => {
 
     const dispatch = useDispatch()
     const [ state, setState ] = useState({ email: '', senha: '', error: '' }) 
+
+    async function confirm() {
+      setState({...state, error: ''})
+    }
    
     async function handleSignIn (e) {
         e.preventDefault();
@@ -66,7 +71,6 @@ const Login = (props) => {
             </CardHeader>
             <CardBody>
               <Form autoComplete="off" onSubmit={handleSignIn}>
-                {state.error && <p>{state.error}</p>}
                 {Login.inputs.map((e, index) => 
                   <Row key={index}>
                     <Col className="px-0 px-md-3">
@@ -97,6 +101,15 @@ const Login = (props) => {
                 </Row>
               </Form>
             </CardBody>
+            <Modal isOpen={state.error} >
+              <ModalHeader>Atenção!</ModalHeader>
+              <ModalBody>
+              {state.error}
+              </ModalBody>
+              <ModalFooter>
+                  <Button color="primary" onClick={confirm} >Ok</Button>{' '}
+              </ModalFooter>
+            </Modal>
           </Dcard>
         )
   );

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { reset_password } from 'services/endpoint'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import 'assets/css/Login.css'
 import {
     CardHeader,
@@ -19,6 +20,10 @@ const Recover = (props) => {
     const [ state, setState ] = useState({ email: '', senha: '', error: '',  }) 
 
     const [ loading, setLoading ] = useState(false)
+
+    async function confirm() {
+      setState({...state, error: ''})
+    }
 
     async function handleRecover (e) {
         e.preventDefault();
@@ -56,7 +61,6 @@ const Recover = (props) => {
             </CardHeader>
             <CardBody>
               <Form autoComplete="off" onSubmit={handleRecover}>
-                {state.error && <p>{state.error}</p>}
                 {Recover.inputs.map((e,index) => 
                     <Row key={index}>
                       <Col>
@@ -84,6 +88,15 @@ const Recover = (props) => {
                 </Row>
               </Form>
             </CardBody>
+            <Modal isOpen={state.error} >
+              <ModalHeader>Atenção!</ModalHeader>
+              <ModalBody>
+              {state.error}
+              </ModalBody>
+              <ModalFooter>
+                  <Button color="primary" onClick={confirm} >Ok</Button>{' '}
+              </ModalFooter>
+            </Modal>
           </Dcard>         
   );
 }

@@ -1,6 +1,20 @@
 import styled from 'styled-components'
 import { Card, Button, CardTitle, Input } from 'reactstrap';
 
+export const Container = styled.div`
+  margin: 0;
+  height: 90%;
+`;
+
+export const Header = styled.div`
+  padding: 1rem;
+  height: 10%;
+
+  img {
+    width: 10%;
+  }
+`;
+
 export const Dcard = styled(Card)`
   border-radius: 0px;
   width: 587px;
