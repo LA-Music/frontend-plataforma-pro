@@ -29,7 +29,7 @@ function Index (props) {
         <Header>
           <a href="https://lamusic.com.br" without rel="noopener noreferrer"  target="_blank"><img src={logoLa} alt="LA Music" /></a>
         </Header>
-        <Row className="w-100" style={{height: '100%', display: 'flex', flexDirection:'column', justifyContent: 'center', alignItems: 'center'}}>
+        <Row className="mx-auto" style={{display: 'flex', flexDirection:'column', justifyContent: 'center', alignItems: 'center'}}>
           <Col className="px-0 d-flex justify-content-center flex-column align-items-center">
 
             {type === 'Login' && (

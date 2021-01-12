@@ -8,16 +8,18 @@ export const Container = styled.div`
 
 export const Header = styled.div`
   padding: 1rem;
-  height: 10%;
+  height: 15%;
 
   img {
-    width: 10%;
+    width: 200px;
+    max-width: 80%;
   }
 `;
 
 export const Dcard = styled(Card)`
   border-radius: 0px;
-  width: 587px;
+  width: 90%;
+  max-width: 520px;
   padding: 1rem;
 `;
 
