@@ -82,7 +82,7 @@ function checkRedeSocial(state, sociais) {
    return redes_sociais
 }
 
-export async function handleSubmit (e, setNomeArtistico, state, nomeArtistico, musicas, sociais, association, setMusicas, setSociais, setState, notificationAlert) {
+export async function handleSubmit (e, setNomeArtistico, state, nomeArtistico, musicas, sociais, association, setMusicas, setSociais, setState, notificationAlert, setModalSucess) {
     e.preventDefault();
 
 
@@ -108,11 +108,9 @@ export async function handleSubmit (e, setNomeArtistico, state, nomeArtistico, m
             await validToken(r)
 
             if (r.data.msg === 'ok'){
-              notify("tc", `Consulta realizada com sucesso`, 2, notificationAlert)
 
-              await setState(initial_state);
-              await setMusicas(initial_musica)
-              await setSociais(initial_sociais)
+              await setModalSucess(true)
+
             }})
           .catch((error) => {
             if(error.response && error.response.status === 400) {

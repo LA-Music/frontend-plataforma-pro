@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { FormControlLabel, FilledInput } from '@material-ui/core'
+import { Button } from 'reactstrap'
 
 export const Container = styled.div`
   background: #262626;
@@ -124,5 +125,23 @@ export const SpanCheck = styled.span`
   a{
     color: #fff;
     text-decoration: underline;
+  }
+`;
+
+export const ButtonGreen = styled(Button)`
+  display: block;
+  width: 100%;
+  
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: #0FBB00;
+  
+  color: #ffffff;
+  text-transform: capitalize;
+  font-weight: 600;
+
+  &:hover{
+    background-color: #0FBB00 !important;
+    opacity: 0.8;
   }
 `;

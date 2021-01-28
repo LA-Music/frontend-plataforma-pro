@@ -1,6 +1,6 @@
 import React, { useState, useRef  } from "react";
 import NotificationAlert from "react-notification-alert";
-import { Button, FormText, Label ,FormGroup, Form, Input } from "reactstrap";
+import { Button, FormText, Label ,FormGroup, Form, Input,  Modal, ModalHeader, ModalBody, ModalFooter  } from "reactstrap";
 import { Checkbox, Radio, InputAdornment, IconButton, FormControl, RadioGroup } from '@material-ui/core'
 
 import { cpfMask } from 'components/Mask'
@@ -9,7 +9,7 @@ import AddCircle from 'assets/img/addCircle.svg'
 
 import { removeMusic, removeSociais, removeArtista, handleSubmit, initial_state, initial_musica, initial_sociais, initial_nome_artistico, enableSubmit } from './actions'
 
-import { Container, RadioInput, InputButtom, TagLabel, CloseTag, ButtonConsulta, SpanCheck } from './styles'
+import { Container, RadioInput, InputButtom, TagLabel, CloseTag, ButtonConsulta, SpanCheck, ButtonGreen } from './styles'
 
 function Index (props) {
     let notificationAlert = useRef();
@@ -19,7 +19,16 @@ function Index (props) {
     const [ nomeArtistico, setNomeArtistico ] = useState(initial_nome_artistico)
     const [ musicas, setMusicas ] = useState(initial_musica)
     const [ sociais, setSociais ] = useState(initial_sociais)
+    const [ modalSuccess, setModalSucess] = useState(false)
     const [ association ] = useState(['ABRAMUS', 'UBC', 'SOCIMPRO', 'SICAM', 'AMAR', 'ASSIM', 'SBACEM', 'Não tenho certeza', 'Ainda não sou filiado'])
+
+    const clearForm = async () => {
+
+      await setState(initial_state);
+      await setMusicas(initial_musica)
+      await setSociais(initial_sociais)
+      await setModalSucess(false)
+    }
       
     return (
       <div className="content">
@@ -27,7 +36,7 @@ function Index (props) {
           <ButtonConsulta onClick={() => props.handleView('solicitacao')}>Lista de Solicitações</ButtonConsulta>
         </div>
         <Container >
-          <Form onSubmit={e => handleSubmit(e, setNomeArtistico, state, nomeArtistico, musicas, sociais, association, setMusicas, setSociais, setState, notificationAlert)}>
+          <Form onSubmit={e => handleSubmit(e, setNomeArtistico, state, nomeArtistico, musicas, sociais, association, setMusicas, setSociais, setState, notificationAlert, setModalSucess)}>
             <NotificationAlert ref={notificationAlert} />
             <p>{state.error}</p>
             <h1>Dados do Artista</h1>    
@@ -185,6 +194,19 @@ function Index (props) {
               </Button>
             </FormGroup>
             </Form>
+
+            <Modal isOpen={modalSuccess} >
+              <ModalHeader>Consulta realizado com sucesso!</ModalHeader>
+              <ModalBody>
+                <p>Consulta de créditos retidos junto ao ECAD em processamento.</p>
+                <p>Estamos realizando levantamento junto às Associações sobre a existência de Créditos de Direito Autoral (composições) e Conexos (interpretação) 
+                  vinculados ao nome/CPF do artista <b>{state.nome_artistico.length > 0 && state.nome_artistico.join(', ')}</b>.</p>
+                <p>Em até 2 (dois) dias úteis, você receberá um e-mail com o resultado desta pesquisa e com a situação das músicas que detalhou na sua consulta.</p>
+              </ModalBody>
+              <ModalFooter>
+                  <ButtonGreen color="primary" onClick={clearForm} >Fechar</ButtonGreen>{' '}
+              </ModalFooter>
+            </Modal>
           </Container>
       </div>
   )
