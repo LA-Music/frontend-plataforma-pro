@@ -41,14 +41,17 @@ export const InpText = styled(Input)`
 `;
 
 export const BtLogin = styled(Button)`
+  display: block;
   width: 100%;
+  
   padding-top: 1rem;
   padding-bottom: 1rem;
-  display: block;
   background-color: #0FBB00;
+  
   color: #ffffff;
   text-transform: capitalize;
   font-weight: 600;
+
   &:hover{
     background-color: #0FBB00 !important;
     opacity: 0.8;

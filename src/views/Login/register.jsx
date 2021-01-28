@@ -20,7 +20,7 @@ const Register = (props) => {
     const dispatch = useDispatch();
     
     const [ state, setState ] = useState({ email: '', telefone: '', nome: '', nome_empresa: '', senha: '', error: '', papel: 'pro'}) 
-
+    const [ modalSuccess, setModalSucess] = useState(false);
     const [ loading, setLoading ] = useState(false)
 
     function handleChange (e) {
@@ -50,9 +50,8 @@ const Register = (props) => {
               await apiRegister({ ...state })
               .then(r => {
                 if (r.statusText.toLowerCase() === 'ok') {
-                  window.location.hash = ''
+                  setModalSucess(true)
                   setLoading(false)
-                  dispatch({type: 'TYPE_FORM', payload: 'Login'})
                 }
               })
               .catch(function(err){
@@ -108,14 +107,26 @@ const Register = (props) => {
             </Form>
           </CardBody>
           <Modal isOpen={state.error} >
-              <ModalHeader>Atenção!</ModalHeader>
-              <ModalBody>
-              {state.error}
-              </ModalBody>
-              <ModalFooter>
-                  <Button color="primary" onClick={confirm} >Ok</Button>{' '}
-              </ModalFooter>
-            </Modal>
+            <ModalHeader>Atenção!</ModalHeader>
+            <ModalBody>
+            {state.error}
+            </ModalBody>
+            <ModalFooter>
+                <Button color="primary" onClick={confirm} >Ok</Button>{' '}
+            </ModalFooter>
+          </Modal>
+
+          <Modal isOpen={modalSuccess} >
+            <ModalHeader>Cadastro realizado com sucesso!</ModalHeader>
+            <ModalBody>
+              <p>Salve, <b>{state.nome}</b>!</p>
+              <p>Você acaba de cadastrar a Editora <b>{state.nome_empresa}</b> na plataforma da LA Music - Administradora de Direitos Autorais.</p>
+              <p>Você receberá um e-mail para ativação de sua conta e após a validação poderá acessar todos os serviços disponíveis para o Plano LA PRO.</p>
+            </ModalBody>
+            <ModalFooter>
+                <BtLogin color="primary" onClick={() => window.location.href = "https://lamusic.com.br"} >Site LA Music</BtLogin>{' '}
+            </ModalFooter>
+          </Modal>
         </Dcard>
   );
 }
