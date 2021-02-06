@@ -4,7 +4,7 @@ import api from 'services/api'
 import { DadosCadastrais } from './modalBody';
 import { Load } from 'components/PreLoad'
 
-import { validToken } from 'utils'
+import { validToken, ErrorSystem } from 'utils'
 
 import { BtnEngage } from './styles';
 
@@ -32,6 +32,13 @@ function Processo({perfil}) {
   useEffect(() => {
 
     api.get("/processo").then( async res => {
+
+      if(!res) {
+        ErrorSystem()
+       
+        return false
+      }
+
       await validToken(res)
 
 

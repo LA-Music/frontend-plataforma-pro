@@ -11,9 +11,11 @@ import {
     Col
   } from "reactstrap";
 import { useDispatch, useSelector } from 'react-redux';
+import { ErrorSystem } from 'utils'
 import { Link, Dcard, BtLogin, Label, TitleCard, InpText } from './styles'
 
 const Recover = (props) => {
+
     const { Recover } = useSelector(r => r)
     const dispatch = useDispatch();
 
@@ -28,6 +30,7 @@ const Recover = (props) => {
     async function handleRecover (e) {
         e.preventDefault();
         await setLoading(true)
+
         const { email } = state;
 
         if (!email) {
@@ -38,6 +41,13 @@ const Recover = (props) => {
         } else {
           try {
               await reset_password({ email}).then(async r => {
+                
+                if(!r) {
+                  ErrorSystem()
+                 
+                  return false
+                }
+
                 if(r.status === 200 ){
                   window.alert(r.data.message)
                   await setLoading(false)

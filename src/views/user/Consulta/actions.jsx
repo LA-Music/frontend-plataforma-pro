@@ -1,7 +1,7 @@
 import api from 'services/api'
 import { getEmail } from 'services/auth'
 
-import { validToken } from 'utils'
+import { validToken, ErrorSystem } from 'utils'
 
 import { notify as notifyComp } from 'components/Notify'
 
@@ -104,14 +104,22 @@ export async function handleSubmit (e, setNomeArtistico, state, nomeArtistico, m
       try {
           await api.post("/credito-retido", {
               ...state
-          }).then(async r => {
+          })
+          .then(async r => {
+
+            if(!r) {
+              ErrorSystem()
+             
+              return false
+            }
+
             await validToken(r)
 
             if (r.data.msg === 'ok'){
 
               await setModalSucess(true)
 
-            }})
+          }})
           .catch((error) => {
             if(error.response && error.response.status === 400) {
               notify("tc", error.response.data.creditomessage || error, 3, notificationAlert)

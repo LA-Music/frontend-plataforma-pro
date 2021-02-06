@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
+
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { contratar, credito_retido } from 'services/endpoint'
+
 import DynamicTable from 'components/Table';
 import { Load } from 'components/PreLoad'
-
 import { phoneMask, cpfMask } from 'components/Mask'
-import { validToken } from 'utils'
+
+import { validToken, ErrorSystem } from 'utils'
 import { BtnEngage } from './styles';
 
 function Perfis({ selectPerfil }) {
+
   const [ modal, setModal ] = useState(false);
   const [ dataPerfil, setDataPerfil ] = useState(false)
   
@@ -31,9 +34,20 @@ function Perfis({ selectPerfil }) {
   })
 
   const engaged = async () => {
-    contratar.register({nome: dataPerfil.nome, cpf: dataPerfil.cpf}).then( async res => {
+    contratar.register({
+      nome: dataPerfil.nome, 
+      cpf: dataPerfil.cpf 
+    })
+    .then( async res => {  
+      if(!res) {
+        ErrorSystem()
+       
+        return false
+      }
+
       if (res.statusText === 'OK') {
         await setConfirmed(true)
+
         setTimeout(() => {
           toggle()
         }, 5000);
@@ -42,8 +56,16 @@ function Perfis({ selectPerfil }) {
   }
 
   useEffect(() => {
+   
     credito_retido.find().then( async res => {
-     await validToken(res)
+      
+      if(!res) {
+        ErrorSystem()
+       
+        return false
+      }
+
+      await validToken(res)
 
       if (res.data.length > 0 ) {
         var arrCpf = res.data.map(item=>{
@@ -66,10 +88,10 @@ function Perfis({ selectPerfil }) {
               <div className="d-flex justify-content-center">
                 <BtnEngage>
                   <Button title="Contratar artista" onClick={() => toggle(process)}>
-                    <i class="fa fa-handshake-o fa-2x" aria-hidden="true"></i>
+                  Liberar Retido
                   </Button>
                   <Button title="Detalhes artista" onClick={() => selectPerfil(process)}>
-                    <i class="fa fa-eye fa-2x" aria-hidden="true"></i>
+                    Detalhes
                   </Button>
                 </BtnEngage>
               </div>
@@ -79,7 +101,6 @@ function Perfis({ selectPerfil }) {
         await setTable({...Table, body: body })
       }
     })
-
   }, []) //eslint-disable-line
 
   return (
@@ -99,7 +120,7 @@ function Perfis({ selectPerfil }) {
           }
           <ModalBody>
             {!confirmed ? (
-              <p>Tem certeza que deseja contratar {dataPerfil && dataPerfil.nome} ?</p>
+              <p>Deseja que a LA Music faça a liberação de créditos retidos junto ao Ecad em nome do (a) {dataPerfil && dataPerfil.nome} ?</p>
             ) : (
               <p>Sua solicitação foi encaminhada, logo entraremos em contato.</p>
             )}

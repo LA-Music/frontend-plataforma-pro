@@ -5,7 +5,7 @@ import NotificationAlert from "react-notification-alert";
 import { notify as notifyComp } from 'components/Notify'
 import { perfil as apiPerfil } from 'services/endpoint'
 import { phoneMask } from 'components/Mask'
-import { validToken } from 'utils'
+import { validToken, ErrorSystem } from 'utils'
 import { NAME_KEY } from 'services/auth'
 
 import { Container } from './styles';
@@ -23,6 +23,11 @@ function Index() {
 
   useEffect(() => {
     apiPerfil.find().then( async r => {
+      if(!r) {
+        ErrorSystem()
+       
+        return false
+      }
       await validToken(r)
 
       r.data && setState({...state, ...r.data})
@@ -36,6 +41,12 @@ function Index() {
 
     apiPerfil.update(state)
       .then( async res => {
+        if(!res) {
+          ErrorSystem()
+         
+          return false
+        }
+        
         await validToken(res)
 
         if (res.data) {

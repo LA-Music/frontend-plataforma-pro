@@ -5,7 +5,7 @@ import { contato as apiContato } from 'services/endpoint'
 import { Container } from './styles';
 import { getEmail } from 'services/auth'
 
-import { validToken } from 'utils'
+import { validToken, ErrorSystem } from 'utils'
 
 function Index() {
   let notificationAlert = useRef();
@@ -46,6 +46,12 @@ function Index() {
 
     apiContato.register(state)
     .then( async res =>  {
+      if(!res) {
+        ErrorSystem()
+       
+        return false
+      }
+
       await validToken(res)
 
       if (res && res.data.message === 'ok') {

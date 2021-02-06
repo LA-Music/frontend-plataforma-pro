@@ -12,11 +12,13 @@ import {
     Row,
     Col
   } from "reactstrap";
+
 import { PreLoad } from 'components/PreLoad'
 import { validToken } from 'utils'
 import { Link, Dcard, BtLogin, Label, TitleCard, InpText } from './styles'
 
 const Login = (props) => {
+
     const { Login } = useSelector(s => s)
     const [ load, setLoad ] = useState(false)
 
@@ -38,6 +40,8 @@ const Login = (props) => {
           try {
               setLoad(true)
               const response = await apiLogin({ email, senha });
+
+              
               
               if (response.data.papel === 'pro'){
                 login(response.data.token, '', response.data.nome);

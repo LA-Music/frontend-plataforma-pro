@@ -12,6 +12,9 @@ import {
   } from "reactstrap";
 import { useDispatch, useSelector } from 'react-redux';
 import { phoneMask, cpfMask } from 'components/Mask';
+
+import { ErrorSystem } from 'utils'
+
 import { Link, Dcard, BtLogin, Label, TitleCard, InpText } from './styles'
 
 const Register = (props) => {
@@ -49,6 +52,13 @@ const Register = (props) => {
           try {
               await apiRegister({ ...state })
               .then(r => {
+                
+                if(!r) {
+                  ErrorSystem()
+                 
+                  return false
+                }
+
                 if (r.statusText.toLowerCase() === 'ok') {
                   setModalSucess(true)
                   setLoading(false)

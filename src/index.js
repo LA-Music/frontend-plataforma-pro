@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Provider } from 'react-redux';
 import store from 'store'
 
-import { Message } from 'utils'
+import { Message, MessageGeral } from 'utils'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'assets/scss/paper-dashboard.scss?v=1.1.0'
@@ -19,8 +19,9 @@ import Reset from 'views/Login/NewPassword'
 import UserLayout from 'layouts/Pro.jsx'
 
 const hist = createBrowserHistory()
-
+// const { settings } = useSelector(state => state)
 export const PrivateRoute = ({component: Component, ...rest}) => (
+
   <Route 
     {...rest}
     render={ props =>
@@ -36,7 +37,7 @@ export const PrivateRoute = ({component: Component, ...rest}) => (
         />
       )
     }
-      />
+  />
 )
 
 ReactDOM.render(
@@ -50,6 +51,7 @@ ReactDOM.render(
       </Switch>
     </BrowserRouter>
     <Message />
+    <MessageGeral />
   </Provider>,
   document.getElementById("root")
 );

@@ -40,3 +40,35 @@ export const Message = () => {
         </Modal>
     )
 }
+
+
+export const ErrorSystem = async ()  => {
+    
+    await store.dispatch({type: 'SET_SETTINGS', payload: { message: {
+        title: 'Desculpe!',
+        description: 'Estamos normalizando nossos serviços, tente novamente em alguns instantes',
+        active: true
+      }}})
+}
+
+export const MessageGeral = () => {
+
+    const dispatch = useDispatch()
+    const { settings } = useSelector(state => state)
+
+    async function confirm() {
+       await dispatch({type: 'SET_SETTINGS', payload: { message: {active: false}}})
+    }
+
+    return (
+        <Modal isOpen={settings.message.active} >
+            <ModalHeader>{settings.message.title}</ModalHeader>
+            <ModalBody>
+                {settings.message.description}
+            </ModalBody>
+            <ModalFooter>
+                <Button color="primary" onClick={confirm} >Ok</Button>{' '}
+            </ModalFooter>
+        </Modal>
+    )
+}

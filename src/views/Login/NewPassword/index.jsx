@@ -11,6 +11,7 @@ import {
 } from "reactstrap"
 import 'assets/css/Login.css'
 import { reset_token } from 'services/endpoint'
+import { ErrorSystem } from 'utils'
 import { Dcard, BtLogin, Label, TitleCard, InpText } from './styles'
 
 const Index = (props) => {
@@ -30,6 +31,7 @@ const Index = (props) => {
 
   async function handleSignIn (e) {
       e.preventDefault();
+
       const { confirm_password, password, token } = state;
       
       if (confirm_password  !== password) {
@@ -39,6 +41,12 @@ const Index = (props) => {
       } else {
         try {
             const response = await reset_token({senha: password, token});
+
+            if(!response) {
+              ErrorSystem()
+             
+              return false
+            }
             
             if(response.status === 200) {
               window.alert(response.data.message)
