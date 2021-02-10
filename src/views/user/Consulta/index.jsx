@@ -196,7 +196,7 @@ function Index (props) {
             </Form>
 
             <Modal isOpen={modalSuccess} >
-              <ModalHeader>Consulta realizado com sucesso!</ModalHeader>
+              <ModalHeader>Solicitação realizada com sucesso!</ModalHeader>
               <ModalBody>
                 <p>Consulta de créditos retidos junto ao ECAD em processamento.</p>
                 <p>Estamos realizando levantamento junto às Associações sobre a existência de Créditos de Direito Autoral (composições) e Conexos (interpretação) 
