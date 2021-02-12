@@ -73,8 +73,7 @@ export const contato = {
     try {
       return await api.post(CONTATO, {...payload})
     } catch (error) {
-      console.error(error)
-      return error
+      return error.response
     }
   }
 }

@@ -53,15 +53,17 @@ function Index() {
       }
 
       await validToken(res)
-
+      
       if (res && res.data.message === 'ok') {
         notify("tc", "Enviado com Sucesso!", 2)
         setState({ nome: '', email: getEmail(), assunto: '', mensagem: '', tipo: 0})
-      } else { notify("tc", "Contato Feito recentemente.", 3) }
+      } else {
+        notify("tc", res.data.message, 3) 
+      }
       setLoad(false)
     })
-    .catch(error => {
-      notify("tc", "Houve um erro, tente novamente.", 3)
+    .catch(function(error) {
+      notify("tc", error.data.message, 3)
       setLoad(false)
     })
   }    
