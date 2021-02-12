@@ -1,10 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Nav } from "reactstrap";
+import { connect } from 'react-redux'
+
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 import { logout } from "../../services/auth"
-import { getName } from "../../services/auth"
 import logo from "../../assets/img/logo.png";
 
 var ps;
@@ -22,6 +23,7 @@ class Sidebar extends React.Component {
   }
 
   componentDidMount() {
+    
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(this.sidebar.current, {
         suppressScrollX: true,
@@ -44,6 +46,7 @@ class Sidebar extends React.Component {
   }
 
   render() {
+    
     return (
       <div
         className="sidebar"
@@ -63,7 +66,7 @@ class Sidebar extends React.Component {
             href="/pro/credito-retido"
             className="simple-text logo-normal"
           >
-            {getName()}
+            {this.props.nome_empresa}
           </a>
         </div>
         <div className="sidebar-wrapper" ref={this.sidebar} style={{overflowX:"hidden"}}>
@@ -103,4 +106,8 @@ class Sidebar extends React.Component {
   }
 }
 
-export default Sidebar;
+const mapDispatchToProps = ({settings}) => (
+  settings
+ );
+
+export default connect(mapDispatchToProps)(Sidebar);

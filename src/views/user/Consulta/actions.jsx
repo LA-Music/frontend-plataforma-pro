@@ -1,13 +1,11 @@
 import api from 'services/api'
-import { getEmail } from 'services/auth'
-
 import { validToken, ErrorSystem } from 'utils'
 
 import { notify as notifyComp } from 'components/Notify'
 
 export const initial_state = {
     nome: "",
-    email: getEmail(),
+    email: "",
     cpf:"",
     telefone:"",
     nome_artistico:[],
@@ -84,16 +82,13 @@ function checkRedeSocial(state, sociais) {
 
 export async function handleSubmit (e, setNomeArtistico, state, nomeArtistico, musicas, sociais, association, setMusicas, setSociais, setState, notificationAlert, setModalSucess) {
     e.preventDefault();
-
-
+    
     await setState({
       ...state,
       loading: true,
       nome_artistico: checkArtista(state, nomeArtistico),
       lista_musicas: checkMusic(state, musicas),
       redes_sociais: checkRedeSocial(state, sociais),
-      email: getEmail()
-
     })
 
     if (!state.nome) {

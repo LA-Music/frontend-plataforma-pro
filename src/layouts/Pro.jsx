@@ -1,9 +1,12 @@
 import React from "react";
 import PerfectScrollbar from "perfect-scrollbar";
 import { Route, Switch, Redirect } from "react-router-dom";
+import { connect } from 'react-redux';
 import DemoNavbar from "components/Navbars/DemoNavbar.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 import { isAuthenticated } from "../services/auth";
+import { validToken, ErrorSystem } from 'utils'
+import { perfil as apiPerfil } from 'services/endpoint'
 
 import routes from "routes";
 
@@ -18,43 +21,55 @@ class DashboardUser extends React.Component {
     };
     this.mainPanel = React.createRef();
   }
+
   componentDidMount() {
+
+    apiPerfil.find().then( async r => {
+     
+      if(!r) {
+        ErrorSystem()
+       
+        return false
+      }
+      await validToken(r)
+      
+      r.data && this.props.dispatch({ type: 'SET_SETTINGS', payload:  {...r.data}})
+    })
+
+
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(this.mainPanel.current);
       document.body.classList.toggle("perfect-scrollbar-on");
     }
   }
+
   componentWillUnmount() {
     if (navigator.platform.indexOf("Win") > -1) {
       ps.destroy();
       document.body.classList.toggle("perfect-scrollbar-on");
     }
   }
+  
   componentDidUpdate(e) {
     if (e.history.action === "PUSH") {
       this.mainPanel.current.scrollTop = 0;
       document.scrollingElement.scrollTop = 0;
     }
   }
-  // handleActiveClick = color => {
-  //   this.setState({ activeColor: color });
-  // };
-  // handleBgClick = color => {
-  //   this.setState({ backgroundColor: color });
-  // };
+
 
   PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props =>
-      isAuthenticated() ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to={{ pathname: "/", state: { from: props.location } }} />
-      )
-    }
-  />
-);
+    <Route
+      {...rest}
+      render={props =>
+        isAuthenticated() ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to={{ pathname: "/", state: { from: props.location } }} />
+        )
+      }
+    />
+  );
 
   render() {
     return (
@@ -67,6 +82,7 @@ class DashboardUser extends React.Component {
         />
         <div className="main-panel" ref={this.mainPanel}>
           <DemoNavbar {...this.props} />
+
           <Switch>
             {routes.map((prop, key) => {
            
@@ -85,4 +101,4 @@ class DashboardUser extends React.Component {
   }
 }
 
-export default DashboardUser;
+export default connect()(DashboardUser);

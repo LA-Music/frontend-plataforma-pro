@@ -62,10 +62,12 @@ const INITIAL_STATE = {
       ]},
 
     settings: {
+      id: '',
       nome: '',
       email: '',
-      id: '',
+      nome_empresa: '',
       papel: '',
+      telefone: '',
       expired: false,
       message: {
         title: '',
