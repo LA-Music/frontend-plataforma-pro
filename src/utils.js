@@ -25,7 +25,7 @@ export const Message = () => {
     async function confirm() {
        await dispatch({type: 'SET_SETTINGS', payload: { expired: false}})
        logout()
-       window.location.href = '/pro'
+       window.location.href = '/'
     }
 
     return (

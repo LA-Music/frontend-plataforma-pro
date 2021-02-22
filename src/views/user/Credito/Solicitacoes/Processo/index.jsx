@@ -12,6 +12,8 @@ function Processo({perfil}) {
   const [ toggle, setToggle ] = useState(false)
   const [ selectRow, setSelectRow ] = useState(false)
 
+  const [loading, setLoading] = useState(false)
+
   const handleToggle = e => {
     setToggle(!toggle)
     !toggle === true && setSelectRow(e)
@@ -30,43 +32,47 @@ function Processo({perfil}) {
   })
 
   useEffect(() => {
+    getProcess()
+   async function getProcess () {
+      await setLoading(true)
+      api.get("/processo").then( async res => {
+        
+        if(!res) {
+          ErrorSystem()
+        
+          return false
+        }
 
-    api.get("/processo").then( async res => {
+        await validToken(res)
 
-      if(!res) {
-        ErrorSystem()
-       
-        return false
-      }
+        if (res.data.length > 0 ) {
+          console.log(res.data)
 
-      await validToken(res)
-
-
-      if (res.data.length > 0 ) {
-
-        let body = []
-        res.data.map( async process => 
-          process.nome === perfil.nome && 
-            body.push({
-              nome: process.nome, 
-              email: process.email, 
-              associado: process.cadastro_Abrammus ? 'Sim' : 'Não', 
-              action: (
-                <div className="d-flex justify-content-center">
-                  <BtnEngage onClick={() => handleToggle(process)}>Ver</BtnEngage>
-                </div>
-              ),
-              ...process
-          })
-        )
-        await setTable({...Table, body: body })
-      }
-    })
+          let body = []
+          res.data.map( async process => 
+            process.nome === perfil.nome && 
+              body.push({
+                nome: process.nome, 
+                email: process.email, 
+                associado: process.cadastro_Abrammus ? 'Sim' : 'Não', 
+                action: (
+                  <div className="d-flex justify-content-center">
+                    <BtnEngage onClick={() => handleToggle(process)}>Ver</BtnEngage>
+                  </div>
+                ),
+                ...process
+            })
+            )
+            
+          await setTable({...Table, body: body })
+          await setLoading(false)
+        }
+      })
+    }
 
   }, []) //eslint-disable-line
-
   return (
-    Table.body.length > 0 ?
+    !loading ?
     <>
       <DynamicTable 
         viewModal={handleToggle} 

@@ -93,7 +93,7 @@ class Sidebar extends React.Component {
             <li>
               <NavLink
                 onClick={this.handleClick.bind(this)}
-                to="/pro"
+                to="/"
               >
                 <i className="nc-icon nc-simple-remove" />
                 <p>Logout</p>
