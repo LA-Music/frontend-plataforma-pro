@@ -71,19 +71,24 @@ function Processo({perfil}) {
     }
 
   }, []) //eslint-disable-line
+  
   return (
     !loading ?
-    <>
-      <DynamicTable 
-        viewModal={handleToggle} 
-        moreItems={5} 
-        limitItems={10} 
-        {...Table} />
+      <>
+        <DynamicTable 
+          viewModal={handleToggle} 
+          moreItems={5} 
+          limitItems={10} 
+          {...Table} 
+        />
 
-        <DadosCadastrais show={toggle} data={selectRow} toggle={e => handleToggle(!toggle)} />
-    </>
+        <DadosCadastrais 
+          show={toggle} 
+          data={selectRow} 
+          toggle={e => handleToggle(!toggle)} 
+        />
+      </>
     : <Load bg={'#000'} />
-
   );
 }
 

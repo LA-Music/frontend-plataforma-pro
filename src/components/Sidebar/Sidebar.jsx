@@ -91,13 +91,13 @@ class Sidebar extends React.Component {
               );
             })}
             <li>
-              <NavLink
+              <a
                 onClick={this.handleClick.bind(this)}
-                to="/"
+                href="https://app.lamusic.com.br"
               >
                 <i className="nc-icon nc-simple-remove" />
                 <p>Logout</p>
-              </NavLink>
+              </a>
             </li>
           </Nav>
         </div>

@@ -5,9 +5,9 @@ import Modal from 'components/Modal';
 import Obras from './Obras'
 import Fonogramas from './Fonogramas'
 import { Container } from './styles'
+import { Button } from 'components/Button';
 
 const ViewDadosCadastrais = ({data}) => {
-  console.log(data)
   const [activeTab, setActiveTab] = useState('1');
 
   const toggle = tab => {
@@ -55,12 +55,22 @@ const ViewDadosCadastrais = ({data}) => {
             </TabPane>
           </TabContent>
       </div>
+      <Button> Salvar</Button>
     </Container>
   )
 }
 
 export const DadosCadastrais = ({show, data, toggle}) => {
 
-  return <Modal show={show} body={<ViewDadosCadastrais data={data} />} toggle={toggle} />
-
+  return ( 
+    <Modal 
+      show={show} 
+      body={
+        <ViewDadosCadastrais 
+          data={data} 
+        />
+      } 
+      toggle={toggle} 
+    />
+  )
 }

@@ -1,3 +1,4 @@
+import Switch from 'components/Switch';
 import React from 'react';
 
 import { Container } from './styles';
@@ -7,7 +8,12 @@ function Fonogramas(props) {
     <Container>
     {props.fonogramas.length > 0 ? props.fonogramas.map( fonograma => 
       <div className="my-3">
-        <p>cód Ecad {fonograma.codEcad}</p>
+        <div className="header">
+            <p>cód Ecad {fonograma.codEcad}</p>
+            <Switch>
+              Confirmo participação
+            </Switch>
+          </div>
         <ul>
           <li><b>Título:</b> {fonograma.titulo} </li>
           <li><b>Interprete:</b> {fonograma.interprete} </li>
