@@ -1,15 +1,27 @@
 import React from 'react';
-import { Modal, ModalBody } from 'reactstrap';
-// import { Container } from './styles';
+import { ModalBody } from 'reactstrap';
+import { ModalContainer } from './styles';
 
 function Index({show, body, toggle}) {
 
   return (
-    <Modal isOpen={show} toggle={toggle} className={'modCad'}>
-      <ModalBody className="mx-3">
+    <ModalContainer 
+      isOpen={show} 
+      toggle={toggle} 
+      className={'modCad'}
+    >
+      <span 
+        title="Fechar" 
+        className="close"
+        onClick={toggle}
+      >
+        x
+      </span>
+    
+      <ModalBody className="mx-3 pb-0">
         {body}
       </ModalBody>
-    </Modal>
+    </ModalContainer>
     );
 }
 

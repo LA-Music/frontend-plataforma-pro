@@ -2,16 +2,18 @@ import React from 'react';
 import Switch from 'components/Switch';
 
 import { Container } from './styles';
+import { ListItems } from '../ListItems';
+
 
 function Obras(props) {
   let isValidated = true
+
   return (
     <Container>
       {props.obras.length > 0 ? props.obras.map( obra => 
         <div className="my-3">
           <div className="header">
-            <p>cód Ecad {obra.codEcad}</p>
-            
+
             {!isValidated && (
               <Switch>
                 Minha autoria
@@ -24,42 +26,47 @@ function Obras(props) {
               </Switch>
             )}
           </div>
+
           <ul>
-            <li>
-              <b>Título:</b> 
-              {obra.titulo} 
-            </li>
-            
-            <li>
-              <b>Interprete:</b> 
-              {obra.interprete} 
-            </li>
-            
-            <li>
-              <b>Competencia:</b> 
-              {obra.competencia} 
-            </li>
-            
-            <li>
-              <b>Faixa:</b> 
-              {obra.faixa}
-            </li>
-            
-            <li>
-              <b>Motivo:</b> 
-              {obra.motivo} 
-            </li>
-            
-            <li>
-              <b>Execução:</b> 
-              {obra.execucao} 
-            </li>
-            
-            <li>
-              <b>Autores:</b> 
-              {obra.autores} 
-            </li>
-            
+            <ListItems
+              title="Cód Ecad"
+              description={obra.codEcad}
+            />
+
+            <ListItems
+              title="Título"
+              description={obra.titulo}
+            />
+
+            <ListItems
+              title="Interprete"
+              description={obra.interprete}
+            />
+
+            <ListItems
+              title="Competencia"
+              description={obra.competencia}
+            />
+
+            <ListItems
+              title="Faixa"
+              description={obra.faixa}
+            />
+
+            <ListItems
+              title="Motivo"
+              description={obra.motivo}
+            />
+
+            <ListItems
+              title="Execução"
+              description={obra.execucao}
+            />
+
+            <ListItems
+              title="Autores"
+              description={obra.autores}
+            />
           </ul>
         </div>
       ) :  

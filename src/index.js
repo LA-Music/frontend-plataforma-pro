@@ -18,6 +18,8 @@ import Login from 'views/Login'
 import Reset from 'views/Login/NewPassword'
 import UserLayout from 'layouts/Pro.jsx'
 
+import { GlobalStyle } from "styles/GlobalStyles";
+
 const hist = createBrowserHistory()
 // const { settings } = useSelector(state => state)
 export const PrivateRoute = ({component: Component, ...rest}) => (
@@ -52,6 +54,7 @@ ReactDOM.render(
     </BrowserRouter>
     <Message />
     <MessageGeral />
+    <GlobalStyle />
   </Provider>,
   document.getElementById("root")
 );

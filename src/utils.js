@@ -15,7 +15,6 @@ export const validToken = async (res) => {
         
     }
     return true
-    
 }
 
 export const Message = () => {

@@ -1,34 +1,69 @@
 import Switch from 'components/Switch';
 import React from 'react';
+import { ListItems } from '../ListItems';
 
 import { Container } from './styles';
 
 function Fonogramas(props) {
   return (
     <Container>
-    {props.fonogramas.length > 0 ? props.fonogramas.map( fonograma => 
-      <div className="my-3">
-        <div className="header">
-            <p>cód Ecad {fonograma.codEcad}</p>
-            <Switch>
-              Confirmo participação
-            </Switch>
+      {props.fonogramas.length > 0 
+        ? props.fonogramas.map( fonograma => 
+          <div className="my-3">
+            <div className="header">
+              <Switch>
+                Confirmo participação
+              </Switch>
+            </div>
+
+            <ul>
+              <ListItems
+                title="Cód Ecad"
+                description={fonograma.codEcad}
+              />
+
+              <ListItems
+                title="Título"
+                description={fonograma.titulo}
+              />
+              
+              <ListItems
+                title="Interprete"
+                description={fonograma.interprete}
+              />
+
+              <ListItems
+                title="Competencia"
+                description={fonograma.competencia}
+              />
+
+              <ListItems
+                title="Faixa"
+                description={fonograma.faixa}
+              />
+            
+              <ListItems
+                title="Motivo"
+                description={fonograma.motivo}
+              />
+
+              <ListItems
+                title="Execução"
+                description={fonograma.execucao}
+              />
+
+              <ListItems
+                title="Autores"
+                description={fonograma.autores}
+              />
+
+            </ul>
           </div>
-        <ul>
-          <li><b>Título:</b> {fonograma.titulo} </li>
-          <li><b>Interprete:</b> {fonograma.interprete} </li>
-          <li><b>Competencia:</b> {fonograma.competencia} </li>
-          <li><b>Faixa:</b> {fonograma.faixa}</li>
-          <li><b>Motivo:</b> {fonograma.motivo} </li>
-          <li><b>Execução:</b> {fonograma.execucao} </li>
-          <li><b>Autores:</b> {fonograma.autores} </li>
-        </ul>
-      </div>
-    ) : 
-      <div className="my-3">
-        <p>Nenhum fonograma encontrado</p>
-      </div>
-    }
+        ) : 
+        <div className="my-3">
+          <p>Nenhum fonograma encontrado</p>
+        </div>
+      }
     </Container>
   );
 }

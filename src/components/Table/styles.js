@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  overflow-x: auto;
+  
+  table {
+    min-width: 900px;
+  }
 
   tr {
     cursor: pointer;
