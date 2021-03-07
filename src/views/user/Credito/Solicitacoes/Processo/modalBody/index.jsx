@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Modal as ModalConfimed, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { useSelector } from 'react-redux';
+
 import classnames from 'classnames';
 
 import Modal from 'components/Modal';
@@ -11,10 +13,47 @@ import Fonogramas from './Fonogramas'
 import { Container } from './styles'
 
 const ViewDadosCadastrais = ({data}) => {
+  const { obras, fonograma } = useSelector(state => state);
+
   const [activeTab, setActiveTab] = useState('1');
+  const [ confirmed, setConfirmed ] = useState(false)
+  const [ dataPerfil, setDataPerfil ] = useState(false)
+  const [ loading, setLoading ] = useState(false)
+  
+  const [ modal, setModal ] = useState(true);
 
   const toggle = tab => {
     if(activeTab !== tab) setActiveTab(tab);
+  }
+
+  const toggleModal = async (perfil) => {
+    // await setDataPerfil(perfil)
+    setConfirmed(false)
+    setModal(!modal)
+  };
+
+  function save() {
+    switch (activeTab) {
+      case '1':
+        console.log('aqui')
+        ConfirmContratacao({
+          toggleModal, 
+          confirmed, 
+          setConfirmed,
+          modal: true,
+          setModal,
+          dataPerfil,
+          loading
+        })
+        
+        break;
+      case '2':
+        console.log(fonograma)
+        break;
+    
+      default:
+        break;
+    }
   }
 
   return (
@@ -56,7 +95,7 @@ const ViewDadosCadastrais = ({data}) => {
 
       </div>
       <div className="footer">
-        <Button className="bg-green"> Salvar</Button>
+        <Button className="bg-green" onClick={save}> Salvar</Button>
       </div>
     </Container>
   )
@@ -74,5 +113,69 @@ export const DadosCadastrais = ({show, data, toggle}) => {
       } 
       toggle={toggle} 
     />
+  )
+}
+
+
+export const ConfirmContratacao = ({
+  confirmed, 
+  setConfirmed, 
+  modal, 
+  dataPerfil, 
+  toggleModal,
+  loading
+}) => {
+ console.log(modal)
+
+  const engaged = async () => {
+    // setLoading(true)
+    setConfirmed(true)
+    // contratar.register({
+    //   nome: dataPerfil.nome, 
+    //   cpf: dataPerfil.cpf 
+    // })
+    // .then( async res => {  
+    //   if(!res) {
+    //     ErrorSystem()
+       
+    //     return false
+    //   }
+
+    //   if (res.statusText === 'OK') {
+    //     await setConfirmed(true)
+    //     setLoading(false)
+    //   }
+    // })
+  }
+
+  return (
+    <ModalConfimed isOpen={modal} toggle={toggleModal}>   
+      <ModalHeader toggle={toggleModal}>
+        {!confirmed ? 'Deseja contratar ?' : 'Salve!'}
+      </ModalHeader>
+
+      <ModalBody>
+        {!confirmed ? (
+          <p>Deseja que a LA Music faça a liberação de créditos retidos junto ao Ecad em nome do (a) {dataPerfil && dataPerfil.nome} ?</p>
+        ) : (
+          <p>Um de nossos agentes entrará em contato contigo para que possamos negociar os termos da nossa parceria.
+          Trabalhamos com um percentual sobre o valor que efetivamente conseguimos resgatar e considerando o número de artistas do seu catálogo, teremos uma condição especial para sua editora.</p>
+        )}
+      </ModalBody>
+      
+      {!confirmed 
+        ? 
+          <ModalFooter>
+            <Button color="primary" onClick={() => engaged()}> 
+              {loading ? <> Aguarde  <i class="fa fa-spinner fa-spin" /> </> : 'Contratar' }
+            </Button>{' '}
+            <Button color="secondary" onClick={toggleModal}>Cancelar</Button>
+          </ModalFooter>
+        : 
+          <ModalFooter>
+            <Button color="primary" onClick={() => toggleModal()}>Fechar</Button>{' '}
+          </ModalFooter>
+      }
+    </ModalConfimed>
   )
 }

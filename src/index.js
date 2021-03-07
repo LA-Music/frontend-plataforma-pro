@@ -21,7 +21,7 @@ import UserLayout from 'layouts/Pro.jsx'
 import { GlobalStyle } from "styles/GlobalStyles";
 
 const hist = createBrowserHistory()
-// const { settings } = useSelector(state => state)
+
 export const PrivateRoute = ({component: Component, ...rest}) => (
 
   <Route 

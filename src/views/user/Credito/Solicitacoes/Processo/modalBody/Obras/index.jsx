@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Switch from 'components/Switch';
 
 import { Container } from './styles';
@@ -6,22 +8,37 @@ import { ListItems } from '../ListItems';
 
 
 function Obras(props) {
+  const { obras } = useSelector(state => state);
+  
+  const dispatch = useDispatch();
+
   let isValidated = true
+
+  function handleSelect(obj, id) {
+    
+    if (obras[obj].includes(id)) {
+      obras[obj] = obras[obj].filter(id_obra => id_obra !== id);
+    } else {
+      obras[obj] = [...obras[obj], id]
+    }
+
+    dispatch({type: 'SET_OBRAS', payload: { [obj]:[ ...obras[obj] ] }})
+  }
 
   return (
     <Container>
       {props.obras.length > 0 ? props.obras.map( obra => 
         <div className="my-3">
-          <div className="header">
 
+          <div className="header">
             {!isValidated && (
-              <Switch>
+              <Switch onChange={() => handleSelect('autoria', obra._id)}>
                 Minha autoria
               </Switch>
               )}
 
             {isValidated && ( 
-              <Switch>
+              <Switch onChange={() => handleSelect('contratar', obra._id)}>
                 Contratar
               </Switch>
             )}

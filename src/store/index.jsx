@@ -74,7 +74,17 @@ const INITIAL_STATE = {
         description: '',
         active: false
       },
+    },
+
+    obras: {
+      autoria: [],
+      contratar: []
+    },
+    fonograma: {
+      parte: [],
+      contratar: []
     }
+
 };
 
 function form(state = INITIAL_STATE, action){
@@ -88,10 +98,17 @@ function form(state = INITIAL_STATE, action){
     case 'SET_SETTINGS': {
       return {...state, settings: {...state.settings, ...action.payload}}
     }
+    case 'SET_OBRAS' : {
+      return {...state, obras:{...state.obras, ...action.payload}}
+    }
+    case 'SET_FONOGRAMA' : {
+      return {...state, fonograma:{...state.fonograma, ...action.payload}}
+    }
     default:
       return state;
   }
 }
+
 
 const store = createStore(form);
 

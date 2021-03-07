@@ -46,7 +46,6 @@ function Processo({perfil}) {
         await validToken(res)
 
         if (res.data.length > 0 ) {
-          console.log(res.data)
 
           let body = []
           res.data.map( async process => 

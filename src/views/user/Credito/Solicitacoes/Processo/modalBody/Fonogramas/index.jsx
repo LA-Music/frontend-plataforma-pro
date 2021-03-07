@@ -1,17 +1,34 @@
 import Switch from 'components/Switch';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { ListItems } from '../ListItems';
 
 import { Container } from './styles';
 
 function Fonogramas(props) {
+  const { fonograma } = useSelector(state => state);
+  
+  const dispatch = useDispatch();
+
+  function handleSelect(obj, id) {
+    
+    if (fonograma[obj].includes(id)) {
+      fonograma[obj] = fonograma[obj].filter(id_obra => id_obra !== id);
+    } else {
+      fonograma[obj] = [...fonograma[obj], id]
+    }
+
+    dispatch({type: 'SET_FONOGRAMA', payload: { [obj]:[ ...fonograma[obj] ] }})
+  }
+
+
   return (
     <Container>
       {props.fonogramas.length > 0 
         ? props.fonogramas.map( fonograma => 
           <div className="my-3">
             <div className="header">
-              <Switch>
+              <Switch onChange={() => handleSelect('parte', fonograma._id)}>
                 Confirmo participação
               </Switch>
             </div>

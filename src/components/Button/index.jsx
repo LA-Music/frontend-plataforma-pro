@@ -1,9 +1,12 @@
 import React from 'react';
 import { Btn } from './styles';
 
-export const Button = ({className, children}) => {
+export const Button = ({onClick, className, children}) => {
     return (
-        <Btn className={className}>
+        <Btn
+            onClick={onClick}
+            className={className}
+        >
             {children}
         </Btn>
     );

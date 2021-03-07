@@ -1,15 +1,42 @@
 import React, { useState, useRef  } from "react";
 import NotificationAlert from "react-notification-alert";
-import { Button, FormText, Label ,FormGroup, Form, Input,  Modal, ModalHeader, ModalBody, ModalFooter  } from "reactstrap";
+import { 
+  Button, 
+  FormText, 
+  Label, 
+  FormGroup, 
+  Form, 
+  Input, 
+  Modal, 
+  ModalHeader, 
+  ModalBody, 
+  ModalFooter  } from "reactstrap";
 import { Checkbox, Radio, InputAdornment, IconButton, FormControl, RadioGroup } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import { cpfMask } from 'components/Mask'
 
 import AddCircle from 'assets/img/addCircle.svg'
 
-import { removeMusic, removeSociais, removeArtista, handleSubmit, initial_state, initial_musica, initial_sociais, initial_nome_artistico, enableSubmit } from './actions'
+import { 
+  removeMusic, 
+  removeSociais, 
+  removeArtista, 
+  handleSubmit, 
+  initial_state, 
+  initial_musica, 
+  initial_sociais, 
+  initial_nome_artistico, 
+  enableSubmit } from './actions'
 
-import { Container, RadioInput, InputButtom, TagLabel, CloseTag, ButtonConsulta, SpanCheck, ButtonGreen } from './styles'
+import { 
+  Container, 
+  RadioInput, 
+  InputButtom, 
+  TagLabel, 
+  CloseTag, 
+  ButtonConsulta, 
+  SpanCheck, 
+  ButtonGreen } from './styles'
 
 function Index (props) {
     let notificationAlert = useRef();
