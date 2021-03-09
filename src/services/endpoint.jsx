@@ -1,5 +1,14 @@
 import api from './api'
-import { PERFIL, LOGIN, REGISTER, PASSWORD_RESET, RESET_TOKEN, CONTRATAR, CREDITO_RETIDO, CONTATO } from './links'
+import { 
+  PERFIL, 
+  LOGIN, 
+  REGISTER, 
+  PASSWORD_RESET, 
+  RESET_TOKEN, 
+  AUTORIA_FONOGRAMA,
+  AUTORIA_OBRAS, 
+  CREDITO_RETIDO, 
+  CONTATO } from './links'
 
 export const Login = async (payload) => {
   return await api.post( LOGIN, {...payload } )
@@ -28,14 +37,23 @@ export const reset_token = async (payload) => {
   }
 }
 
-export const contratar = {
-  register: async function (payload) {
+export const autoria = {
+  register_fonograma: async function (payload) {
     try {
-      return await api.post(CONTRATAR, { ...payload })
+      return await api.post(AUTORIA_FONOGRAMA, { ...payload })
     } catch (error) {
       console.error(error)
     }
-  }
+  },
+
+  register_obras: async function (payload) {
+    try {
+      return await api.post(AUTORIA_OBRAS, { ...payload })
+    } catch (error) {
+      console.error(error)
+    }
+  },
+
 }
 
 export const credito_retido = {

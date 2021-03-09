@@ -12,33 +12,32 @@ function Obras(props) {
   
   const dispatch = useDispatch();
 
-  let isValidated = true
-
-  function handleSelect(obj, id) {
+  function handleSelect(obj, obra) {
     
-    if (obras[obj].includes(id)) {
-      obras[obj] = obras[obj].filter(id_obra => id_obra !== id);
+    if (obras[obj].includes(obra._id)) {
+      obras[obj] = obras[obj].filter(id_obra => id_obra !== obra._id);
     } else {
-      obras[obj] = [...obras[obj], id]
+      obras[obj] = [...obras[obj], obra._id]
     }
 
-    dispatch({type: 'SET_OBRAS', payload: { [obj]:[ ...obras[obj] ] }})
+    dispatch({type: 'SET_OBRAS', payload: {all: props.obras, [obj]:[ ...obras[obj] ] }})
   }
 
   return (
     <Container>
       {props.obras.length > 0 ? props.obras.map( obra => 
-        <div className="my-3">
+        <div key={obra._id} className="my-3">
+          {/* {console.log(obra)} */}
 
           <div className="header">
-            {!isValidated && (
-              <Switch onChange={() => handleSelect('autoria', obra._id)}>
+            {obra.status === 'desativado' && (
+              <Switch onChange={() => handleSelect('autoria', obra)}>
                 Minha autoria
               </Switch>
-              )}
+            )}
 
-            {isValidated && ( 
-              <Switch onChange={() => handleSelect('contratar', obra._id)}>
+            {obra.status === 'ativado' && ( 
+              <Switch onChange={() => handleSelect('contratar', obra)}>
                 Contratar
               </Switch>
             )}

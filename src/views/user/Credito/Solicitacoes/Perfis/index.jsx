@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { contratar, credito_retido } from 'services/endpoint'
+import { credito_retido } from 'services/endpoint'
 
 import DynamicTable from 'components/Table';
 import { Load } from 'components/PreLoad'
@@ -18,12 +18,6 @@ function Perfis({ selectPerfil }) {
 
   const [ confirmed, setConfirmed ] = useState(false)
 
-  const toggle = async (perfil) => {
-    await setDataPerfil(perfil)
-    setConfirmed(false)
-    setModal(!modal)
-  };
-
   const [Table, setTable] = useState({
     header:[
       { name: 'Nome',           key: 'name'          },  
@@ -37,22 +31,22 @@ function Perfis({ selectPerfil }) {
 
   const engaged = async () => {
     setLoading(true)
-    contratar.register({
-      nome: dataPerfil.nome, 
-      cpf: dataPerfil.cpf 
-    })
-    .then( async res => {  
-      if(!res) {
-        ErrorSystem()
+    // contratar.register({
+    //   nome: dataPerfil.nome, 
+    //   cpf: dataPerfil.cpf 
+    // })
+    // .then( async res => {  
+    //   if(!res) {
+    //     ErrorSystem()
        
-        return false
-      }
+    //     return false
+    //   }
 
-      if (res.statusText === 'OK') {
-        await setConfirmed(true)
-        setLoading(false)
-      }
-    })
+    //   if (res.statusText === 'OK') {
+    //     await setConfirmed(true)
+    //     setLoading(false)
+    //   }
+    // })
   }
 
   useEffect(() => {
@@ -87,9 +81,9 @@ function Perfis({ selectPerfil }) {
             action: (
               <div className="d-flex justify-content-center">
                 <BtnEngage>
-                  <Button title="Contratar artista" onClick={() => toggle(process)}>
-                  Liberar Retido
-                  </Button>
+                  {/* <Button title="Contratar artista" >
+                    Liberar Retido
+                  </Button> */}
                   <Button title="Detalhes artista" onClick={() => selectPerfil(process)}>
                     Detalhes
                   </Button>
@@ -112,7 +106,7 @@ function Perfis({ selectPerfil }) {
         limitItems={10} 
         {...Table} />
 
-        <Modal isOpen={modal} toggle={toggle}>
+        {/* <Modal isOpen={modal} toggle={toggle}>
           {!confirmed ? 
             <ModalHeader toggle={toggle}>Deseja contratar ?</ModalHeader>
             : 
@@ -139,7 +133,7 @@ function Perfis({ selectPerfil }) {
             </ModalFooter>
             
           }
-        </Modal>
+        </Modal> */}
       </>
       :
       <Load bg={'#000'}/>

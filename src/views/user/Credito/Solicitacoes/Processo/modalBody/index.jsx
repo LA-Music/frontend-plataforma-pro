@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Modal as ModalConfimed, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { 
+  TabContent, 
+  TabPane, 
+  Nav, 
+  NavItem, 
+  NavLink, 
+  Modal as ModalConfimed, 
+  ModalHeader, 
+  ModalBody, 
+  ModalFooter } from 'reactstrap';
 import { useSelector } from 'react-redux';
 
 import classnames from 'classnames';
@@ -10,12 +19,14 @@ import { Button } from 'components/Button';
 import Obras from './Obras'
 import Fonogramas from './Fonogramas'
 
+import { autoria as api_autoria } from 'services/endpoint';
+
 import { Container } from './styles'
 
 const ViewDadosCadastrais = ({data}) => {
   const { obras, fonograma } = useSelector(state => state);
 
-  const [activeTab, setActiveTab] = useState('1');
+  const [ activeTab, setActiveTab ] = useState('1');
   const [ confirmed, setConfirmed ] = useState(false)
   const [ dataPerfil, setDataPerfil ] = useState(false)
   const [ loading, setLoading ] = useState(false)
@@ -34,20 +45,67 @@ const ViewDadosCadastrais = ({data}) => {
 
   function save() {
     switch (activeTab) {
-      case '1':
-        console.log('aqui')
-        ConfirmContratacao({
-          toggleModal, 
-          confirmed, 
-          setConfirmed,
-          modal: true,
-          setModal,
-          dataPerfil,
-          loading
-        })
+      case '1': // Aba Obras
+
+        const type = {
+          contratar: function() {
+            let newObras = []
+            
+            obras.all.forEach(element => {
+              newObras.push({
+                _id: element._id,
+                status: obras.contratar.includes(element._id) ? 'contratado' : element.status
+              })
+            });
+            console.log(newObras)
+
+            api_autoria.register_obras({
+              processo_id: data.id_req,
+              obras: {
+                ...newObras
+              }
+            })
+            .then( async res => console.log(res))
+          },
+
+          autoria: function() {
+            let newObras = []
+            console.log(data.id_req)
+            obras.all.forEach(element => {
+              console.log(element)
+              newObras.push({
+                _id: element._id,
+                status: obras.autoria.includes(element._id) ? 'ativado' : 'removido'
+              })
+            });
+
+            api_autoria.register_obras({
+              processo_id: data.id_req,
+              obras: {
+                ...newObras
+              }
+            })
+            .then( async res => console.log(res))
+          }
+        }
+
+        const {autoria } = obras;
+
+        const typeSave = autoria.length > 0 ? 'autoria' : 'contratar';
+        type[typeSave]();
+
+        // ConfirmContratacao({
+        //   toggleModal, 
+        //   confirmed, 
+        //   setConfirmed,
+        //   modal: true,
+        //   setModal,
+        //   dataPerfil,
+        //   loading
+        // })
         
         break;
-      case '2':
+      case '2': // Aba Fonogramas
         console.log(fonograma)
         break;
     

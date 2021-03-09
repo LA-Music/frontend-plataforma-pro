@@ -77,10 +77,12 @@ const INITIAL_STATE = {
     },
 
     obras: {
+      all: [],
       autoria: [],
       contratar: []
     },
     fonograma: {
+      all: [],
       parte: [],
       contratar: []
     }
