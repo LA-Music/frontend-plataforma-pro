@@ -25,7 +25,7 @@ function Obras(props) {
 
   return (
     <Container>
-      {props.obras.length > 0 ? props.obras.map( obra => 
+      {props.obras.length > 0 ? props.obras.filter(obra =>  obra.status !== 'removido').map( obra => 
         <div key={obra._id} className="my-3">
           {/* {console.log(obra)} */}
 
@@ -44,6 +44,11 @@ function Obras(props) {
           </div>
 
           <ul>
+            <ListItems
+              title="Status"
+              description={obra.status}
+            />
+
             <ListItems
               title="Cód Ecad"
               description={obra.codEcad}

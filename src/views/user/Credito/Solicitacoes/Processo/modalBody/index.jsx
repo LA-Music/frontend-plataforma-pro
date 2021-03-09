@@ -24,6 +24,7 @@ import { autoria as api_autoria } from 'services/endpoint';
 import { Container } from './styles'
 
 const ViewDadosCadastrais = ({data}) => {
+  
   const { obras, fonograma } = useSelector(state => state);
 
   const [ activeTab, setActiveTab ] = useState('1');
@@ -57,22 +58,20 @@ const ViewDadosCadastrais = ({data}) => {
                 status: obras.contratar.includes(element._id) ? 'contratado' : element.status
               })
             });
-            console.log(newObras)
 
             api_autoria.register_obras({
-              processo_id: data.id_req,
-              obras: {
+              processo_id: data._id,
+              obras: [
                 ...newObras
-              }
+              ]
             })
             .then( async res => console.log(res))
           },
 
           autoria: function() {
             let newObras = []
-            console.log(data.id_req)
+            
             obras.all.forEach(element => {
-              console.log(element)
               newObras.push({
                 _id: element._id,
                 status: obras.autoria.includes(element._id) ? 'ativado' : 'removido'
@@ -80,10 +79,10 @@ const ViewDadosCadastrais = ({data}) => {
             });
 
             api_autoria.register_obras({
-              processo_id: data.id_req,
-              obras: {
+              processo_id: data._id,
+              obras: [
                 ...newObras
-              }
+              ]
             })
             .then( async res => console.log(res))
           }
