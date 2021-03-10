@@ -75,6 +75,9 @@ const INITIAL_STATE = {
         active: false
       },
     },
+    modal: {
+      confirmContrato: false
+    },
 
     obras: {
       all: [],
@@ -105,6 +108,9 @@ function form(state = INITIAL_STATE, action){
     }
     case 'SET_FONOGRAMA' : {
       return {...state, fonograma:{...state.fonograma, ...action.payload}}
+    }
+    case 'SET_MODAL': {
+      return {...state, modal: {...state.modal, ...action.payload}}
     }
     default:
       return state;

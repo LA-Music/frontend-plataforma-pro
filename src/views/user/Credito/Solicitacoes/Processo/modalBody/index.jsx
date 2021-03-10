@@ -9,7 +9,7 @@ import {
   ModalHeader, 
   ModalBody, 
   ModalFooter } from 'reactstrap';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import classnames from 'classnames';
 
@@ -25,6 +25,8 @@ import { Container } from './styles'
 
 const ViewDadosCadastrais = ({data}) => {
   
+  const dispatch = useDispatch();
+
   const { obras, fonograma } = useSelector(state => state);
 
   const [ activeTab, setActiveTab ] = useState('1');
@@ -46,7 +48,7 @@ const ViewDadosCadastrais = ({data}) => {
 
   function save() {
     switch (activeTab) {
-      case '1': // Aba Obras
+      case '1': { // Aba Obras 
 
         const type = {
           contratar: function() {
@@ -59,18 +61,19 @@ const ViewDadosCadastrais = ({data}) => {
               })
             });
 
-            api_autoria.register_obras({
-              processo_id: data._id,
-              obras: [
-                ...newObras
-              ]
-            })
-            .then( async res => console.log(res))
+            // api_autoria.register_obras({
+            //   processo_id: data._id,
+            //   obras: [
+            //     ...newObras
+            //   ]
+            // })
+            // .then( async res => console.log(res))
+            dispatch({type: 'SET_MODAL', payload: { confirmContrato:  true }})
           },
 
           autoria: function() {
             let newObras = []
-            
+
             obras.all.forEach(element => {
               newObras.push({
                 _id: element._id,
@@ -78,7 +81,67 @@ const ViewDadosCadastrais = ({data}) => {
               })
             });
 
-            api_autoria.register_obras({
+            // api_autoria.register_obras({
+            //   processo_id: data._id,
+            //   obras: [
+            //     ...newObras
+            //   ]
+            // })
+            // .then( async res => console.log(res))
+          }
+        }
+
+        const {autoria } = obras;
+
+        const typeSave = autoria.length > 0 ? 'autoria' : 'contratar';
+        type[typeSave]();
+
+        ConfirmContratacao({
+          toggleModal, 
+          confirmed, 
+          setConfirmed,
+          modal: true,
+          setModal,
+          dataPerfil,
+          loading
+        })
+        
+        break;
+      }
+      case '2': { // Aba Fonogramas
+        const type = {
+          contratar: function() {
+            let newObras = []
+            
+            fonograma.all.forEach(element => {
+              newObras.push({
+                _id: element._id,
+                status: fonograma.contratar.includes(element._id) ? 'contratado' : element.status
+              })
+            });
+
+            api_autoria.register_fonograma({
+              processo_id: data._id,
+              fonograma: [
+                ...newObras
+              ]
+            })
+            .then( async res => console.log(res))
+          },
+
+          parte: function() {
+            let newObras = []
+            
+            fonograma.all.forEach(element => {
+              newObras.push({
+                _id: element._id,
+                status: fonograma.parte.includes(element._id) ? 'ativado' : 'removido'
+              })
+            });
+
+            console.log(newObras)
+
+            api_autoria.register_fonograma({
               processo_id: data._id,
               obras: [
                 ...newObras
@@ -88,26 +151,12 @@ const ViewDadosCadastrais = ({data}) => {
           }
         }
 
-        const {autoria } = obras;
+        const { parte } = fonograma;
 
-        const typeSave = autoria.length > 0 ? 'autoria' : 'contratar';
+        const typeSave = parte.length > 0 ? 'parte' : 'contratar';
         type[typeSave]();
-
-        // ConfirmContratacao({
-        //   toggleModal, 
-        //   confirmed, 
-        //   setConfirmed,
-        //   modal: true,
-        //   setModal,
-        //   dataPerfil,
-        //   loading
-        // })
-        
         break;
-      case '2': // Aba Fonogramas
-        console.log(fonograma)
-        break;
-    
+      }
       default:
         break;
     }
@@ -154,6 +203,15 @@ const ViewDadosCadastrais = ({data}) => {
       <div className="footer">
         <Button className="bg-green" onClick={save}> Salvar</Button>
       </div>
+      { ConfirmContratacao({
+          toggleModal, 
+          confirmed, 
+          setConfirmed,
+          modal: true,
+          setModal,
+          dataPerfil,
+          loading
+        })}
     </Container>
   )
 }
@@ -183,31 +241,11 @@ export const ConfirmContratacao = ({
   loading
 }) => {
  console.log(modal)
-
-  const engaged = async () => {
-    // setLoading(true)
-    setConfirmed(true)
-    // contratar.register({
-    //   nome: dataPerfil.nome, 
-    //   cpf: dataPerfil.cpf 
-    // })
-    // .then( async res => {  
-    //   if(!res) {
-    //     ErrorSystem()
-       
-    //     return false
-    //   }
-
-    //   if (res.statusText === 'OK') {
-    //     await setConfirmed(true)
-    //     setLoading(false)
-    //   }
-    // })
-  }
+ console.log(confirmed)
 
   return (
-    <ModalConfimed isOpen={modal} toggle={toggleModal}>   
-      <ModalHeader toggle={toggleModal}>
+    <ModalConfimed>   
+      <ModalHeader >
         {!confirmed ? 'Deseja contratar ?' : 'Salve!'}
       </ModalHeader>
 
@@ -223,7 +261,7 @@ export const ConfirmContratacao = ({
       {!confirmed 
         ? 
           <ModalFooter>
-            <Button color="primary" onClick={() => engaged()}> 
+            <Button color="primary" onClick={() => ''}> 
               {loading ? <> Aguarde  <i class="fa fa-spinner fa-spin" /> </> : 'Contratar' }
             </Button>{' '}
             <Button color="secondary" onClick={toggleModal}>Cancelar</Button>

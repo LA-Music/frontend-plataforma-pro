@@ -10,15 +10,15 @@ function Fonogramas(props) {
   
   const dispatch = useDispatch();
 
-  function handleSelect(obj, id) {
+  function handleSelect(obj, fono) {
     
-    if (fonograma[obj].includes(id)) {
-      fonograma[obj] = fonograma[obj].filter(id_obra => id_obra !== id);
+    if (fonograma[obj].includes(fono._id)) {
+      fonograma[obj] = fonograma[obj].filter(id_obra => id_obra !== fono._id);
     } else {
-      fonograma[obj] = [...fonograma[obj], id]
+      fonograma[obj] = [...fonograma[obj], fono._id]
     }
 
-    dispatch({type: 'SET_FONOGRAMA', payload: { [obj]:[ ...fonograma[obj] ] }})
+    dispatch({type: 'SET_FONOGRAMA', payload: { all: props.fonogramas, [obj]:[ ...fonograma[obj] ] }})
   }
 
 
@@ -28,9 +28,18 @@ function Fonogramas(props) {
         ? props.fonogramas.map( fonograma => 
           <div className="my-3">
             <div className="header">
-              <Switch onChange={() => handleSelect('parte', fonograma._id)}>
-                Confirmo participação
-              </Switch>
+              
+              {fonograma.status === 'desativado' && (
+                <Switch onChange={() => handleSelect('parte', fonograma)}>
+                  Confirmo participação
+                </Switch>
+              )}
+
+              {fonograma.status === 'ativado' && ( 
+                <Switch onChange={() => handleSelect('contratar', fonograma)}>
+                  Contratar
+                </Switch>
+              )}
             </div>
 
             <ul>

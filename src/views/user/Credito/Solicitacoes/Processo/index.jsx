@@ -1,18 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import DynamicTable from 'components/Table';
+import { useSelector } from 'react-redux';
+
+import { 
+  Modal as ModalConfimed, 
+  ModalHeader, 
+  ModalBody, 
+  ModalFooter
+} from 'reactstrap'
+
 import api from 'services/api'
-import { DadosCadastrais } from './modalBody';
+import { validToken, ErrorSystem } from 'utils'
+
+import { Button } from 'components/Button';
+import DynamicTable from 'components/Table';
 import { Load } from 'components/PreLoad'
 
-import { validToken, ErrorSystem } from 'utils'
+import { DadosCadastrais } from './modalBody';
+
 
 import { BtnEngage } from './styles';
 
 function Processo({perfil}) {
+  const { modal } = useSelector(state => state)
+
   const [ toggle, setToggle ] = useState(false)
   const [ selectRow, setSelectRow ] = useState(false)
 
   const [loading, setLoading] = useState(false)
+
 
   const handleToggle = e => {
     setToggle(!toggle)
@@ -86,6 +101,35 @@ function Processo({perfil}) {
           data={selectRow} 
           toggle={e => handleToggle(!toggle)} 
         />
+
+        <ModalConfimed isOpen={modal.confirmContrato}>   
+          <ModalHeader >
+            {/* {!confirmed ? 'Deseja contratar ?' : 'Salve!'} */}
+          </ModalHeader>
+
+          <ModalBody>
+            {/* {!confirmed ? (
+              <p>Deseja que a LA Music faça a liberação de créditos retidos junto ao Ecad em nome do (a)  ?</p>
+            ) : (
+            )} */}
+              <p>Um de nossos agentes entrará em contato contigo para que possamos negociar os termos da nossa parceria.
+              Trabalhamos com um percentual sobre o valor que efetivamente conseguimos resgatar e considerando o número de artistas do seu catálogo, teremos uma condição especial para sua editora.</p>
+          </ModalBody>
+          
+          {/* {!confirmed 
+            ? 
+              <ModalFooter>
+                <Button color="primary" onClick={() => ''}> 
+                  {loading ? <> Aguarde  <i class="fa fa-spinner fa-spin" /> </> : 'Contratar' }
+                </Button>{' '}
+                <Button color="secondary" onClick={toggleModal}>Cancelar</Button>
+              </ModalFooter>
+            : 
+          } */}
+              <ModalFooter>
+                {/* <Button color="primary" onClick={() => toggleModal()}>Fechar</Button>{' '} */}
+              </ModalFooter>
+        </ModalConfimed>
       </>
     : <Load bg={'#000'} />
   );
