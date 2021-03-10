@@ -30,136 +30,122 @@ const ViewDadosCadastrais = ({data}) => {
   const { obras, fonograma } = useSelector(state => state);
 
   const [ activeTab, setActiveTab ] = useState('1');
-  const [ confirmed, setConfirmed ] = useState(false)
-  const [ dataPerfil, setDataPerfil ] = useState(false)
-  const [ loading, setLoading ] = useState(false)
-  
-  const [ modal, setModal ] = useState(true);
+ 
 
   const toggle = tab => {
     if(activeTab !== tab) setActiveTab(tab);
   }
 
-  const toggleModal = async (perfil) => {
-    // await setDataPerfil(perfil)
-    setConfirmed(false)
-    setModal(!modal)
-  };
 
   function save() {
-    switch (activeTab) {
-      case '1': { // Aba Obras 
+    console.log(data)
 
-        const type = {
-          contratar: function() {
-            let newObras = []
+    dispatch({type: 'SET_MODAL', payload: { confirmContrato:  true }})
+    // switch (activeTab) {
+    //   case '1': { // Aba Obras 
+
+    //     const type = {
+    //       contratar: function() {
+    //         let newObras = []
             
-            obras.all.forEach(element => {
-              newObras.push({
-                _id: element._id,
-                status: obras.contratar.includes(element._id) ? 'contratado' : element.status
-              })
-            });
+    //         obras.all.forEach(element => {
+    //           newObras.push({
+    //             _id: element._id,
+    //             status: obras.contratar.includes(element._id) ? 'contratado' : element.status
+    //           })
+    //         });
 
-            // api_autoria.register_obras({
-            //   processo_id: data._id,
-            //   obras: [
-            //     ...newObras
-            //   ]
-            // })
-            // .then( async res => console.log(res))
-            dispatch({type: 'SET_MODAL', payload: { confirmContrato:  true }})
-          },
+    //         // api_autoria.register_obras({
+    //         //   processo_id: data._id,
+    //         //   obras: [
+    //         //     ...newObras
+    //         //   ]
+    //         // })
+    //         // .then( async res => console.log(res))
+    //         dispatch({type: 'SET_MODAL', payload: { confirmContrato:  true }})
+    //       },
 
-          autoria: function() {
-            let newObras = []
+    //       autoria: function() {
+    //         let newObras = []
 
-            obras.all.forEach(element => {
-              newObras.push({
-                _id: element._id,
-                status: obras.autoria.includes(element._id) ? 'ativado' : 'removido'
-              })
-            });
+    //         obras.all.forEach(element => {
+    //           newObras.push({
+    //             _id: element._id,
+    //             status: obras.autoria.includes(element._id) ? 'ativado' : 'removido'
+    //           })
+    //         });
 
-            // api_autoria.register_obras({
-            //   processo_id: data._id,
-            //   obras: [
-            //     ...newObras
-            //   ]
-            // })
-            // .then( async res => console.log(res))
-          }
-        }
+    //         // api_autoria.register_obras({
+    //         //   processo_id: data._id,
+    //         //   obras: [
+    //         //     ...newObras
+    //         //   ]
+    //         // })
+    //         // .then( async res => console.log(res))
+    //       }
+    //     }
 
-        const {autoria } = obras;
+    //     const {autoria } = obras;
 
-        const typeSave = autoria.length > 0 ? 'autoria' : 'contratar';
-        type[typeSave]();
-
-        ConfirmContratacao({
-          toggleModal, 
-          confirmed, 
-          setConfirmed,
-          modal: true,
-          setModal,
-          dataPerfil,
-          loading
-        })
+    //     const typeSave = autoria.length > 0 ? 'autoria' : 'contratar';
+    //     type[typeSave]();
         
-        break;
-      }
-      case '2': { // Aba Fonogramas
-        const type = {
-          contratar: function() {
-            let newObras = []
+    //     break;
+    //   }
+    //   case '2': { // Aba Fonogramas
+    //     const type = {
+    //       contratar: function() {
+    //         let newObras = []
             
-            fonograma.all.forEach(element => {
-              newObras.push({
-                _id: element._id,
-                status: fonograma.contratar.includes(element._id) ? 'contratado' : element.status
-              })
-            });
+    //         fonograma.all.forEach(element => {
+    //           newObras.push({
+    //             _id: element._id,
+    //             status: fonograma.contratar.includes(element._id) ? 'contratado' : element.status
+    //           })
+    //         });
 
-            api_autoria.register_fonograma({
-              processo_id: data._id,
-              fonograma: [
-                ...newObras
-              ]
-            })
-            .then( async res => console.log(res))
-          },
+    //         api_autoria.register_fonograma({
+    //           processo_id: data._id,
+    //           fonograma: [
+    //             ...newObras
+    //           ]
+    //         })
+    //         .then( async res => console.log(res))
 
-          parte: function() {
-            let newObras = []
+    //         dispatch({type: 'SET_MODAL', payload: { confirmContrato:  true }})
+    //       },
+
+    //       parte: function() {
+    //         let newObras = []
             
-            fonograma.all.forEach(element => {
-              newObras.push({
-                _id: element._id,
-                status: fonograma.parte.includes(element._id) ? 'ativado' : 'removido'
-              })
-            });
+    //         fonograma.all.forEach(element => {
+    //           newObras.push({
+    //             _id: element._id,
+    //             status: fonograma.parte.includes(element._id) ? 'ativado' : 'removido'
+    //           })
+    //         });
 
-            console.log(newObras)
+    //         console.log(newObras)
 
-            api_autoria.register_fonograma({
-              processo_id: data._id,
-              obras: [
-                ...newObras
-              ]
-            })
-            .then( async res => console.log(res))
-          }
-        }
+    //         api_autoria.register_fonograma({
+    //           processo_id: data._id,
+    //           obras: [
+    //             ...newObras
+    //           ]
+    //         })
+    //         .then( async res => console.log(res))
+    //       }
+    //     }
 
-        const { parte } = fonograma;
+    //     const { parte } = fonograma;
 
-        const typeSave = parte.length > 0 ? 'parte' : 'contratar';
-        type[typeSave]();
-        break;
-      }
-      default:
-        break;
-    }
+    //     const typeSave = parte.length > 0 ? 'parte' : 'contratar';
+    //     type[typeSave]();
+    //     break;
+    //   }
+    //   default:
+    //     break;
+    // }
   }
 
   return (
@@ -203,15 +189,6 @@ const ViewDadosCadastrais = ({data}) => {
       <div className="footer">
         <Button className="bg-green" onClick={save}> Salvar</Button>
       </div>
-      { ConfirmContratacao({
-          toggleModal, 
-          confirmed, 
-          setConfirmed,
-          modal: true,
-          setModal,
-          dataPerfil,
-          loading
-        })}
     </Container>
   )
 }
@@ -228,49 +205,5 @@ export const DadosCadastrais = ({show, data, toggle}) => {
       } 
       toggle={toggle} 
     />
-  )
-}
-
-
-export const ConfirmContratacao = ({
-  confirmed, 
-  setConfirmed, 
-  modal, 
-  dataPerfil, 
-  toggleModal,
-  loading
-}) => {
- console.log(modal)
- console.log(confirmed)
-
-  return (
-    <ModalConfimed>   
-      <ModalHeader >
-        {!confirmed ? 'Deseja contratar ?' : 'Salve!'}
-      </ModalHeader>
-
-      <ModalBody>
-        {!confirmed ? (
-          <p>Deseja que a LA Music faça a liberação de créditos retidos junto ao Ecad em nome do (a) {dataPerfil && dataPerfil.nome} ?</p>
-        ) : (
-          <p>Um de nossos agentes entrará em contato contigo para que possamos negociar os termos da nossa parceria.
-          Trabalhamos com um percentual sobre o valor que efetivamente conseguimos resgatar e considerando o número de artistas do seu catálogo, teremos uma condição especial para sua editora.</p>
-        )}
-      </ModalBody>
-      
-      {!confirmed 
-        ? 
-          <ModalFooter>
-            <Button color="primary" onClick={() => ''}> 
-              {loading ? <> Aguarde  <i class="fa fa-spinner fa-spin" /> </> : 'Contratar' }
-            </Button>{' '}
-            <Button color="secondary" onClick={toggleModal}>Cancelar</Button>
-          </ModalFooter>
-        : 
-          <ModalFooter>
-            <Button color="primary" onClick={() => toggleModal()}>Fechar</Button>{' '}
-          </ModalFooter>
-      }
-    </ModalConfimed>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { 
   Modal as ModalConfimed, 
@@ -17,14 +17,17 @@ import { Load } from 'components/PreLoad'
 
 import { DadosCadastrais } from './modalBody';
 
+import { autoria as api_autoria } from 'services/endpoint';
 
 import { BtnEngage } from './styles';
 
 function Processo({perfil}) {
-  const { modal } = useSelector(state => state)
+  const dispatch = useDispatch()
+  const { modal, obras, fonograma } = useSelector(state => state)
 
   const [ toggle, setToggle ] = useState(false)
   const [ selectRow, setSelectRow ] = useState(false)
+  const [ confirmedContrato, setConfirmedContrato ] = useState(false)
 
   const [loading, setLoading] = useState(false)
 
@@ -48,7 +51,7 @@ function Processo({perfil}) {
 
   useEffect(() => {
     getProcess()
-   async function getProcess () {
+    async function getProcess () {
       await setLoading(true)
       api.get("/processo").then( async res => {
         
@@ -85,6 +88,113 @@ function Processo({perfil}) {
     }
 
   }, []) //eslint-disable-line
+
+  const confirmContrato = () => {
+    switch (activeTab) {
+      case '1': { // Aba Obras 
+
+        const type = {
+          contratar: function() {
+            let newObras = []
+            
+            obras.all.forEach(element => {
+              newObras.push({
+                _id: element._id,
+                status: obras.contratar.includes(element._id) ? 'contratado' : element.status
+              })
+            });
+
+            // api_autoria.register_obras({
+            //   processo_id: data._id,
+            //   obras: [
+            //     ...newObras
+            //   ]
+            // })
+            // .then( async res => console.log(res))
+          },
+
+          autoria: function() {
+            let newObras = []
+
+            obras.all.forEach(element => {
+              newObras.push({
+                _id: element._id,
+                status: obras.autoria.includes(element._id) ? 'ativado' : 'removido'
+              })
+            });
+
+            // api_autoria.register_obras({
+            //   processo_id: data._id,
+            //   obras: [
+            //     ...newObras
+            //   ]
+            // })
+            // .then( async res => console.log(res))
+          }
+        }
+
+        const {autoria } = obras;
+
+        const typeSave = autoria.length > 0 ? 'autoria' : 'contratar';
+        type[typeSave]();
+        
+        break;
+      }
+      case '2': { // Aba Fonogramas
+        const type = {
+          contratar: function() {
+            let newObras = []
+            
+            fonograma.all.forEach(element => {
+              newObras.push({
+                _id: element._id,
+                status: fonograma.contratar.includes(element._id) ? 'contratado' : element.status
+              })
+            });
+
+            api_autoria.register_fonograma({
+              processo_id: data._id,
+              fonograma: [
+                ...newObras
+              ]
+            })
+            .then( async res => console.log(res))
+          },
+
+          parte: function() {
+            let newObras = []
+            
+            fonograma.all.forEach(element => {
+              newObras.push({
+                _id: element._id,
+                status: fonograma.parte.includes(element._id) ? 'ativado' : 'removido'
+              })
+            });
+
+            console.log(newObras)
+
+            api_autoria.register_fonograma({
+              processo_id: data._id,
+              obras: [
+                ...newObras
+              ]
+            })
+            .then( async res => console.log(res))
+          }
+        }
+
+        const { parte } = fonograma;
+
+        const typeSave = parte.length > 0 ? 'parte' : 'contratar';
+        type[typeSave]();
+        break;
+      }
+      default:
+        break;
+    }
+    setConfirmedContrato(true);
+    
+  }
   
   return (
     !loading ?
@@ -104,31 +214,31 @@ function Processo({perfil}) {
 
         <ModalConfimed isOpen={modal.confirmContrato}>   
           <ModalHeader >
-            {/* {!confirmed ? 'Deseja contratar ?' : 'Salve!'} */}
+            {!confirmedContrato ? 'Deseja contratar ?' : 'Salve!'}
           </ModalHeader>
 
           <ModalBody>
-            {/* {!confirmed ? (
-              <p>Deseja que a LA Music faça a liberação de créditos retidos junto ao Ecad em nome do (a)  ?</p>
+            {!confirmedContrato ? (
+              <p>Deseja que a LA Music faça a liberação de créditos retidos junto ao Ecad em nome do (a) {obras.autores} ?</p>
             ) : (
-            )} */}
               <p>Um de nossos agentes entrará em contato contigo para que possamos negociar os termos da nossa parceria.
               Trabalhamos com um percentual sobre o valor que efetivamente conseguimos resgatar e considerando o número de artistas do seu catálogo, teremos uma condição especial para sua editora.</p>
+            )}
           </ModalBody>
           
-          {/* {!confirmed 
+          {!confirmedContrato 
             ? 
               <ModalFooter>
-                <Button color="primary" onClick={() => ''}> 
+                <Button color="primary" onClick={() => confirmContrato()}> 
                   {loading ? <> Aguarde  <i class="fa fa-spinner fa-spin" /> </> : 'Contratar' }
                 </Button>{' '}
-                <Button color="secondary" onClick={toggleModal}>Cancelar</Button>
+                <Button color="secondary" onClick={() => dispatch({type: 'SET_MODAL', payload: { confirmContrato:  false }})}>Cancelar</Button>
               </ModalFooter>
             : 
-          } */}
               <ModalFooter>
-                {/* <Button color="primary" onClick={() => toggleModal()}>Fechar</Button>{' '} */}
+                <Button color="primary" onClick={() => dispatch({type: 'SET_MODAL', payload: { confirmContrato:  false }})}>Fechar</Button>{' '}
               </ModalFooter>
+          }
         </ModalConfimed>
       </>
     : <Load bg={'#000'} />

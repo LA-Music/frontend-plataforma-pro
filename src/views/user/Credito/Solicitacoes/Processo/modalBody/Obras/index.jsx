@@ -19,8 +19,16 @@ function Obras(props) {
     } else {
       obras[obj] = [...obras[obj], obra._id]
     }
+    console.log(obra.autores)
 
-    dispatch({type: 'SET_OBRAS', payload: {all: props.obras, [obj]:[ ...obras[obj] ] }})
+    dispatch({
+      type: 'SET_OBRAS', 
+      payload: {
+        autores: obra.autores,
+        all: props.obras, 
+        [obj]:[ ...obras[obj] ] 
+      }
+    })
   }
 
   return (
