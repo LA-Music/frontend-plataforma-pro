@@ -76,7 +76,16 @@ const INITIAL_STATE = {
       },
     },
     modal: {
-      confirmContrato: false
+      confirmContrato: {
+        show: false,
+        from : false,
+        processo: null
+      },
+      valid: {
+        show: false,
+        from : false,
+        processo: null
+      },
     },
 
     obras: {

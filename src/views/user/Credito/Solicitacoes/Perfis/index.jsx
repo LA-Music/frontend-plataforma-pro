@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button } from 'reactstrap';
 import { credito_retido } from 'services/endpoint'
 
 import DynamicTable from 'components/Table';
@@ -12,12 +12,6 @@ import { BtnEngage } from './styles';
 
 function Perfis({ selectPerfil }) {
 
-  const [ modal, setModal ] = useState(false);
-  const [ dataPerfil, setDataPerfil ] = useState(false)
-  const [ loading, setLoading ] = useState(false)
-
-  const [ confirmed, setConfirmed ] = useState(false)
-
   const [Table, setTable] = useState({
     header:[
       { name: 'Nome',           key: 'name'          },  
@@ -28,26 +22,6 @@ function Perfis({ selectPerfil }) {
     ],
     body:[]
   })
-
-  const engaged = async () => {
-    setLoading(true)
-    // contratar.register({
-    //   nome: dataPerfil.nome, 
-    //   cpf: dataPerfil.cpf 
-    // })
-    // .then( async res => {  
-    //   if(!res) {
-    //     ErrorSystem()
-       
-    //     return false
-    //   }
-
-    //   if (res.statusText === 'OK') {
-    //     await setConfirmed(true)
-    //     setLoading(false)
-    //   }
-    // })
-  }
 
   useEffect(() => {
    
@@ -103,37 +77,8 @@ function Perfis({ selectPerfil }) {
       <DynamicTable 
         selectPerfil={selectPerfil}
         moreItems={5} 
-        limitItems={10} 
+        // limitItems={10} 
         {...Table} />
-
-        {/* <Modal isOpen={modal} toggle={toggle}>
-          {!confirmed ? 
-            <ModalHeader toggle={toggle}>Deseja contratar ?</ModalHeader>
-            : 
-            <ModalHeader toggle={toggle}>Salve!</ModalHeader> 
-          }
-          <ModalBody>
-            {!confirmed ? (
-              <p>Deseja que a LA Music faça a liberação de créditos retidos junto ao Ecad em nome do (a) {dataPerfil && dataPerfil.nome} ?</p>
-            ) : (
-              <p>Um de nossos agentes entrará em contato contigo para que possamos negociar os termos da nossa parceria.
-              Trabalhamos com um percentual sobre o valor que efetivamente conseguimos resgatar e considerando o número de artistas do seu catálogo, teremos uma condição especial para sua editora.</p>
-            )}
-          </ModalBody>
-          {!confirmed ? 
-            <ModalFooter>
-              <Button color="primary" onClick={() => engaged()}> 
-                {loading ? <> Aguarde  <i class="fa fa-spinner fa-spin" /> </> : 'Contratar' }
-              </Button>{' '}
-              <Button color="secondary" onClick={toggle}>Cancelar</Button>
-            </ModalFooter>
-            : 
-            <ModalFooter>
-              <Button color="primary" onClick={() => toggle()}>Fechar</Button>{' '}
-            </ModalFooter>
-            
-          }
-        </Modal> */}
       </>
       :
       <Load bg={'#000'}/>

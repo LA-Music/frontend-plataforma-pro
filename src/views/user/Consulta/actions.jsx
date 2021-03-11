@@ -110,7 +110,7 @@ export async function handleSubmit (e, setNomeArtistico, state, nomeArtistico, m
 
             await validToken(r)
 
-            if (r.data.message === 'OK'){
+            if (r.data.message === 'ok'){
 
               await setModalSucess(true)
 

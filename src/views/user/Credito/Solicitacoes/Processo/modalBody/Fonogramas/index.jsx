@@ -25,7 +25,7 @@ function Fonogramas(props) {
   return (
     <Container>
       {props.fonogramas.length > 0 
-        ? props.fonogramas.map( fonograma => 
+        ? props.fonogramas.filter(fonograma =>  fonograma.status !== 'removido').map( fonograma => 
           <div className="my-3">
             <div className="header">
               

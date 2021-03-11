@@ -4,11 +4,7 @@ import {
   TabPane, 
   Nav, 
   NavItem, 
-  NavLink, 
-  Modal as ModalConfimed, 
-  ModalHeader, 
-  ModalBody, 
-  ModalFooter } from 'reactstrap';
+  NavLink } from 'reactstrap';
 import { useSelector, useDispatch } from 'react-redux';
 
 import classnames from 'classnames';
@@ -19,7 +15,6 @@ import { Button } from 'components/Button';
 import Obras from './Obras'
 import Fonogramas from './Fonogramas'
 
-import { autoria as api_autoria } from 'services/endpoint';
 
 import { Container } from './styles'
 
@@ -29,7 +24,7 @@ const ViewDadosCadastrais = ({data}) => {
 
   const { obras, fonograma } = useSelector(state => state);
 
-  const [ activeTab, setActiveTab ] = useState('1');
+  const [ activeTab, setActiveTab ] = useState('obras');
  
 
   const toggle = tab => {
@@ -38,114 +33,70 @@ const ViewDadosCadastrais = ({data}) => {
 
 
   function save() {
-    console.log(data)
 
-    dispatch({type: 'SET_MODAL', payload: { confirmContrato:  true }})
-    // switch (activeTab) {
-    //   case '1': { // Aba Obras 
+    switch (activeTab) {
+      case 'obras': { 
+        if (obras.autoria.length > 0) {
+          dispatch({
+            type: 'SET_MODAL', 
+            payload: { 
+              valid: {
+                show: true, 
+                from: 'obras',
+                processo: data._id
+              } 
+            }
+          })
 
-    //     const type = {
-    //       contratar: function() {
-    //         let newObras = []
-            
-    //         obras.all.forEach(element => {
-    //           newObras.push({
-    //             _id: element._id,
-    //             status: obras.contratar.includes(element._id) ? 'contratado' : element.status
-    //           })
-    //         });
+          return false
+        }
 
-    //         // api_autoria.register_obras({
-    //         //   processo_id: data._id,
-    //         //   obras: [
-    //         //     ...newObras
-    //         //   ]
-    //         // })
-    //         // .then( async res => console.log(res))
-    //         dispatch({type: 'SET_MODAL', payload: { confirmContrato:  true }})
-    //       },
+        dispatch({
+          type: 'SET_MODAL', 
+          payload: { 
+            confirmContrato: {
+              show: true, 
+              from: 'obras',
+              processo: data._id
+            } 
+          }
+        })
 
-    //       autoria: function() {
-    //         let newObras = []
+        break;
+      }
+      case 'fonogramas': {
+        console.log(fonograma)
+        if (fonograma.parte.length > 0) {
+          dispatch({
+            type: 'SET_MODAL', 
+            payload: { 
+              valid: {
+                show: true, 
+                from: 'fonogramas',
+                processo: data._id
+              } 
+            }
+          })
 
-    //         obras.all.forEach(element => {
-    //           newObras.push({
-    //             _id: element._id,
-    //             status: obras.autoria.includes(element._id) ? 'ativado' : 'removido'
-    //           })
-    //         });
+          return false
+        }
 
-    //         // api_autoria.register_obras({
-    //         //   processo_id: data._id,
-    //         //   obras: [
-    //         //     ...newObras
-    //         //   ]
-    //         // })
-    //         // .then( async res => console.log(res))
-    //       }
-    //     }
-
-    //     const {autoria } = obras;
-
-    //     const typeSave = autoria.length > 0 ? 'autoria' : 'contratar';
-    //     type[typeSave]();
-        
-    //     break;
-    //   }
-    //   case '2': { // Aba Fonogramas
-    //     const type = {
-    //       contratar: function() {
-    //         let newObras = []
-            
-    //         fonograma.all.forEach(element => {
-    //           newObras.push({
-    //             _id: element._id,
-    //             status: fonograma.contratar.includes(element._id) ? 'contratado' : element.status
-    //           })
-    //         });
-
-    //         api_autoria.register_fonograma({
-    //           processo_id: data._id,
-    //           fonograma: [
-    //             ...newObras
-    //           ]
-    //         })
-    //         .then( async res => console.log(res))
-
-    //         dispatch({type: 'SET_MODAL', payload: { confirmContrato:  true }})
-    //       },
-
-    //       parte: function() {
-    //         let newObras = []
-            
-    //         fonograma.all.forEach(element => {
-    //           newObras.push({
-    //             _id: element._id,
-    //             status: fonograma.parte.includes(element._id) ? 'ativado' : 'removido'
-    //           })
-    //         });
-
-    //         console.log(newObras)
-
-    //         api_autoria.register_fonograma({
-    //           processo_id: data._id,
-    //           obras: [
-    //             ...newObras
-    //           ]
-    //         })
-    //         .then( async res => console.log(res))
-    //       }
-    //     }
-
-    //     const { parte } = fonograma;
-
-    //     const typeSave = parte.length > 0 ? 'parte' : 'contratar';
-    //     type[typeSave]();
-    //     break;
-    //   }
-    //   default:
-    //     break;
-    // }
+        dispatch({
+          type: 'SET_MODAL', 
+          payload: { 
+            confirmContrato: {
+              show: true, 
+              from: 'fonogramas',
+              processo: data._id
+            } 
+          }
+        })
+       
+        break;
+      }
+      default:
+        break;
+    }
   }
 
   return (
@@ -158,8 +109,8 @@ const ViewDadosCadastrais = ({data}) => {
         <Nav tabs >
           <NavItem>
             <NavLink
-              className={classnames({ active: activeTab === '1' })}
-              onClick={() => { toggle('1'); }}
+              className={classnames({ active: activeTab === 'obras' })}
+              onClick={() => { toggle('obras'); }}
             >
               Obras
             </NavLink>
@@ -167,8 +118,8 @@ const ViewDadosCadastrais = ({data}) => {
 
           <NavItem>
             <NavLink
-              className={classnames({ active: activeTab === '2' })}
-              onClick={() => { toggle('2'); }}
+              className={classnames({ active: activeTab === 'fonogramas' })}
+              onClick={() => { toggle('fonogramas'); }}
             >
               Fonogramas
             </NavLink>
@@ -176,11 +127,11 @@ const ViewDadosCadastrais = ({data}) => {
         </Nav>
           
         <TabContent className="scroll-custom" activeTab={activeTab}>
-          <TabPane tabId="1">
+          <TabPane tabId="obras">
             <Obras {...data} />
           </TabPane>
         
-          <TabPane tabId="2">
+          <TabPane tabId="fonogramas">
             <Fonogramas {...data} />
           </TabPane>
         </TabContent>
@@ -195,6 +146,7 @@ const ViewDadosCadastrais = ({data}) => {
 
 export const DadosCadastrais = ({show, data, toggle}) => {
 
+  console.log(data)
   return ( 
     <Modal 
       show={show} 
