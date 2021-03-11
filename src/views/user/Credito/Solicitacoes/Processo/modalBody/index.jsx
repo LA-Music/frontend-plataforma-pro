@@ -65,7 +65,6 @@ const ViewDadosCadastrais = ({data}) => {
         break;
       }
       case 'fonogramas': {
-        console.log(fonograma)
         if (fonograma.parte.length > 0) {
           dispatch({
             type: 'SET_MODAL', 
@@ -146,7 +145,6 @@ const ViewDadosCadastrais = ({data}) => {
 
 export const DadosCadastrais = ({show, data, toggle}) => {
 
-  console.log(data)
   return ( 
     <Modal 
       show={show} 

@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ListItems } from '../ListItems';
 
-import { Container } from './styles';
+import { Container, Icon } from './styles';
 
 function Fonogramas(props) {
   const { fonograma } = useSelector(state => state);
@@ -39,6 +39,12 @@ function Fonogramas(props) {
                 <Switch onChange={() => handleSelect('contratar', fonograma)}>
                   Contratar
                 </Switch>
+              )}
+
+              {fonograma.status === 'contratado' && ( 
+                <Icon title="Obra contratada">
+                  <i class="fa fa-check" />
+                </Icon>
               )}
             </div>
 

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Switch from 'components/Switch';
 
-import { Container } from './styles';
+import { Container, Icon } from './styles';
 import { ListItems } from '../ListItems';
 
 
@@ -49,7 +49,14 @@ function Obras(props) {
                 Contratar
               </Switch>
             )}
+
+            {obra.status === 'contratado' && ( 
+              <Icon title="Obra contratada">
+                <i class="fa fa-check" />
+              </Icon>
+            )}
           </div>
+
 
           <ul>
             <ListItems

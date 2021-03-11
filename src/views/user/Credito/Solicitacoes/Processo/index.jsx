@@ -171,7 +171,7 @@ function Processo({perfil}) {
 
             api_autoria.register_fonograma({
               processo_id: modal.confirmContrato.processo,
-              fonograma: [
+              fonogramas: [
                 ...newObras
               ]
             })

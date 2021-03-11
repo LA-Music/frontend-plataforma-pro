@@ -48,3 +48,18 @@ export const Container = styled.div`
     }
   }
 `;
+
+
+
+export const Icon = styled.div`
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+  background-color: #0FBB00;
+  color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
