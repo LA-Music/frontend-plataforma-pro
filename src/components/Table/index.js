@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import { Table } from 'reactstrap';
 import { Container } from './styles'
 
-const DynamicTable = ({header, body, limitItems, moreItems, viewModal, selectPerfil }) => {
+const DynamicTable = ({header, body, viewModal, selectPerfil }) => {
 
-  const [ showItems ] = useState(limitItems)
+  const [ rows, setRows ] = useState({initRows: 0, endRows: 10})
+  const [ perPage, setPerPage ] = useState(10);
 
   function createRow(){
     var data = []
-    let itemsLength = showItems || body.length
     
-    for (let a = 0; a < itemsLength; a++) {
+    const {initRows, endRows} = rows;
+
+    for (let a = initRows; a < endRows; a++) {
       var row =[]
       for (let b = 0; b < header.length; b++) {
         body[a] &&
@@ -22,6 +24,29 @@ const DynamicTable = ({header, body, limitItems, moreItems, viewModal, selectPer
       selectPerfil ? data.push(<tr>{row}</tr>) : data.push(<tr>{row}</tr>)
     }
     return data
+  }
+
+  function handlePage (action) {
+    switch (action) {
+      case 'next':
+        setRows({
+                ...rows,
+                initRows: (rows.initRows + perPage),
+                endRows: (rows.endRows + perPage)
+        })
+          
+        break;
+      case 'prev': 
+          setRows({
+              ...rows,
+              initRows: (rows.initRows - perPage),
+              endRows: (rows.endRows - perPage)
+          })
+
+        break;
+      default:
+        break;
+    }
   }
 
   return (
@@ -39,11 +64,28 @@ const DynamicTable = ({header, body, limitItems, moreItems, viewModal, selectPer
           {createRow()}
         </tbody>
       </Table>
-      {/* {limitItems && showItems < body.length && (
-        <div className="d-flex align-items-center justify-content-center">
-          <MoreItems onClick={() => setItems(showItems + moreItems)} style={{cursor: 'pointer'}}>Mostrar mais</MoreItems>
+      
+      <div className="table-footer d-flex align-items-center justify-content-end">
+        <div>
+          { rows.initRows+1 } - { rows.endRows > body.length ? body.length : rows.endRows } de {body.length}
         </div>
-      )} */}
+
+        <div>
+          <button
+            disabled={rows.initRows <= 0} 
+            onClick={() => handlePage('prev')}
+          > 
+            &#8592;
+          </button>
+
+          <button
+            disabled={rows.endRows >= body.length} 
+            onClick={() => handlePage('next')}
+          >
+            &#8594;
+          </button>
+        </div>
+      </div>
     </Container>
   )
 }
