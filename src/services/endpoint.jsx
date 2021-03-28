@@ -1,4 +1,5 @@
 import api from './api'
+import { REEXECUTAR_BOT } from './links'
 import { 
   PERFIL, 
   LOGIN, 
@@ -90,6 +91,18 @@ export const contato = {
   register: async function (payload) {
     try {
       return await api.post(CONTATO, {...payload})
+    } catch (error) {
+      return error.response
+    }
+  }
+}
+
+export const bot = {
+  update: async function (payload) {
+    try {
+      return await api.post(REEXECUTAR_BOT, {
+        ...payload
+      })
     } catch (error) {
       return error.response
     }
