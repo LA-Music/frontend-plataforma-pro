@@ -19,3 +19,6 @@ export const AUTORIA_OBRAS          = '/autoriaObras' //POST
 
 //CONTATO
 export const CONTATO                = '/contato' //post
+
+//Reexecutar bot
+export const REEXECUTAR_BOT         = '/updatePuppet' //post
