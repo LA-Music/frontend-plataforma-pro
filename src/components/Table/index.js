@@ -5,7 +5,7 @@ import { Container } from './styles'
 const DynamicTable = ({header, body, viewModal, selectPerfil }) => {
 
   const [ rows, setRows ] = useState({initRows: 0, endRows: 10})
-  const [ perPage, setPerPage ] = useState(10);
+  const [ perPage ] = useState(10);
 
   function createRow(){
     var data = []
