@@ -17,7 +17,7 @@ import { Load } from 'components/PreLoad'
 
 import { DadosCadastrais } from './modalBody';
 
-import { autoria as api_autoria } from 'services/endpoint';
+import { autoria as api_autoria, bot as api_bot } from 'services/endpoint';
 
 import { BtnEngage } from './styles';
 
@@ -35,6 +35,11 @@ function Processo({perfil}) {
    
     setToggle(true)
     setSelectRow(e)
+  }
+
+  const reexecutar = (e) => {
+    console.log(e)
+    api_bot.update({processo_id: e.id_req}).then(console.log)
   }
 
   const [Table, setTable] = useState({
@@ -73,6 +78,7 @@ function Processo({perfil}) {
               action: (
                 <div className="d-flex justify-content-center">
                   <BtnEngage onClick={() => handleToggle(process)}>Ver</BtnEngage>
+                  <BtnEngage onClick={() => reexecutar(process)}>Reexecutar</BtnEngage>
                 </div>
               ),
               ...process
