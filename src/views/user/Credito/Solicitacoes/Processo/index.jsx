@@ -39,7 +39,7 @@ function Processo({perfil}) {
 
   const reexecutar = (e) => {
     console.log(e)
-    api_bot.update({processo_id: e.id_req}).then(console.log)
+    api_bot.update({processo_id: e._id}).then(console.log)
   }
 
   const [Table, setTable] = useState({
