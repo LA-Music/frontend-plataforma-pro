@@ -27,6 +27,7 @@ function Processo({perfil}) {
 
   const [ toggle, setToggle ] = useState(false)
   const [ selectRow, setSelectRow ] = useState(false)
+  const [ confirmReexecucao, setConfirmReexecucao ] = useState(false)
   const [ confirmedContrato, setConfirmedContrato ] = useState(false)
 
   const [loading, setLoading] = useState(false)
@@ -38,8 +39,9 @@ function Processo({perfil}) {
   }
 
   const reexecutar = (e) => {
-    console.log(e)
-    api_bot.update({processo_id: e._id}).then(console.log)
+    api_bot.update({processo_id: e._id}).then( response => {
+      response.status === 200 && setConfirmReexecucao(true)
+    })
   }
 
   const [Table, setTable] = useState({
@@ -418,6 +420,24 @@ function Processo({perfil}) {
             >
               Cancelar
             </Button>
+          </ModalFooter>
+        </ModalConfimed>
+
+        {/* MODAL CONFIRMAÇÃO REEXECUÇÃO */}
+        <ModalConfimed isOpen={confirmReexecucao}>   
+          <ModalHeader >
+            Solicitação reenviada
+          </ModalHeader>
+
+          <ModalBody>
+              Quando concluído avisaremos por e-mail.
+          </ModalBody>
+
+          <ModalFooter>
+            <Button color="primary" onClick={() => setConfirmReexecucao(false)}> 
+               Confirmar
+            </Button>
+            
           </ModalFooter>
         </ModalConfimed>
         {loading && <Load bg={'#000'} />}
